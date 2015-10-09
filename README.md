@@ -6,6 +6,10 @@ Chasm is a simple text adventure game inspired by the classics such as Zork, Hit
 
 The goal of the game is to reach a total of **5 points**. Currently, a "you've won" state has not been implemented and you will be able to continue to move after reaching your goal. This will change with a higher goal and a more rewarding payoff screen.
 
+## Starting the Game
+
+At the C64 Basic screen, type `RUN` and press the ENTER key. To restart the game, simply use the browser's reload button.
+
 ## Banner
 
 The banner across the top of the screen will show you:
