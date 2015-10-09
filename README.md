@@ -17,6 +17,10 @@ The banner across the top of the screen will show you:
 
 The image is a depiction of the location you are currently at.
 
+### Creating Images for New Locations
+
+Images have been created using the online service from [http://c64.superdefault.com/](http://c64.superdefault.com/), saving the image as 1200x800 then cropping it down to 853x240. The image whould be a PNG and the name should match the location's name using all lowercase letters and spaces substituted with hyphens. (e.g. Toll Room becomes `troll-room.png`)
+
 ## Input
 
 + `n`, `north`, `e`, `east`, `s`, `south`, `w`, `west`, `u`, `up`, `d` and `down` are commands you can use to travel from one location to another.
