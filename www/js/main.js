@@ -137,7 +137,7 @@ function processGameInput() {
   // See if the user wants to have the room description
   // displayed again.
   } else if (sInput === 'l' || sInput === 'look') {
-    newOutText = getLocationText('Forest Clearing');
+    newOutText = getLocationText(theLocation);
   // Otherwise they are doing something room specific
   } else {
     switch (removeWords(theLocation)) {
