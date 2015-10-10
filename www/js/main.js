@@ -8,22 +8,30 @@ var theInputBuff = '';
 var theLocation, score, moves, gameStarted, hasSword, inventory = [];
 
 $(document).on('keydown', function (e) {
-  if (e.which === 8) {
+  switch (e.which) {
+  case 8:
     e.preventDefault();
     theInputBuff = theInputBuff.substring(0, theInputBuff.length - 1);
-    $inText.text(theInputBuff);
-  }
-  if (e.which === 13) {
+    $inText.html(theInputBuff.replace(/\s/g, '&nbsp;'));
+    break;
+  case 13:
     processInput();
-    $inText.text('');
     theInputBuff = '';
+    $inText.text(theInputBuff);
+    break;
+  case 32:
+    // hack to prevent page from scrolling when SPACE BAR is pressed.
+    e.preventDefault();
+    theInputBuff += ' ';
+    $inText.html(theInputBuff.replace(/\s/g, '&nbsp;'));
+    break;
   }
 });
 
 $(document).on('keypress', function (e) {
   if (theInputBuff.length < 39) {
     theInputBuff += String.fromCharCode(e.which);
-    $inText.text(theInputBuff);
+    $inText.html(theInputBuff.replace(/\s/g, '&nbsp;'));
   }
 });
 
