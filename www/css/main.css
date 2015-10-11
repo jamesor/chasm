@@ -35,6 +35,11 @@ body {
   width: 937px;
 }
 
+p {
+  margin: 0;
+  padding: 0;
+}
+
 #screen {
   background-color: #352879;
   color: #6C5EB5;
@@ -71,6 +76,9 @@ body {
   background-color: black;
   color: #959595;
   border-color: #6C6C6C;
+}
+#screen.game p {
+  margin-bottom: 24px;
 }
 #screen.game #banner {
   display: block;
