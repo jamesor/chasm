@@ -39,18 +39,10 @@ class Place {
   }
 }
 
-class Exits {
-  constructor() {
-    this.directions = {};
-  }
-  addExit(direction, place) {
-    this.directions[direction] = place;
-  }
-  removeExit(direction) {
-    delete this.directions[direction];
-  }
+class Exits extends Map {
   go(direction) {
-    return this.directions[direction] || 'You cannot travel in that direction.';
+    // todo: check to see if the direction requires unblocking/problem solving
+    return this.get(direction) || 'You cannot travel in that direction.';
   }
 }
 
@@ -111,14 +103,14 @@ game.places[Places.NARROW_PASSAGE]  = new Place(Places.NARROW_PASSAGE, 'You begi
 game.places[Places.TROLL_ROOM]      = new Place(Places.TROLL_ROOM, 'You are in the Troll\'s Room. It\'s dark and smelly.');
 
 // Exits
-game.places[Places.FOREST_CLEARING].exits.addExit(Directions.EAST, game.places[Places.CHASM_ENTRANCE]);
-game.places[Places.CHASM_ENTRANCE].exits.addExit(Directions.WEST, game.places[Places.FOREST_CLEARING]);
+game.places[Places.FOREST_CLEARING].exits.set(Directions.EAST, game.places[Places.CHASM_ENTRANCE]);
+game.places[Places.CHASM_ENTRANCE].exits.set(Directions.WEST, game.places[Places.FOREST_CLEARING]);
 
-game.places[Places.CHASM_ENTRANCE].exits.addExit(Directions.DOWN, game.places[Places.NARROW_PASSAGE]);
-game.places[Places.NARROW_PASSAGE].exits.addExit(Directions.UP, game.places[Places.CHASM_ENTRANCE]);
+game.places[Places.CHASM_ENTRANCE].exits.set(Directions.DOWN, game.places[Places.NARROW_PASSAGE]);
+game.places[Places.NARROW_PASSAGE].exits.set(Directions.UP, game.places[Places.CHASM_ENTRANCE]);
 
-game.places[Places.NARROW_PASSAGE].exits.addExit(Directions.DOWN, game.places[Places.TROLL_ROOM]);
-game.places[Places.TROLL_ROOM].exits.addExit(Directions.UP, game.places[Places.NARROW_PASSAGE]);
+game.places[Places.NARROW_PASSAGE].exits.set(Directions.DOWN, game.places[Places.TROLL_ROOM]);
+game.places[Places.TROLL_ROOM].exits.set(Directions.UP, game.places[Places.NARROW_PASSAGE]);
 
 // Items
 var lantern = new LightEmittingItem('lantern', 'a rusty oil lantern', 4);
