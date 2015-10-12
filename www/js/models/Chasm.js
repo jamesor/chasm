@@ -50,7 +50,8 @@ class Chasm extends BaseApp {
       new BannerController(this),
       new ImageController(this),
       new OutputController(this),
-      new InputController(this)
+      new InputController(this),
+      new KeyboardController(this)
     ];
   }
 
