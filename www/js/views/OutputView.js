@@ -2,13 +2,13 @@
 
 class OutputView {
   constructor() {
-    this.$el = $('#output');
+    this.el = document.getElementById('output');
   }
   clear() {
-    this.$el.empty();
+    this.el.innerHTML = '';
   }
   write(str) {
-    this.$el.append(str);
-    this.$el[0].scrollTop = this.$el[0].scrollHeight;
+    this.el.innerHTML += str;
+    this.el.scrollTop = this.el.scrollHeight;
   }
 }

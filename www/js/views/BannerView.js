@@ -2,7 +2,7 @@
 
 class BannerView {
   constructor() {
-    this.$el = $('#banner');
+    this.el = document.getElementById('banner');
     this._title = '';
     this._score = 0;
     this._moves = 0;
@@ -24,6 +24,6 @@ class BannerView {
     var score = Utils.setChars('Score:'+this._score, 9);
     var moves = Utils.setChars('Moves:'+this._moves, 10);
     var str = (title+score+moves).replace(/\s/g, '&nbsp;');
-    this.$el.html(str);
+    this.el.innerHTML = str;
   }
 }

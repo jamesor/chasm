@@ -15,7 +15,7 @@ class InputController {
     this.view.clear();
   }
   onPrompt(data) {
-    this.view.prompt(data);
+    this.view.writePrompt(data);
   }
   destroy() {
     this.eventBus.unsubscribe(Events.INPUT_WRITE, this.onWrite, this);

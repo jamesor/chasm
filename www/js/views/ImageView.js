@@ -2,9 +2,9 @@
 
 class ImageView {
   constructor() {
-    this.$el = $('#image img');
+    this.el = document.getElementById('image').getElementsByTagName('img')[0];
   }
   set imageSrc(val) {
-    this.$el.attr('src', val);
+    this.el.setAttribute('src', val);
   }
 }

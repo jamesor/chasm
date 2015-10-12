@@ -2,16 +2,16 @@
 
 class InputView {
   constructor() {
-    this.$prompt = $('#prompt');
-    this.$response = $('#response');
+    this.prompt = document.getElementById('prompt');
+    this.response = document.getElementById('response');
   }
   clear() {
-    this.$response.empty();
+    this.response.innerHTML = '';
   }
   write(str) {
-    this.$response.html(str.replace(/ /g, '&nbsp;'));
+    this.response.innerHTML = str.replace(/ /g, '&nbsp;');
   }
-  prompt(str) {
-    this.$prompt.html(str.replace(/ /g, '&nbsp;'));
+  writePrompt(str) {
+    this.prompt.innerHTML = str.replace(/ /g, '&nbsp;');
   }
 }
