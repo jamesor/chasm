@@ -4,7 +4,8 @@ var chasm = new Chasm();
 
 var theInputBuff = '';
 
-$(document).on('keydown', function (e) {
+
+document.onkeydown = function (e) {
   switch (e.which) {
   case 8:
     e.preventDefault();
@@ -24,22 +25,24 @@ $(document).on('keydown', function (e) {
     chasm.publish(Events.INPUT_WRITE, theInputBuff);
     break;
   }
-});
+};
 
-$(document).on('keypress', function (e) {
+document.onkeypress = function (e) {
   if (theInputBuff.length < 39) {
     theInputBuff += String.fromCharCode(e.which);
     chasm.publish(Events.INPUT_WRITE, theInputBuff);
   }
-});
+};
 
 function processInput() {
   var sInput = theInputBuff.toLowerCase().trim();
   chasm.publish(Events.OUTPUT_WRITE, '&nbsp;&nbsp;&nbsp;&nbsp;**** COMMODORE 64 BASIC V2 ****<br><br>&nbsp;64K RAM SYSTEM &nbsp;38911 BASIC BYTES FREE<br><br>READY.<br>LOAD "CHASM",8,1<br><br>SEARCHING FOR CHASM<br>LOADING<br>READY.<br>');
   chasm.publish(Events.INPUT_CLEAR);
   if (sInput === 'run') {
-    $('.upper').removeClass('upper');
-    $('#screen').addClass('game');
+    var upper = document.querySelectorAll('.upper')[0];
+    upper.className = (upper.className || '').replace('upper', '');
+    var scr = document.getElementById('screen');
+    scr.className = scr.className + ' game';
     chasm.initGame();
     processInput = processGameInput;
   }
