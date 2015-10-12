@@ -1,6 +1,6 @@
 'use strict';
 
-class Utils {
+class StringUtils {
   static setChars(str, len) {
     var result = str;
     while (result.length < len) {
