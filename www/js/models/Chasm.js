@@ -49,8 +49,8 @@ class Chasm extends BaseApp {
 
     // Stash item objects in places
 
-    shed.items.add(lantern);
-    shed.items.add(torch);
+    shed.addItem(lantern);
+    shed.addItem(torch);
   }
 
   // Controllers

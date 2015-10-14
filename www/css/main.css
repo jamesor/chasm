@@ -84,12 +84,16 @@ p {
   display: block;
   background-color: white;
   color: black;
+  width: 853px;
+  height: 24px;
 }
 #screen.game #image {
   display: block;
+  width: 853px;
   height: 240px;
 }
 #screen.game #output {
+  width: 853px;
   max-height: 287px;
   overflow: hidden;
 }
