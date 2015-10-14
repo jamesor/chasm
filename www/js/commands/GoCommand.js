@@ -2,16 +2,28 @@
 
 class GoCommand {
   execute(data) {
-    if (data.verb) {
-      var place = chasm.place.exits.go(data.verb);
+    var exit, str;
 
-      if (typeof place === 'string') {
-        chasm.publish(Events.OUTPUT_WRITELN, place);
-      } else if (typeof place === 'object') {
-        chasm.place = place;
-        chasm.publish(Events.PLACE_CHANGED, place);
-        chasm.publish(Events.OUTPUT_WRITELN, place.describe());
+    if (data.verb) {
+      exit = chasm.place.exits.get(data.verb);
+      if (exit) {
+        if (!exit.isClosed) {
+          if (!exit.isLocked) {
+            chasm.place = exit.target;
+            chasm.publish(Events.PLACE_CHANGED, exit.target);
+            chasm.publish(Events.OUTPUT_WRITELN, exit.target.describe());
+            return;
+          } else {
+            str = exit.lockedMessage;
+          }
+        } else {
+          str = exit.closedMessage;
+        }
+      } else {
+        str = 'You cannot go ' + data.verb + ' from here.';
       }
+
+      chasm.publish(Events.OUTPUT_WRITELN, str);
     }
   }
 }

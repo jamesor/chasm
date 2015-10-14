@@ -9,38 +9,48 @@ class Chasm extends BaseApp {
   }
 
   // Models
-
+ 
   initModels() {
     this.player = new Player(this);
-    this.initPlaces();
-    this.initExits();
-    this.initItems();
-  }
-  initPlaces() {
-    this.places = new Map();
-    this.places.set(Places.FOREST_CLEARING, new Place(Places.FOREST_CLEARING, 'You are standing in a forest clearing with a path leading to the east where you see a rocky mountainside. All other directions are impassable.'));
-    this.places.set(Places.CHASM_ENTRANCE, new Place(Places.CHASM_ENTRANCE, 'You are standing at the entrance to a chasm which can be entered by climbing down. There is a clearing to the west.'));
-    this.places.set(Places.NARROW_PASSAGE, new Place(Places.NARROW_PASSAGE, 'You begin your decent through the crack in the mountainside. It\'s a pretty tight fit, but you manage.'));
-    this.places.set(Places.TROLL_ROOM, new Place(Places.TROLL_ROOM, 'You are in the Troll\'s Room. It\'s dark and smelly.'));
-    this.place = this.places.get(Places.FOREST_CLEARING);
-  }
-  initExits() {
-    this.places.get(Places.FOREST_CLEARING).exits.set(Actions.EAST, this.places.get(Places.CHASM_ENTRANCE));
-    this.places.get(Places.CHASM_ENTRANCE).exits.set(Actions.WEST, this.places.get(Places.FOREST_CLEARING));
-    this.places.get(Places.CHASM_ENTRANCE).exits.set(Actions.DOWN, this.places.get(Places.NARROW_PASSAGE));
-    this.places.get(Places.NARROW_PASSAGE).exits.set(Actions.UP, this.places.get(Places.CHASM_ENTRANCE));
-    this.places.get(Places.NARROW_PASSAGE).exits.set(Actions.DOWN, this.places.get(Places.TROLL_ROOM));
-    this.places.get(Places.TROLL_ROOM).exits.set(Actions.UP, this.places.get(Places.NARROW_PASSAGE));
-  }
-  initItems() {
+
+    // Places
+
+    var forestClearing = new ForestClearing();
+    var chasmEntrance = new Place(Places.CHASM_ENTRANCE, 'You are standing at the entrance to a chasm which can be entered by climbing down. There is a clearing to the west.');
+    var narrowPassage = new Place(Places.NARROW_PASSAGE, 'You begin your decent through the crack in the mountainside. It\'s a pretty tight fit, but you manage.');
+    var trollRoom = new Place(Places.TROLL_ROOM, 'You are in the Troll\'s Room. It\'s dark and smelly.');
+    var shed = new Shed();
+
+    // Items
+
     var lantern = new LightEmittingItem('lantern', 'a rusty oil lantern', 4);
-    this.places.get(Places.FOREST_CLEARING).items.set(lantern.title, lantern);
-
     var torch = new LightEmittingItem('torch', 'a well structured torch', 4);
-    this.places.get(Places.FOREST_CLEARING).items.set(torch.title, torch);
 
-    var foo = new Item('blob', 'a blue blob');
-    this.places.get(Places.FOREST_CLEARING).items.set(foo.title, foo);
+    // Store place objects
+
+    this.places = new Map();
+    this.places.set(forestClearing.title, forestClearing);
+    this.places.set(chasmEntrance.title, chasmEntrance);
+    this.places.set(narrowPassage.title, narrowPassage);
+    this.places.set(trollRoom.title, trollRoom);
+    this.places.set(shed.title, shed);
+    this.place = forestClearing;
+
+    // Configure exit relationships
+
+    forestClearing.exits.set(Actions.EAST, new Exit(chasmEntrance));
+    forestClearing.exits.set(Actions.NORTH, new DooredExit(shed));
+    shed.exits.set(Actions.SOUTH, new Exit(forestClearing));
+    chasmEntrance.exits.set(Actions.WEST, new Exit(forestClearing));
+    chasmEntrance.exits.set(Actions.DOWN, new Exit(narrowPassage));
+    narrowPassage.exits.set(Actions.UP, new Exit(chasmEntrance));
+    narrowPassage.exits.set(Actions.DOWN, new Exit(trollRoom));
+    trollRoom.exits.set(Actions.UP, new Exit(narrowPassage));
+
+    // Stash item objects in places
+
+    shed.items.add(lantern);
+    shed.items.add(torch);
   }
 
   // Controllers

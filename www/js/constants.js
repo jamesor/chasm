@@ -4,7 +4,8 @@ const Places = Object.freeze({
   FOREST_CLEARING : 'Forest Clearing',
   CHASM_ENTRANCE  : 'Chasm Entrance',
   NARROW_PASSAGE  : 'Narrow Passage',
-  TROLL_ROOM      : 'Troll Room'
+  TROLL_ROOM      : 'Troll Room',
+  SHED            : 'Shed'
 });
 
 const Events = Object.freeze({
