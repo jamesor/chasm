@@ -10,36 +10,31 @@ const LangTypes = Object.freeze({
   PREPOSITION : 'preposition'
 });
 
-// All of the valid words organized by language type
-
-var vocabulary = {};
-vocabulary[LangTypes.ARTICLE]     = ['a','an','the'],
-vocabulary[LangTypes.ADVERB]      = [],
-vocabulary[LangTypes.VERB]        = ['north','n','south','s','east','e','west','w','up','u','down','d','take','drop','open','close','attack','hit','look','l','inventory','i','put','examine','lock','unlock'],
-vocabulary[LangTypes.PRONOUN]     = ['goblin'],
-vocabulary[LangTypes.ADJECTIVE]   = ['shiny','wooden','silver','dull','bronze'],
-vocabulary[LangTypes.NOUN]        = ['door','chest','sword', 'key', 'shed'],
-vocabulary[LangTypes.PREPOSITION] = ['at','with','in','into'];
-
-// Convert the arrays to dictionaries to make lookups faster
-
-var validTokens = {};
-
-Object.keys(vocabulary).forEach(function (element) {
-  vocabulary[element].forEach(function (item) {
-    validTokens[item] = {type: element, word: item};
-  });
+const Vocabulary = Object.freeze({
+  [LangTypes.ARTICLE]     : ['a','an','the'],
+  [LangTypes.ADVERB]      : [],
+  [LangTypes.VERB]        : ['north','n','south','s','east','e','west','w','up','u','down','d','take','drop','open','close','attack','hit','look','l','inventory','i','put','examine','lock','unlock','foo'],
+  [LangTypes.PRONOUN]     : ['goblin'],
+  [LangTypes.ADJECTIVE]   : ['shiny','wooden','silver','dull','bronze'],
+  [LangTypes.NOUN]        : ['door','chest','sword', 'key', 'shed'],
+  [LangTypes.PREPOSITION] : ['at','with','in','into']
 });
 
-// Items
+const Items = Object.freeze({
+  SHINY_SWORD  : 'shiny sowrd',
+  DULL_SWORD   : 'dull sword',
+  BROKEN_SWORD : 'broken sword',
+  WOODEN_CHEST : 'wooden chest',
+  SILVER_KEY   : 'silver key'
+});
 
-var itemTokens = {
-  'shiny sword'  : {type: LangTypes.NOUN, word: 'shiny sword',  itemType: 'sword', className: 'ShinySword'},
-  'dull sword'   : {type: LangTypes.NOUN, word: 'dull sword',   itemType: 'sword', className: 'DullSword'},
-  'broken sword' : {type: LangTypes.NOUN, word: 'broken sword', itemType: 'sword', className: 'BrokenSword'},
-  'wooden chest' : {type: LangTypes.NOUN, word: 'wooden chest', itemType: 'chest', className: 'WoodenChest'},
-  'silver key'   : {type: LangTypes.NOUN, word: 'silver key',   itemType: 'key',   className: 'SilverKey'}
-};
+const ItemTokens = Object.freeze({
+  [Items.SHINY_SWORD]  : {type: LangTypes.NOUN, word: Items.SHINY_SWORD},
+  [Items.DULL_SWORD]   : {type: LangTypes.NOUN, word: Items.DULL_SWORD},
+  [Items.BROKEN_SWORD] : {type: LangTypes.NOUN, word: Items.BROKEN_SWORD},
+  [Items.WOODEN_CHEST] : {type: LangTypes.NOUN, word: Items.WOODEN_CHEST},
+  [Items.SILVER_KEY]   : {type: LangTypes.NOUN, word: Items.SILVER_KEY}
+});
 
 const Places = Object.freeze({
   FOREST_CLEARING : 'Forest Clearing',

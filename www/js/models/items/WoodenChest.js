@@ -2,7 +2,7 @@
 
 class WoodenChest extends Item {
   constructor() {
-    super('wooden chest', 'a wooden chest');
+    super(Items.WOODEN_CHEST);
     this.longDescription = 'The chest is made of oak and has silver trim. On the lid, there is a beautifully carved sparrow.';
     this.commonTitle = 'chest';
     this.canHoldItems = true;

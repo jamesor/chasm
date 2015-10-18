@@ -42,8 +42,8 @@ class Chasm extends BaseApp {
 
     // Things
 
-    this.items.set('wooden chest', new WoodenChest());
-    this.items.set('silver key', new SilverKey());
+    this.addRef(new WoodenChest());
+    this.addRef(new SilverKey());
 
     // Exits
 
@@ -57,8 +57,8 @@ class Chasm extends BaseApp {
 
     // Stash item objects in places
 
-    this.getRef(Places.FOREST_CLEARING).addItem( this.items.get('wooden chest') );
-    this.getRef(Places.FOREST_CLEARING).addItem( this.items.get('silver key') );
+    this.getRef(Places.FOREST_CLEARING).addItem( this.getRef(Items.WOODEN_CHEST) );
+    this.getRef(Places.FOREST_CLEARING).addItem( this.getRef(Items.SILVER_KEY) );
 
     // Starting Position
 
@@ -108,6 +108,7 @@ class Chasm extends BaseApp {
     this.registerCommand('examine', ExamineCommand);
     this.registerCommand('unlock', UnlockCommand);
     this.registerCommand('lock', LockCommand);
+    this.registerCommand('foo', FooCommand);
   }
 
   initGame() {
