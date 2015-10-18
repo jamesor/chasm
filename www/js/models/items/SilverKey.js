@@ -7,8 +7,5 @@ class SilverKey extends Item {
     this.commonTitle = 'key';
     this.canBeOpened = false;
     this.canHoldItems = false;
-    
-    this._points.set('unlock/wooden chest', 10);
   }
-
 }

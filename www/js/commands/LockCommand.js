@@ -67,10 +67,5 @@ class LockCommand {
     itemRef1.locked = true;
     itemRef1.opened = false;
     chasm.publish(Events.OUTPUT_WRITELN, 'Locked.');
-
-    var points = itemRef2.getPointsFor(data[0].word + '/' + itemRef1.title);
-    if (points > 0) {
-      chasm.publish(Events.PLAYER_SCORE, points);
-    }
   }
 }

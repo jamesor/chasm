@@ -3,7 +3,7 @@
 class GoCommand {
   execute(data) {
     var verb = data[0].word.charAt(0);
-    var exit;
+    var exit, str;
 
     if (verb) {
       exit = chasm.place.exits.get(verb);

@@ -6,16 +6,6 @@ class Entity {
     this.description = description || 'Undescribed';
     this.canHoldItems = false;
     this._items = new Map();
-    this._points = new Map();
-  }
-
-  getPointsFor(key) {
-    var points = this._points.get(key);
-    if (points) {
-      this._points.set(key, 0);
-      return points;
-    }
-    return 0;
   }
 
   describe(withContents) {

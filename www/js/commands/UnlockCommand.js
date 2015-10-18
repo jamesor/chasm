@@ -66,10 +66,6 @@ class UnlockCommand {
 
     itemRef1.locked = false;
     chasm.publish(Events.OUTPUT_WRITELN, 'Unlocked.');
-
-    var points = itemRef2.getPointsFor(data[0].word + '/' + itemRef1.title);
-    if (points > 0) {
-      chasm.publish(Events.PLAYER_SCORE, points);
-    }
+    chasm.publish(Events.PLAYER_SCORE, data[0].word + '/' + itemRef1.title);
   }
 }
