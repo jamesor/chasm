@@ -1,11 +1,11 @@
 'use strict';
 
-class CloseCommand {
+class ExamineCommand {
   execute(data) {
     var itemName1, itemRef1, foundItems;
 
     if (data.length === 1) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'What do you want to close?');
+      chasm.publish(Events.OUTPUT_WRITELN, 'What do you want to examine?');
       return;
     }
 
@@ -20,18 +20,12 @@ class CloseCommand {
     if (foundItems.length === 1) {
       itemRef1 = foundItems[0];
 
-      if (!itemRef1.canBeOpened) {
-        chasm.publish(Events.OUTPUT_WRITELN, 'You cannot close the ' + itemName1 + '.');
+      if (!itemRef1.longDescription) {
+        chasm.publish(Events.OUTPUT_WRITELN, 'I see nothing special about the ' + itemName1 + '.');
         return;
       }
 
-      if (!itemRef1.opened) {
-        chasm.publish(Events.OUTPUT_WRITELN, 'The ' + itemName1 + ' is already closed.');
-        return;
-      }
-
-      itemRef1.opened = false;
-      chasm.publish(Events.OUTPUT_WRITELN, 'You closed the ' + itemName1 + '.');
+      chasm.publish(Events.OUTPUT_WRITELN, itemRef1.longDescription);
       return;
     }
 

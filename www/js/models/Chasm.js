@@ -4,6 +4,7 @@ class Chasm extends BaseApp {
   constructor() {
     super();
     this.refs = new Map();
+    this.items = new Map();
     this.player = new Player(this);
     this.initModels();
     this.initControllers();
@@ -41,7 +42,6 @@ class Chasm extends BaseApp {
 
     // Things
 
-    this.items = new Map();
     this.items.set('wooden chest', new WoodenChest());
     this.items.set('silver key', new SilverKey());
 
@@ -105,6 +105,9 @@ class Chasm extends BaseApp {
     this.registerCommand('open', OpenCommand);
     this.registerCommand('close', CloseCommand);
     this.registerCommand('put', PutCommand);
+    this.registerCommand('examine', ExamineCommand);
+    this.registerCommand('unlock', UnlockCommand);
+    this.registerCommand('lock', LockCommand);
   }
 
   initGame() {

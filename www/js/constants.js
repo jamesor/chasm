@@ -15,10 +15,10 @@ const LangTypes = Object.freeze({
 var vocabulary = {};
 vocabulary[LangTypes.ARTICLE]     = ['a','an','the'],
 vocabulary[LangTypes.ADVERB]      = [],
-vocabulary[LangTypes.VERB]        = ['north','n','south','s','east','e','west','w','up','u','down','d','take','drop','open','close','attack','hit','look','l','inventory','i','put'],
+vocabulary[LangTypes.VERB]        = ['north','n','south','s','east','e','west','w','up','u','down','d','take','drop','open','close','attack','hit','look','l','inventory','i','put','examine','lock','unlock'],
 vocabulary[LangTypes.PRONOUN]     = ['goblin'],
 vocabulary[LangTypes.ADJECTIVE]   = ['shiny','wooden','silver','dull','bronze'],
-vocabulary[LangTypes.NOUN]        = ['door','chest','sword', 'key'],
+vocabulary[LangTypes.NOUN]        = ['door','chest','sword', 'key', 'shed'],
 vocabulary[LangTypes.PREPOSITION] = ['at','with','in','into'];
 
 // Convert the arrays to dictionaries to make lookups faster
@@ -64,6 +64,3 @@ const Events = Object.freeze({
   LIGHT_ON       : 'light/on',
   LIGHT_OFF      : 'light/off'
 });
-
-
-

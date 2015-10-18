@@ -20,6 +20,11 @@ class OpenCommand {
     if (foundItems.length === 1) {
       let itemRef1 = foundItems[0];
       
+      if (itemRef1.locked) {
+        chasm.publish(Events.OUTPUT_WRITELN, 'The ' + itemName1 + ' is locked.');
+        return;
+      }
+
       if (!itemRef1.canBeOpened) {
         chasm.publish(Events.OUTPUT_WRITELN, 'You cannot open the ' + itemName1 + '.');
         return;
@@ -31,7 +36,11 @@ class OpenCommand {
       }
 
       itemRef1.opened = true;
-      let output = 'You opened the ' + itemName1 + ', revealing ' + itemRef1.itemsToSentence() + '.';
+      let output = 'You opened the ' + itemName1;
+      if (itemRef1.hasItems()) {
+        output += ', revealing ' + itemRef1.itemsToSentence();
+      }
+      output += '.';
       chasm.publish(Events.OUTPUT_WRITELN, output);
       return;
     }

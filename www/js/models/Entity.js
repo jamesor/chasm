@@ -6,6 +6,16 @@ class Entity {
     this.description = description || 'Undescribed';
     this.canHoldItems = false;
     this._items = new Map();
+    this._points = new Map();
+  }
+
+  getPointsFor(key) {
+    var points = this._points.get(key);
+    if (points) {
+      this._points.set(key, 0);
+      return points;
+    }
+    return 0;
   }
 
   describe(withContents) {
@@ -72,8 +82,10 @@ class Entity {
       }
 
       list.forEach(function (item) {
-        str += indent + item.description.capitalizeFirstLetter() + ' is here.<br>';
-        if (item.canHoldItems && item.hasItems()) {
+        str += indent + item.description.capitalizeFirstLetter();
+        str += (indent) ? '' : ' is here.';
+        str += '<br>';
+        if (item.canHoldItems && item.opened && item.hasItems()) {
           str += indent + 'The ' + item.title + ' contains:<br>';
           str += buildString(item._items, indent + '&nbsp;');
         }
