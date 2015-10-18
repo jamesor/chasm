@@ -4,15 +4,27 @@ class DooredExit extends Exit {
   constructor(place) {
     super(place);
     this.isClosed = true;
-    this.openedMessage = 'The door is open.';
-    this.closedMessage = 'The door is closed.';
+    this.openedMessage = 'You have opened the door.';
+    this.closedMessage = 'You cannot because the door is closed.';
   }
+  
   open() {
-    this.isClosed = false;
-    return this.openedMessage;
+    if (this.isClosed) {
+      this.isClosed = false;
+      return this.openedMessage;
+    }
+    return 'The door is already open.';
   }
+
   close() {
-    this.isClosed = true;
-    return this.closedMessage;
+    if (this.isClosed) {
+      this.isClosed = true;
+      return this.closedMessage;
+    }
+    return 'The door is already closed.';
+  }
+
+  go() {
+    return (this.isClosed) ? this.closedMessage : super.go();
   }
 }

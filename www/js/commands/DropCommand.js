@@ -2,23 +2,29 @@
 
 class DropCommand {
   execute(data) {
-    var item, output;
+    var itemName1, item1ref, foundItems;
 
-    if (chasm.player.items.size === 0) {
-      output = 'You aren\'t carrying anything to drop.';
-    } else if (data.words.length < 1) {
-      output = 'What do you want to drop?';
-    } else {
-      item = chasm.player.items.get(data.words[0]);
-      if (item) {
-        chasm.player.items.delete(item.title);
-        chasm.place.items.set(item.title, item);
-        output = 'You have dropped ' + item.description + '.';
-      } else {
-        output = 'You cannot drop that.';
-      }
+    if (data.length === 1) {
+      chasm.publish(Events.OUTPUT_WRITELN, 'What do you want to drop?');
+      return;
     }
 
-    chasm.publish(Events.OUTPUT_WRITELN, output);
+    itemName1 = data[1].word;
+    foundItems = chasm.player.findItems(itemName1);
+
+    if (foundItems.length === 0) {
+      chasm.publish(Events.OUTPUT_WRITELN, 'You do not have the ' + itemName1 + '.');
+      return;
+    }
+
+    if (foundItems.length === 1) {
+      let itemRef1 = foundItems[0];
+      chasm.getRef(itemRef1.location).removeItem(itemRef1.title);
+      chasm.place.addItem(itemRef1);
+      chasm.publish(Events.OUTPUT_WRITELN, 'Dropped.');
+      return;
+    }
+
+    chasm.publish(Events.OUTPUT_WRITELN, 'Which ' + itemName1 + ' did you mean?');
   }
 }

@@ -1,11 +1,9 @@
 'use strict';
 
-class StringUtils {
-  static setChars(str, len) {
-    var result = str;
-    while (result.length < len) {
-      result += ' ';
-    }
-    return result.substr(0, len);
-  }
+String.prototype.sizeTo = function(len, chr) {
+  return this + new Array(len + 1).join(chr || ' ');
+}
+
+String.prototype.capitalizeFirstLetter = function() {
+  return this.charAt(0).toUpperCase() + this.slice(1);
 }

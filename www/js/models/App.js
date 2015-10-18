@@ -11,15 +11,18 @@ class BaseApp {
     if (!this.topics.has(topic)) this.topics.set(topic, []);
     this.topics.get(topic).push({cmd: command});
   }
+  
   subscribe(topic, listener, context) {
     if (!this.topics.has(topic)) this.topics.set(topic, []);
     this.topics.get(topic).push({fn: listener, cxt: context});
   }
+
   unsubscribe(topic, listener, context) {
     if (this.topics.has(topic) && this.topics.get(topic).length > 0) {
       // todo
     }
   }
+
   publish(topic, data) {
     if (this.topics.has(topic) && this.topics.get(topic).length > 0) {
       this.topics.get(topic).forEach(function(listener) {

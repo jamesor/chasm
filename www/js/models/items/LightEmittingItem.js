@@ -7,27 +7,26 @@ class LightEmittingItem extends Item {
     this.light = light || 0;
   }
   on() {
-    console.log(this);
     if (this.isOn) {
-      chasm.publish('writeOutput', this.title + ' is already on.');
+      chasm.publish(Events.OUTPUT_WRITELN, this.title + ' is already on.');
     } else if (this.light === 0) {
-      chasm.publish('writeOutput', this.title + ' can no longer emit light.');
+      chasm.publish(Events.OUTPUT_WRITELN, this.title + ' can no longer emit light.');
     } else {
       this.isOn = true;
-      chasm.publish('writeOutput', this.title + ' is now emitting light.');
-      chasm.publish('light', this);
-      chasm.subscribe('move', this.onMove, this);
+      chasm.publish(Events.OUTPUT_WRITELN, this.title + ' is now emitting light.');
+      chasm.publish(Events.LIGHT_ON, this);
+      chasm.subscribe(PLAYER_MOVED, this.onMove, this);
     }
   }
   off() {
     if (this.isOn) {
       this.isOn = false;
       this.light = 0
-      chasm.publish('writeOutput', this.title + ' has stopped emitting light.');
-      chasm.publish('light', this);
-      chasm.unsubscribe('move', this.onMove, this);
+      chasm.publish(Events.OUTPUT_WRITELN, this.title + ' has stopped emitting light.');
+      chasm.publish(Events.LIGHT_OFF, this);
+    chasm.unsubscribe(PLAYER_MOVED, this.onMove, this);
     } else {
-      chasm.publish('writeOutput', this.title + ' is already off.');
+      chasm.publish(Events.OUTPUT_WRITELN, this.title + ' is already off.');
     }
   }
   onMove() {
@@ -37,6 +36,5 @@ class LightEmittingItem extends Item {
         this.off();
       }
     }
-    console.log('moved');
   }
 }

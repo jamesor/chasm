@@ -20,9 +20,9 @@ class BannerView {
     this.render();
   }
   render() {
-    var title = StringUtils.setChars(this._title, 21);
-    var score = StringUtils.setChars('Score:'+this._score, 9);
-    var moves = StringUtils.setChars('Moves:'+this._moves, 10);
+    var title = this._title.sizeTo(21);
+    var score = ('Score:'+this._score).sizeTo(9);
+    var moves = ('Moves:'+this._moves).sizeTo(10);
     var str = (title+score+moves).replace(/\s/g, '&nbsp;');
     this.el.innerHTML = str;
   }

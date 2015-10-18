@@ -40,6 +40,11 @@ p {
   padding: 0;
 }
 
+strong {
+  font-weight: normal;
+  color: white;
+}
+
 #screen {
   background-color: #352879;
   color: #6C5EB5;

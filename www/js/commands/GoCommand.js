@@ -2,10 +2,11 @@
 
 class GoCommand {
   execute(data) {
-    var exit, str;
+    var verb = data[0].word.charAt(0);
+    var exit;
 
-    if (data.verb) {
-      exit = chasm.place.exits.get(data.verb);
+    if (verb) {
+      exit = chasm.place.exits.get(verb);
       if (exit) {
         if (!exit.isClosed) {
           if (!exit.isLocked) {
@@ -20,7 +21,7 @@ class GoCommand {
           str = exit.closedMessage;
         }
       } else {
-        str = 'You cannot go ' + data.verb + ' from here.';
+        str = 'You can\'t go that way.';
       }
 
       chasm.publish(Events.OUTPUT_WRITELN, str);

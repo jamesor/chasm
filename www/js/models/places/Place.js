@@ -1,27 +1,39 @@
 'use strict';
 
-class Place {
+class Place extends Entity {
   constructor(title, description) {
-    this.title = title || 'Unknown location';
-    this.description = description || 'Nothing to see here.';
-    this.items = new Map();
+    super(title, description);
+    this.canHoldItems = true;
+    this.visited = false;
     this.exits = new Map();
   }
+
+  addExit(direction, place) {
+    this.exits.set(direction, place);
+  }
+
   get imageSrc() {
     return 'images/'+this.title.toLowerCase().replace(/ /g,'-')+'.png';
   }
-  addItem(item) {
-    if (item) this.items.set(item.title, item);
-  }
+
   describe() {
-    var str = this.description, ary = [], last;
-    if (this.items.size > 0) {
-      this.items.forEach(function (item) {
-        ary.push(item.description);
-      });
-      last = ary.pop();
-      str += ' You see ' + ((ary.length > 0) ? ary.join(', ') + ' and ' : '') + last + '.';
+    if (this.visited) {
+      return '<strong>' + this.title + '</strong><br>' + this.itemsToList();
     }
-    return str;
+    this.visited = true;
+    return '<strong>' + this.title + '</strong><br>' + this.description + '<br>' + this.itemsToList();
+  }
+
+  go(direction) {
+    var exit = this.exits.get(direction);
+    if (!exit) {
+      return 'You cannot travel in that direction.';
+    } else if (exit.isClosed) {
+      return exit.closedMessage;
+    } else if (exit.isLocked) {
+      return exit.lockedMessage;
+    } else {
+      return exit.go();
+    }
   }
 }

@@ -8,12 +8,13 @@ class KeyboardController {
     document.addEventListener('keypress', this.onKeypress.bind(this));
     setTimeout(this.processInput.bind(this), 300);
   }
+
   processInput() {
     var sInput;
     this.eventBus.publish(Events.OUTPUT_WRITE, '&nbsp;&nbsp;&nbsp;&nbsp;**** COMMODORE 64 BASIC V2 ****<br><br>&nbsp;64K RAM SYSTEM &nbsp;38911 BASIC BYTES FREE<br><br>READY.<br>LOAD "CHASM",8,1<br><br>SEARCHING FOR CHASM<br>LOADING<br>READY.<br>');
     this.eventBus.publish(Events.INPUT_CLEAR);
     sInput = this.inputBuffer.toLowerCase().trim();
-    if (sInput === 'run') {
+    if (sInput === 'run' || 1) {
       var upper = document.querySelectorAll('.upper')[0];
       upper.className = (upper.className || '').replace('upper', '');
       var scr = document.getElementById('screen');
@@ -22,12 +23,49 @@ class KeyboardController {
       this.processInput = this.processGameInput;
     }
   }
+
+  processGameInput() {
+    var input = this.inputBuffer.toLowerCase().trim();
+    var tokens = input.split(' ');
+    var outcome;
+
+    this.eventBus.publish(Events.OUTPUT_WRITE, '>'+input+'<br>');
+    this.eventBus.publish(Events.INPUT_CLEAR);
+
+    for (var i=tokens.length-1; i>=0; i--) {
+      if (validTokens[tokens[i]]) {
+        if (LangTypes.ARTICLE === validTokens[tokens[i]].type) {
+          tokens.splice(i, 1);
+        } else {
+          tokens[i] = validTokens[tokens[i]];
+          if (LangTypes.ADJECTIVE === tokens[i].type && tokens.length > i) {
+            tokens[i] = itemTokens[tokens[i].word + ' ' + tokens[i+1].word];
+            tokens.splice(i+1, 1);
+          }
+        }
+      }
+      else {
+        this.eventBus.publish(Events.OUTPUT_WRITELN, 'I don\'t understand the word ' + tokens[i]);
+        return;
+      }
+    }
+    
+    if (tokens[0].type === LangTypes.VERB) {
+      this.eventBus.publish(tokens[0].word, tokens);
+    } else {
+      this.eventBus.publish(Events.OUTPUT_WRITELN, 'I don\'t understand that command.');
+    }
+
+    this.eventBus.publish(Events.PLAYER_MOVE);
+  }
+
+/*
   processGameInput() {
     var input, words, verb;
 
     function removeInsignificantWords(list) {
       for (var i=list.length; i>=0; i--) {
-        if (UselessWords.has(list[i])) {
+        if (UselessWords[list[i]]) {
           list.splice(i, 1);
         } 
       }
@@ -56,6 +94,7 @@ class KeyboardController {
 
     this.eventBus.publish(Events.PLAYER_MOVE);
   }
+*/
   onKeydown(e) {
     switch (e.which) {
     case 8:
@@ -77,6 +116,7 @@ class KeyboardController {
       break;
     }
   }
+  
   onKeypress(e) {
     if (this.inputBuffer.length < 39) {
       this.inputBuffer += String.fromCharCode(e.which);
