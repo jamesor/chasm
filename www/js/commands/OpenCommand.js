@@ -36,7 +36,13 @@ class OpenCommand {
       }
 
       itemRef1.opened = true;
-      let output = 'You opened the ' + itemName1;
+
+      let output = 'Opened.';
+
+      if (itemRef1.openMessage) {
+        output = itemRef1.openMessage;
+      }
+
       if (itemRef1.hasItems()) {
         output += ', revealing ' + itemRef1.itemsToSentence();
       }

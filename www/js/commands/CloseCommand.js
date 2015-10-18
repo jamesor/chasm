@@ -26,12 +26,23 @@ class CloseCommand {
       }
 
       if (!itemRef1.opened) {
-        chasm.publish(Events.OUTPUT_WRITELN, 'The ' + itemName1 + ' is already closed.');
+        let resp = [
+          'I think you\'ve already done that.',
+          'You think it isn\'t?',
+          'Look around.'
+        ]
+        chasm.publish(Events.OUTPUT_WRITELN, resp[MathUtils.getRandomInt(0,resp.length)]);
         return;
       }
 
       itemRef1.opened = false;
-      chasm.publish(Events.OUTPUT_WRITELN, 'You closed the ' + itemName1 + '.');
+      let output = 'Closed.';
+
+      if (itemRef1.openMessage) {
+        output = itemRef1.closeMessage;
+      }
+
+      chasm.publish(Events.OUTPUT_WRITELN, output);
       return;
     }
 
