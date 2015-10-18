@@ -31,14 +31,12 @@ class Chasm extends BaseApp {
  
   initModels() {
 
-    this.addRef(this.player);
-
     // Places
 
     this.addRef(new ForestClearing());
-    this.addRef(new Place(Places.CHASM_ENTRANCE, 'You are standing at the entrance to a chasm which can be entered by climbing down. There is a clearing to the west.'));
-    this.addRef(new Place(Places.NARROW_PASSAGE, 'You begin your decent through the crack in the mountainside. It\'s a pretty tight fit, but you manage.'));
-    this.addRef(new Place(Places.TROLL_ROOM, 'You are in the Troll\'s Room. It\'s dark and smelly.'));
+    this.addRef(new ChasmEntrance());
+    this.addRef(new NarrowPassage());
+    this.addRef(new TrollRoom());
     this.addRef(new Shed());
 
     // Things
@@ -103,7 +101,7 @@ class Chasm extends BaseApp {
     this.registerCommand('l', LookCommand);
     this.registerCommand('inventory', InventoryCommand);
     this.registerCommand('i', InventoryCommand);
-    //this.registerCommand('use', UseCommand);
+    // this.registerCommand('use', UseCommand);
     this.registerCommand('open', OpenCommand);
     this.registerCommand('close', CloseCommand);
     this.registerCommand('put', PutCommand);

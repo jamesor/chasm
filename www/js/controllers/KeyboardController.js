@@ -32,6 +32,11 @@ class KeyboardController {
     this.eventBus.publish(Events.OUTPUT_WRITE, '>'+input+'<br>');
     this.eventBus.publish(Events.INPUT_CLEAR);
 
+    if (input === '') {
+      this.eventBus.publish(Events.OUTPUT_WRITELN, 'I beg your pardon?');
+      return;
+    }
+
     for (var i=tokens.length-1; i>=0; i--) {
       if (validTokens[tokens[i]]) {
         if (LangTypes.ARTICLE === validTokens[tokens[i]].type) {

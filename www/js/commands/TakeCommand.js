@@ -21,7 +21,14 @@ class TakeCommand {
       itemRef1 = foundItems[0];
 
       if (!itemRef1.canBeTaken) {
-        chasm.publish(Events.OUTPUT_WRITELN, 'You cannot take the ' + itemName1 + '.');
+        let resp = [
+          'A valiant attempt.',
+          'You can\'t be serious.',
+          'What a concept!',
+          'Not likely.',
+          'An interesting idea...'
+        ];
+        chasm.publish(Events.OUTPUT_WRITELN, resp[MathUtils.getRandomInt(0,resp.length)]);
         return;
       }
 
