@@ -44,7 +44,7 @@ class Chasm extends BaseApp {
 
     // Set Points
 
-    this._points.set('unlock/' + Items.WOODEN_CHEST, 10);
+    this._points.set('unlock/' + Exits.SHED_DOOR, 10);
 
     // Places
 
@@ -61,7 +61,7 @@ class Chasm extends BaseApp {
 
     // Exits
 
-    this.addRef(new DooredExit(Exits.SHED_DOOR, 
+    this.addRef(new LockedExit(Exits.SHED_DOOR, 
                 [
                   ['n', this.getRef(Places.SHED)],
                   ['s', this.getRef(Places.FOREST_CLEARING)]
@@ -85,7 +85,7 @@ class Chasm extends BaseApp {
     // Stash item objects in places
 
     this.getRef(Places.FOREST_CLEARING).addItem( this.getRef(Items.WOODEN_CHEST) );
-    this.getRef(Places.FOREST_CLEARING).addItem( this.getRef(Items.SILVER_KEY) );
+    this.getRef(Items.WOODEN_CHEST).addItem( this.getRef(Items.SILVER_KEY) );
 
     // Starting Position
 

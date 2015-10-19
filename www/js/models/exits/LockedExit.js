@@ -1,9 +1,12 @@
 'use strict';
 
 class LockedExit extends DooredExit {
-  constructor(place) {
-    super(place);
-    this.isLocked = true;
+  constructor(title, places) {
+    super(title, places);
+
+    this.canBeLocked = true;
+    this.locked = true;
+    
     this.unlockedMessage = 'Locked.';
     this.lockedMessage = 'The door is locked.';
   }
