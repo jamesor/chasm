@@ -15,7 +15,7 @@ const Vocabulary = Object.freeze({
   [LangTypes.ADVERB]      : [],
   [LangTypes.VERB]        : ['north','n','south','s','east','e','west','w','up','u','down','d','take','drop','open','close','attack','hit','look','l','inventory','i','put','examine','lock','unlock','foo'],
   [LangTypes.PRONOUN]     : ['goblin'],
-  [LangTypes.ADJECTIVE]   : ['shiny','wooden','silver','dull','bronze'],
+  [LangTypes.ADJECTIVE]   : ['shiny','wooden','silver','dull','bronze','kitchen','armoury'],
   [LangTypes.NOUN]        : ['door','chest','sword', 'key', 'shed'],
   [LangTypes.PREPOSITION] : ['at','with','in','into']
 });
@@ -41,12 +41,16 @@ const Places = Object.freeze({
   CHASM_ENTRANCE  : 'Chasm Entrance',
   NARROW_PASSAGE  : 'Narrow Passage',
   TROLL_ROOM      : 'Troll Room',
-  SHED            : 'Shed'
+  SHED            : 'Shed',
+  TROLL_ARMOURY   : 'Troll Armoury',
+  TROLL_KITCHEN   : 'Troll Kitchen'
 });
 
 const Exits = Object.freeze({
   DEFAULT         : 'default exit',
-  SHED_DOOR       : 'shed door'
+  SHED_DOOR       : 'shed door',
+  ARMOURY_DOOR    : 'armoury door',
+  KITCHEN_DOOR    : 'kitchen door'
 });
 
 const Events = Object.freeze({

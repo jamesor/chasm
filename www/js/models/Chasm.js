@@ -53,6 +53,8 @@ class Chasm extends BaseApp {
     this.addRef(new NarrowPassage());
     this.addRef(new TrollRoom());
     this.addRef(new Shed());
+    this.addRef(new TrollArmoury());
+    this.addRef(new TrollKitchen());
 
     // Things
 
@@ -81,6 +83,16 @@ class Chasm extends BaseApp {
                   ['d', this.getRef(Places.TROLL_ROOM)],
                   ['u', this.getRef(Places.NARROW_PASSAGE)]
                 ]));
+    this.addRef(new DooredExit(Exits.ARMOURY_DOOR, 
+                [
+                  ['n', this.getRef(Places.TROLL_ROOM)],
+                  ['s', this.getRef(Places.TROLL_ARMOURY)]
+                ]));
+    this.addRef(new DooredExit(Exits.KITCHEN_DOOR, 
+                [
+                  ['e', this.getRef(Places.TROLL_ROOM)],
+                  ['w', this.getRef(Places.TROLL_KITCHEN)]
+                ]));
 
     // Stash item objects in places
 
@@ -89,7 +101,7 @@ class Chasm extends BaseApp {
 
     // Starting Position
 
-    this.place = this.getRef(Places.FOREST_CLEARING);
+    this.place = this.getRef(Places.TROLL_ROOM);
   }
 
   // Controllers
