@@ -16,12 +16,16 @@ class Place extends Entity {
     return 'images/'+this.title.toLowerCase().replace(/ /g,'-')+'.png';
   }
 
+  look() {
+    return '<strong>' + this.title + '</strong><br>' + this.description + '<br>' + this.itemsToList();
+  }
+
   describe() {
     if (this.visited) {
       return '<strong>' + this.title + '</strong><br>' + this.itemsToList();
     }
     this.visited = true;
-    return '<strong>' + this.title + '</strong><br>' + this.description + '<br>' + this.itemsToList();
+    return this.look();
   }
 
   findItems(itemName) {
