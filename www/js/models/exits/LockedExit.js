@@ -4,8 +4,8 @@ class LockedExit extends DooredExit {
   constructor(place) {
     super(place);
     this.isLocked = true;
-    this.unlockedMessage = 'You have unlocked the door.';
-    this.lockedMessage = 'You cannot because the door is locked.';
+    this.unlockedMessage = 'Locked.';
+    this.lockedMessage = 'The door is locked.';
   }
   
   lock() {
@@ -24,7 +24,7 @@ class LockedExit extends DooredExit {
     return 'The door is already unlocked.';
   }
 
-  go() {
-    return (this.isLocked) ? this.lockedMessage : super.go();
+  getPlace(direction) {
+    return (this.isLocked) ? this.lockedMessage : super.getPlace(direction);
   }
 }

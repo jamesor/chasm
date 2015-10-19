@@ -5,11 +5,11 @@ class Place extends Entity {
     super(title, description);
     this.canHoldItems = true;
     this.visited = false;
-    this.exits = new Map();
+    this._exits = new Map();
   }
 
   addExit(direction, place) {
-    this.exits.set(direction, place);
+    this._exits.set(direction, place);
   }
 
   get imageSrc() {
@@ -24,16 +24,34 @@ class Place extends Entity {
     return '<strong>' + this.title + '</strong><br>' + this.description + '<br>' + this.itemsToList();
   }
 
-  go(direction) {
-    var exit = this.exits.get(direction);
+  findItems(itemName) {
+    var foundList = super.findItems(itemName);
+
+    this._exits.forEach(function (exit) {
+      if (exit.canBeOpened && (exit.title === itemName || exit.commonTitle === itemName)) {
+        foundList.push(exit);
+      }
+    });
+
+    return foundList;
+  }
+
+  getExit(direction) {
+    return this._exits.get(direction);
+  }
+
+/*
+  getPlace(direction) {
+    var exit = this._exits.get(direction);
     if (!exit) {
       return 'You cannot travel in that direction.';
-    } else if (exit.isClosed) {
+    } else if (!exit.opened) {
       return exit.closedMessage;
-    } else if (exit.isLocked) {
+    } else if (exit.locked) {
       return exit.lockedMessage;
     } else {
-      return exit.go();
+      return exit.getPlace(direction);
     }
   }
+*/
 }

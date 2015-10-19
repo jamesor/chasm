@@ -1,30 +1,18 @@
 'use strict';
 
 class DooredExit extends Exit {
-  constructor(place) {
-    super(place);
-    this.isClosed = true;
-    this.openedMessage = 'You have opened the door.';
-    this.closedMessage = 'You cannot because the door is closed.';
-  }
-  
-  open() {
-    if (this.isClosed) {
-      this.isClosed = false;
-      return this.openedMessage;
-    }
-    return 'The door is already open.';
+  constructor(title, places) {
+    super(title, places);
+    this.commonTitle = 'door';
+
+    this.canBeOpened = true;
+    this.opened = false;
+
+    this.openedMessage = 'Opened.';
+    this.closedMessage = 'The door is closed.';
   }
 
-  close() {
-    if (this.isClosed) {
-      this.isClosed = true;
-      return this.closedMessage;
-    }
-    return 'The door is already closed.';
-  }
-
-  go() {
-    return (this.isClosed) ? this.closedMessage : super.go();
+  getPlace(direction) {
+    return (this.opened) ? super.getPlace(direction) : false;
   }
 }

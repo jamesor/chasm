@@ -3,28 +3,28 @@
 class GoCommand {
   execute(data) {
     var verb = data[0].word.charAt(0);
-    var exit, str;
+    var exit, str = 'You can\'t go that way.';
 
     if (verb) {
-      exit = chasm.place.exits.get(verb);
+      exit = chasm.place.getExit(verb);
       if (exit) {
-        if (!exit.isClosed) {
-          if (!exit.isLocked) {
-            chasm.place = exit.target;
-            chasm.publish(Events.PLACE_CHANGED, exit.target);
-            chasm.publish(Events.OUTPUT_WRITELN, exit.target.describe());
-            return;
+        if (exit.opened) {
+          if (!exit.locked) {
+            let place = exit.getPlace(verb);
+            if (place) {
+              chasm.place = place;
+              chasm.publish(Events.PLACE_CHANGED, place);
+              str = place.describe();
+            }
           } else {
             str = exit.lockedMessage;
           }
         } else {
           str = exit.closedMessage;
         }
-      } else {
-        str = 'You can\'t go that way.';
       }
-
-      chasm.publish(Events.OUTPUT_WRITELN, str);
     }
+
+    chasm.publish(Events.OUTPUT_WRITELN, str);
   }
 }

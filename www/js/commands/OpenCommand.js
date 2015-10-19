@@ -37,15 +37,16 @@ class OpenCommand {
 
       itemRef1.opened = true;
 
-      let output = 'Opened.';
+      let output = 'Opened';
 
       if (itemRef1.openMessage) {
         output = itemRef1.openMessage;
       }
 
-      if (itemRef1.hasItems()) {
+      if (itemRef1.canHoldItems && itemRef1.hasItems()) {
         output += ', revealing ' + itemRef1.itemsToSentence();
       }
+
       output += '.';
       chasm.publish(Events.OUTPUT_WRITELN, output);
       return;

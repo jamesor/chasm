@@ -44,18 +44,23 @@ const Places = Object.freeze({
   SHED            : 'Shed'
 });
 
+const Exits = Object.freeze({
+  DEFAULT         : 'default exit',
+  SHED_DOOR       : 'shed door'
+});
+
 const Events = Object.freeze({
-  PLACE_CHANGED  : 'place/changed',
-  PLAYER_SCORE   : 'player/score',
-  PLAYER_SCORED  : 'player/scored',
-  PLAYER_MOVE    : 'player/move',
-  PLAYER_MOVED   : 'player/moved',
-  OUTPUT_WRITE   : 'output/write',
-  OUTPUT_WRITELN : 'output/writeln',
-  OUTPUT_CLEAR   : 'output/clear',
-  INPUT_WRITE    : 'input/write',
-  INPUT_CLEAR    : 'input/clear',
-  INPUT_PROMPT   : 'input/prompt',
-  LIGHT_ON       : 'light/on',
-  LIGHT_OFF      : 'light/off'
+  PLACE_CHANGED   : 'place/changed',
+  PLAYER_SCORE    : 'player/score',
+  PLAYER_SCORED   : 'player/scored',
+  PLAYER_MOVE     : 'player/move',
+  PLAYER_MOVED    : 'player/moved',
+  OUTPUT_WRITE    : 'output/write',
+  OUTPUT_WRITELN  : 'output/writeln',
+  OUTPUT_CLEAR    : 'output/clear',
+  INPUT_WRITE     : 'input/write',
+  INPUT_CLEAR     : 'input/clear',
+  INPUT_PROMPT    : 'input/prompt',
+  LIGHT_ON        : 'light/on',
+  LIGHT_OFF       : 'light/off'
 });

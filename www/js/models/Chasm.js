@@ -61,13 +61,26 @@ class Chasm extends BaseApp {
 
     // Exits
 
-    this.getRef(Places.FOREST_CLEARING).addExit('e', new Exit(this.getRef(Places.CHASM_ENTRANCE)));
-    this.getRef(Places.SHED).addExit('s', new Exit(this.getRef(Places.FOREST_CLEARING)));
-    this.getRef(Places.CHASM_ENTRANCE).addExit('w', new Exit(this.getRef(Places.FOREST_CLEARING)));
-    this.getRef(Places.CHASM_ENTRANCE).addExit('d', new Exit(this.getRef(Places.NARROW_PASSAGE)));
-    this.getRef(Places.NARROW_PASSAGE).addExit('u', new Exit(this.getRef(Places.CHASM_ENTRANCE)));
-    this.getRef(Places.NARROW_PASSAGE).addExit('d', new Exit(this.getRef(Places.TROLL_ROOM)));
-    this.getRef(Places.TROLL_ROOM).addExit('u', new Exit(this.getRef(Places.NARROW_PASSAGE)));
+    this.addRef(new DooredExit(Exits.SHED_DOOR, 
+                [
+                  ['n', this.getRef(Places.SHED)],
+                  ['s', this.getRef(Places.FOREST_CLEARING)]
+                ]));
+    this.addRef(new Exit(Exits.DEFAULT, 
+                [
+                  ['e', this.getRef(Places.CHASM_ENTRANCE)],
+                  ['w', this.getRef(Places.FOREST_CLEARING)]
+                ]));
+    this.addRef(new Exit(Exits.DEFAULT, 
+                [
+                  ['d', this.getRef(Places.NARROW_PASSAGE)],
+                  ['u', this.getRef(Places.CHASM_ENTRANCE)]
+                ]));
+    this.addRef(new Exit(Exits.DEFAULT, 
+                [
+                  ['d', this.getRef(Places.TROLL_ROOM)],
+                  ['u', this.getRef(Places.NARROW_PASSAGE)]
+                ]));
 
     // Stash item objects in places
 
