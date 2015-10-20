@@ -26,7 +26,7 @@ Commodore 64 Colors
 }
 
 body {
-  font-family: "C64 Pro Mono Local", verdana, helvetica, sans-serif;
+  font-family: "C64 Pro Mono Local", "C64 Pro Mono", verdana, helvetica, sans-serif;
   font-size: 16pt;
   line-height: 24px;
   letter-spacing: 0;
