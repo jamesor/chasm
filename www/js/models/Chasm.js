@@ -101,7 +101,7 @@ class Chasm extends BaseApp {
 
     // Starting Position
 
-    this.place = this.getRef(Places.TROLL_ROOM);
+    this.place = this.getRef(Places.FOREST_CLEARING);
   }
 
   // Controllers

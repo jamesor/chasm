@@ -2,7 +2,7 @@
 
 class GoCommand {
   execute(data) {
-    var verb = data[0].word.charAt(0);
+    var verb = data[0].charAt(0);
     var exit, str = 'You can\'t go that way.';
 
     if (verb) {

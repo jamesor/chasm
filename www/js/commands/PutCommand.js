@@ -10,7 +10,7 @@ class PutCommand {
       return;
     }
 
-    itemName1 = data[1].word;
+    itemName1 = data[1];
     foundItems1 = chasm.findItems(itemName1);
 
     if (foundItems1.length === 0) {
@@ -23,7 +23,7 @@ class PutCommand {
       return;
     }
 
-    if ('in,into'.indexOf(data[2].word) === -1) {
+    if ('in,into'.indexOf(data[2]) === -1) {
       chasm.publish(Events.OUTPUT_WRITELN, 'I don\'t understand that sentence.');
       return;
     }
@@ -32,7 +32,7 @@ class PutCommand {
       chasm.publish(Events.OUTPUT_WRITELN, 'What do you want to put the ' + itemName1 + ' in?');
     }
 
-    itemName2 = data[3].word;
+    itemName2 = data[3];
     foundItems2 = chasm.findItems(itemName2);
 
     if (foundItems2.length === 0) {

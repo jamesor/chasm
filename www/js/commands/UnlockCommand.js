@@ -10,7 +10,7 @@ class UnlockCommand {
       return;
     }
 
-    itemName1 = data[1].word;
+    itemName1 = data[1];
     foundItems1 = chasm.findItems(itemName1);
 
     if (foundItems1.length === 0) {
@@ -28,12 +28,12 @@ class UnlockCommand {
       return;
     }
 
-    if (data[2].word !== 'with') {
+    if (data[2] !== 'with') {
       chasm.publish(Events.OUTPUT_WRITELN, 'I don\'t understand that sentence.');
       return;
     }
 
-    itemName2 = data[3].word;
+    itemName2 = data[3];
     foundItems2 = chasm.findItems(itemName2);
 
     if (foundItems2.length === 0) {
@@ -66,6 +66,6 @@ class UnlockCommand {
 
     itemRef1.locked = false;
     chasm.publish(Events.OUTPUT_WRITELN, 'Unlocked.');
-    chasm.publish(Events.PLAYER_SCORE, data[0].word + '/' + itemRef1.title);
+    chasm.publish(Events.PLAYER_SCORE, data[0] + '/' + itemRef1.title);
   }
 }

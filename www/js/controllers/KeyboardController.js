@@ -5,19 +5,9 @@ class KeyboardController {
     this.eventBus = eventBus;
     this._inputBuffer = '';
     this._validTokens = {};
-    this.init();
     document.addEventListener('keydown', this.onKeydown.bind(this));
     document.addEventListener('keypress', this.onKeypress.bind(this));
     setTimeout(this.processInput.bind(this), 300);
-  }
-
-  init() {
-    var self = this;
-    Object.keys(Vocabulary).forEach(function (element) {
-      Vocabulary[element].forEach(function (item) {
-        self._validTokens[item] = {type: element, word: item};
-      });
-    });
   }
 
   processInput() {
@@ -37,7 +27,7 @@ class KeyboardController {
 
   processGameInput() {
     var input = this._inputBuffer.toLowerCase().trim();
-    var tokens = input.split(' ');
+    var tokens = input.split(/\s+/);
     var outcome;
 
     this.eventBus.publish(Events.OUTPUT_WRITE, '>'+input+'<br>');
@@ -48,31 +38,34 @@ class KeyboardController {
       return;
     }
 
+    var token;
     for (var i=tokens.length-1; i>=0; i--) {
-      if (this._validTokens[tokens[i]]) {
-        if (LangTypes.ARTICLE === this._validTokens[tokens[i]].type) {
-          tokens.splice(i, 1);
-        } else {
-          tokens[i] = this._validTokens[tokens[i]];
-          if (LangTypes.ADJECTIVE === tokens[i].type && tokens.length > i) {
-            tokens[i] = ItemTokens[tokens[i].word + ' ' + tokens[i+1].word];
+      token = tokens[i];
+      if (nArticles[token]) {
+        tokens.splice(i, 1);
+      } 
+      else if (nVocabulary[token]) {
+        if (tokens.length > i) {
+          token += ' ' + tokens[i+1];
+          if (nItems[token]) {
+            tokens[i] = token;
             tokens.splice(i+1, 1);
           }
         }
       }
       else {
-        this.eventBus.publish(Events.OUTPUT_WRITELN, 'You can\'t see any such thing.');
+        //this.eventBus.publish(Events.OUTPUT_WRITELN, 'You can\'t see any such thing.' + token);
+        this.eventBus.publish(Events.OUTPUT_WRITELN, 'I don\'t know the word ' + token);
         return;
       }
     }
     
-    if (tokens[0].type === LangTypes.VERB) {
-      this.eventBus.publish(tokens[0].word, tokens);
+    if (tokens.length > 0) {
+      this.eventBus.publish(tokens[0], tokens);
+      this.eventBus.publish(Events.PLAYER_MOVE);
     } else {
-      this.eventBus.publish(Events.OUTPUT_WRITELN, 'I don\'t understand that command.');
+      
     }
-
-    this.eventBus.publish(Events.PLAYER_MOVE);
   }
 
   onKeydown(e) {

@@ -9,7 +9,7 @@ class OpenCommand {
       return;
     }
 
-    itemName1 = data[1].word;
+    itemName1 = data[1];
     foundItems = chasm.findItems(itemName1);
 
     if (foundItems.length === 0) {
