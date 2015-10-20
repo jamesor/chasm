@@ -44,7 +44,7 @@ class Chasm extends BaseApp {
 
     // Set Points
 
-    this._points.set('unlock/' + Exits.SHED_DOOR, 10);
+    this._points.set('unlock/' + Exits.WOODEN_CHEST, 10);
 
     // Places
 
@@ -60,10 +60,11 @@ class Chasm extends BaseApp {
 
     this.addRef(new WoodenChest());
     this.addRef(new SilverKey());
+    this.addRef(new Toolbox());
 
     // Exits
 
-    this.addRef(new LockedExit(Exits.SHED_DOOR, 
+    this.addRef(new DooredExit(Exits.SHED_DOOR, 
                 [
                   ['n', this.getRef(Places.SHED)],
                   ['s', this.getRef(Places.FOREST_CLEARING)]
@@ -97,7 +98,8 @@ class Chasm extends BaseApp {
     // Stash item objects in places
 
     this.getRef(Places.FOREST_CLEARING).addItem( this.getRef(Items.WOODEN_CHEST) );
-    this.getRef(Items.WOODEN_CHEST).addItem( this.getRef(Items.SILVER_KEY) );
+    this.getRef(Places.SHED).addItem( this.getRef(Items.TOOLBOX) );
+    this.getRef(Items.TOOLBOX).addItem( this.getRef(Items.SILVER_KEY) );
 
     // Starting Position
 
@@ -136,6 +138,8 @@ class Chasm extends BaseApp {
     this.registerCommand('u', GoCommand);
     this.registerCommand('down', GoCommand);
     this.registerCommand('d', GoCommand);
+    this.registerCommand('walk', GoCommand);
+    this.registerCommand('go', GoCommand);
     this.registerCommand('look', LookCommand);
     this.registerCommand('l', LookCommand);
     this.registerCommand('inventory', InventoryCommand);

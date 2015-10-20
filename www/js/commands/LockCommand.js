@@ -49,18 +49,23 @@ class LockCommand {
     itemRef1 = foundItems1[0];
     itemRef2 = foundItems2[0];
 
+    if (itemRef1.unlocksWith !== itemRef2.title) {
+      chasm.publish(Events.OUTPUT_WRITELN, 'You can\'t lock the ' + itemRef1.title + ' with the ' + itemRef2.title + '.');
+      return;
+    }
+
     if (itemRef1 === itemRef2) {
       chasm.publish(Events.OUTPUT_WRITELN, 'I should recurse infinitely to teach you a lesson, but...');
       return;
     }
 
     if (!itemRef1.canBeLocked) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'You cannot lock the ' + itemName1 + '.');
+      chasm.publish(Events.OUTPUT_WRITELN, 'You cannot lock the ' + itemRef1.title + '.');
       return;
     }
 
     if (itemRef1.locked) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'The ' + itemName1 + ' is already locked.');
+      chasm.publish(Events.OUTPUT_WRITELN, 'The ' + itemRef1.title + ' is already locked.');
       return;
     }
 

@@ -12,5 +12,9 @@ class WoodenChest extends Item {
     this.opened = false;
     this.openMessage = 'The chest swings open';
     this.closeMessage = 'The chest swings closed.';
+
+    this.canBeLocked = true;
+    this.locked = true;
+    this.unlocksWith = Items.SILVER_KEY;
   }
 }
