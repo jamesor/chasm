@@ -6,12 +6,8 @@ Array.prototype.toDictionary = function() {
   return dict;
 };
 
-Object.prototype.values = function() {
-  return Object.keys(this).map(key => this[key]);
-};
-
 String.prototype.sizeTo = function(len, chr) {
-  return this + new Array(len + 1).join(chr || ' ');
+  return (this + new Array(len + 1).join(chr || ' ')).substr(0, len);
 }
 
 String.prototype.capitalizeFirstLetter = function() {
@@ -21,3 +17,7 @@ String.prototype.capitalizeFirstLetter = function() {
 String.prototype.toDictionary = function() {
   return this.split(',').toDictionary();
 };
+
+// Shims
+
+Object.values = obj => Object.keys(obj).map(key => obj[key]);

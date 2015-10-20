@@ -21,8 +21,8 @@ const Items = Object.freeze({
 const Exits = Object.freeze({
   DEFAULT         : 'default exit',
   SHED_DOOR       : 'shed door',
-  ARMOURY_DOOR    : 'armoury door',
-  KITCHEN_DOOR    : 'kitchen door'
+  METAL_DOOR      : 'metal door',
+  WOODEN_DOOR     : 'wooden door'
 });
 
 const Events = Object.freeze({
@@ -47,9 +47,9 @@ const nVocabulary = Object.freeze((
   /* dire */ 'north,n,south,s,east,e,west,w,up,u,down,d,' + 
   /* actn */ 'take,drop,open,close,attack,hit,look,l,inventory,i,put,examine,lock,unlock,foo,' +
   /* char */ 'goblin,troll,' +
-  /* adjs */ 'silver,wooden,shiny,broken,dull,' + 
+  /* adjs */ 'silver,wooden,shiny,broken,dull,metal,' + 
   /* item */ 'key,door,chest,sword,' +
   /* prep */ 'at,with,in,into'
   ).toDictionary());
 
-const nItems = Object.freeze(([...Items.values(), ...Exits.values()]).toDictionary());
+const nItems = Object.freeze(([...Object.values(Items), ...Object.values(Exits)]).toDictionary());

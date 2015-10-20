@@ -83,12 +83,12 @@ class Chasm extends BaseApp {
                   ['d', this.getRef(Places.TROLL_ROOM)],
                   ['u', this.getRef(Places.NARROW_PASSAGE)]
                 ]));
-    this.addRef(new DooredExit(Exits.ARMOURY_DOOR, 
+    this.addRef(new DooredExit(Exits.METAL_DOOR, 
                 [
                   ['n', this.getRef(Places.TROLL_ROOM)],
                   ['s', this.getRef(Places.TROLL_ARMOURY)]
                 ]));
-    this.addRef(new DooredExit(Exits.KITCHEN_DOOR, 
+    this.addRef(new DooredExit(Exits.WOODEN_DOOR, 
                 [
                   ['e', this.getRef(Places.TROLL_ROOM)],
                   ['w', this.getRef(Places.TROLL_KITCHEN)]
