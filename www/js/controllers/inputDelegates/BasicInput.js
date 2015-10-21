@@ -7,9 +7,9 @@ class BasicInput {
     eventBus.publish(Events.INPUT_CLEAR);
     if (sInput === 'run' || 1) {
       var upper = document.querySelectorAll('.upper')[0];
-      upper.className = (upper.className || '').replace('upper', '');
+      upper.className = `${upper.className}`.replace('upper', '');
       var scr = document.getElementById('screen');
-      scr.className = scr.className + ' game';
+      scr.className = `${scr.className} game`;
       eventBus.publish(Events.GAME_START);
     }
   }

@@ -16,7 +16,7 @@ const Items = Object.freeze({
   BROKEN_SWORD    : 'broken sword',
   WOODEN_CHEST    : 'wooden chest',
   SILVER_KEY      : 'silver key',
-  TOOLBOX         : 'toolbox'
+  TOOLBOX         : 'red toolbox'
 });
 
 const Exits = Object.freeze({
@@ -49,9 +49,9 @@ const nVocabulary = Object.freeze((
   /* dire */ 'north,n,south,s,east,e,west,w,up,u,down,d,walk,go,' + 
   /* actn */ 'take,drop,open,close,attack,hit,look,l,inventory,i,put,examine,lock,unlock,foo,' +
   /* char */ 'goblin,troll,' +
-  /* adjs */ 'silver,wooden,shiny,broken,dull,metal,' + 
-  /* item */ 'key,door,chest,sword,toolbox,' +
+  /* adjs */ 'silver,wooden,shiny,broken,dull,metal,small,red,rusty,' + 
+  /* item */ 'key,door,chest,sword,toolbox,shed,' +
   /* prep */ 'at,with,in,into'
   ).toDictionary());
 
-const nItems = Object.freeze(([...Object.values(Items), ...Object.values(Exits)]).toDictionary());
+const nItems = Object.freeze(([...Object.values(Items), ...Object.values(Exits), ...Object.values(Places)]).toDictionary());

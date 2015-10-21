@@ -45,7 +45,7 @@ class Chasm extends BaseApp {
 
     // Set Points
 
-    this._points.set('unlock/' + Exits.WOODEN_CHEST, 10);
+    this._points.set('unlock/' + Items.WOODEN_CHEST, 10);
 
     // Places
 

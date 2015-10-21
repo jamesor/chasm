@@ -50,7 +50,7 @@ class UnlockCommand {
     itemRef2 = foundItems2[0];
 
     if (itemRef1.unlocksWith !== itemRef2.title) {
-      chasm.publish(Events.OUTPUT_WRITELN, `You can\'t unlock the ${itemRef1.title} with the ${itemRef2.title}`);
+      chasm.publish(Events.OUTPUT_WRITELN, `You can't unlock the ${itemRef1.title} with the ${itemRef2.title}`);
       return;
     }
 

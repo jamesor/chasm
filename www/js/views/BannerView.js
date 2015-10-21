@@ -21,8 +21,8 @@ class BannerView {
   }
   render() {
     var title = this._title.sizeTo(21);
-    var score = ('Score:'+this._score).sizeTo(9);
-    var moves = ('Moves:'+this._moves).sizeTo(10);
+    var score = `Score:${this._score}`.sizeTo(9);
+    var moves = `Moves:${this._moves}`.sizeTo(10);
     var str = (title+score+moves).replace(/\s/g, '&nbsp;');
     this.el.innerHTML = str;
   }

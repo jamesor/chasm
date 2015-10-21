@@ -6,7 +6,7 @@ class GameInput {
     var tokens = input.split(/\s+/);
     var outcome;
 
-    eventBus.publish(Events.OUTPUT_WRITE, '>'+input+'<br>');
+    eventBus.publish(Events.OUTPUT_WRITE, `>${input}<br>`);
     eventBus.publish(Events.INPUT_CLEAR);
 
     if (input === '') {
@@ -31,7 +31,7 @@ class GameInput {
       }
       else {
         //eventBus.publish(Events.OUTPUT_WRITELN, 'You can\'t see any such thing.' + token);
-        eventBus.publish(Events.OUTPUT_WRITELN, 'I don\'t know the word ' + token);
+        eventBus.publish(Events.OUTPUT_WRITELN, `I don't know the word ${token}`);
         return;
       }
     }
