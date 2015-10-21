@@ -13,7 +13,7 @@ class DropCommand {
     foundItems = chasm.player.findItems(itemName1);
 
     if (foundItems.length === 0) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'You do not have the ' + itemName1 + '.');
+      chasm.publish(Events.OUTPUT_WRITELN, `You do not have the ${itemName1}.`);
       return;
     }
 
@@ -25,6 +25,6 @@ class DropCommand {
       return;
     }
 
-    chasm.publish(Events.OUTPUT_WRITELN, 'Which ' + itemName1 + ' did you mean?');
+    chasm.publish(Events.OUTPUT_WRITELN, `Which ${itemName1} did you mean?`);
   }
 }

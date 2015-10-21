@@ -13,7 +13,7 @@ class OpenCommand {
     foundItems = chasm.findItems(itemName1);
 
     if (foundItems.length === 0) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'You do not see the ' + itemName1 + ' here.');
+      chasm.publish(Events.OUTPUT_WRITELN, `You do not see the ${itemName1} here.`);
       return;
     }
 
@@ -21,30 +21,30 @@ class OpenCommand {
       let itemRef1 = foundItems[0];
       
       if (itemRef1.locked) {
-        chasm.publish(Events.OUTPUT_WRITELN, 'The ' + itemName1 + ' is locked.');
+        chasm.publish(Events.OUTPUT_WRITELN, `The ${itemName1} is locked.`);
         return;
       }
 
       if (!itemRef1.canBeOpened) {
-        chasm.publish(Events.OUTPUT_WRITELN, 'You cannot open the ' + itemName1 + '.');
+        chasm.publish(Events.OUTPUT_WRITELN, `You cannot open the ${itemName}.`);
         return;
       }
 
       if (itemRef1.opened) {
-        chasm.publish(Events.OUTPUT_WRITELN, 'The ' + itemName1 + ' is already open.');
+        chasm.publish(Events.OUTPUT_WRITELN, `The ${itemName1} is already open.`);
         return;
       }
 
       itemRef1.opened = true;
 
-      let output = 'Opened';
+      let output = `The ${itemRef1.title} is open`;
 
       if (itemRef1.openMessage) {
         output = itemRef1.openMessage;
       }
 
       if (itemRef1.canHoldItems && itemRef1.hasItems()) {
-        output += ', revealing ' + itemRef1.itemsToSentence();
+        output += `, revealing ${itemRef1.itemsToSentence()}`;
       }
 
       output += '.';
@@ -52,6 +52,6 @@ class OpenCommand {
       return;
     }
 
-    chasm.publish(Events.OUTPUT_WRITELN, 'Which ' + itemName1 + ' did you mean?');
+    chasm.publish(Events.OUTPUT_WRITELN, `Which ${itemName1} did you mean?`);
   }
 }

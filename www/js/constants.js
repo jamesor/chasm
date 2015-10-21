@@ -27,6 +27,7 @@ const Exits = Object.freeze({
 });
 
 const Events = Object.freeze({
+  GAME_START      : 'game/start',
   PLACE_CHANGED   : 'place/changed',
   PLAYER_SCORE    : 'player/score',
   PLAYER_SCORED   : 'player/scored',

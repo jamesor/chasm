@@ -13,7 +13,7 @@ class ExamineCommand {
     foundItems = chasm.findItems(itemName1);
 
     if (foundItems.length === 0) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'You do not see the ' + itemName1 + ' here.');
+      chasm.publish(Events.OUTPUT_WRITELN, `You do not see the ${itemName1} here.`);
       return;
     }
 
@@ -21,7 +21,7 @@ class ExamineCommand {
       itemRef1 = foundItems[0];
 
       if (!itemRef1.longDescription) {
-        chasm.publish(Events.OUTPUT_WRITELN, 'I see nothing special about the ' + itemName1 + '.');
+        chasm.publish(Events.OUTPUT_WRITELN, `I see nothing special about the ${itemName1}.`);
         return;
       }
 
@@ -29,6 +29,6 @@ class ExamineCommand {
       return;
     }
 
-    chasm.publish(Events.OUTPUT_WRITELN, 'Which ' + itemName1 + ' did you mean?');
+    chasm.publish(Events.OUTPUT_WRITELN, `Which ${itemName1} did you mean?`);
   }
 }

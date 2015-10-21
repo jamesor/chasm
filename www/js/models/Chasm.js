@@ -10,6 +10,7 @@ class Chasm extends BaseApp {
     this.initModels();
     this.initControllers();
     this.initCommands();
+    this.subscribe(Events.GAME_START, this.startGame, this);
   }
 
   score(key) {
@@ -154,7 +155,7 @@ class Chasm extends BaseApp {
     this.registerCommand('foo', FooCommand);
   }
 
-  initGame() {
+  startGame() {
     this.publish(Events.PLACE_CHANGED, this.place);
     this.publish(Events.OUTPUT_CLEAR);
     this.publish(Events.OUTPUT_WRITELN, this.place.describe());

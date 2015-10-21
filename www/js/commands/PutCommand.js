@@ -14,12 +14,12 @@ class PutCommand {
     foundItems1 = chasm.findItems(itemName1);
 
     if (foundItems1.length === 0) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'You do not see the ' + itemName1 + ' here.');
+      chasm.publish(Events.OUTPUT_WRITELN, `You do not see the ${itemName1} here.`);
       return;
     }
 
     if (foundItems1.length > 1) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'Which ' + itemName1 + ' did you mean?');
+      chasm.publish(Events.OUTPUT_WRITELN, `Which ${itemName1} did you mean?`);
       return;
     }
 
@@ -29,19 +29,19 @@ class PutCommand {
     }
 
     if (data.length < 4) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'What do you want to put the ' + itemName1 + ' in?');
+      chasm.publish(Events.OUTPUT_WRITELN, `What do you want to put the ${itemName1} in?`);
     }
 
     itemName2 = data[3];
     foundItems2 = chasm.findItems(itemName2);
 
     if (foundItems2.length === 0) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'You do not see the ' + itemName2 + ' here.');
+      chasm.publish(Events.OUTPUT_WRITELN, `You do not see the ${itemName2} here.`);
       return;
     }
 
     if (foundItems2.length > 1) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'Which ' + itemName2 + ' did you mean?');
+      chasm.publish(Events.OUTPUT_WRITELN, `Which ${itemName2} did you mean?`);
       return;
     }
 
@@ -54,22 +54,22 @@ class PutCommand {
     }
 
     if (!itemRef1.canBeTaken) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'You cannot take the ' + itemName1 + '.');
+      chasm.publish(Events.OUTPUT_WRITELN, `You cannot take the ${itemName1}.`);
       return;
     }
 
     if (!itemRef2.canHoldItems) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'That can\'t contain things.');
+      chasm.publish(Events.OUTPUT_WRITELN, `That can\'t contain things.`);
       return;
     }
 
     if (!itemRef2.opened) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'The ' + itemName2 + ' is closed.');
+      chasm.publish(Events.OUTPUT_WRITELN, `The ${itemName2} is closed.`);
       return;
     }
 
     chasm.getRef(itemRef1.location).removeItem(itemRef1.title);
     chasm.getRef(itemRef2.title).addItem(itemRef1);
-    chasm.publish(Events.OUTPUT_WRITELN, 'You put the ' + itemName1 + ' into the ' + itemName2 + '.');
+    chasm.publish(Events.OUTPUT_WRITELN, `You put the ${itemName1} into the ${itemName2}.`);
   }
 }

@@ -14,17 +14,17 @@ class UnlockCommand {
     foundItems1 = chasm.findItems(itemName1);
 
     if (foundItems1.length === 0) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'You do not see the ' + itemName1 + ' here.');
+      chasm.publish(Events.OUTPUT_WRITELN, `You do not see the ${itemName1} here.`);
       return;
     }
 
     if (foundItems1.length > 1) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'Which ' + itemName1 + ' did you mean?');
+      chasm.publish(Events.OUTPUT_WRITELN, `Which ${itemName1} did you mean?`);
       return;
     }
 
     if (data.length < 4) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'What do you want to unlock the ' + itemName1 + ' with?');
+      chasm.publish(Events.OUTPUT_WRITELN, `What do you want to unlock the ${itemName1} with?`);
       return;
     }
 
@@ -37,12 +37,12 @@ class UnlockCommand {
     foundItems2 = chasm.findItems(itemName2);
 
     if (foundItems2.length === 0) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'You do not see the ' + itemName2 + ' here.');
+      chasm.publish(Events.OUTPUT_WRITELN, `You do not see the ${itemName2} here.`);
       return;
     }
 
     if (foundItems2.length > 1) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'Which ' + itemName2 + ' did you mean?');
+      chasm.publish(Events.OUTPUT_WRITELN, `Which ${itemName2} did you mean?`);
       return;
     }
 
@@ -50,7 +50,7 @@ class UnlockCommand {
     itemRef2 = foundItems2[0];
 
     if (itemRef1.unlocksWith !== itemRef2.title) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'You can\'t unlock the ' + itemRef1.title + ' with the ' + itemRef2.title + '.');
+      chasm.publish(Events.OUTPUT_WRITELN, `You can\'t unlock the ${itemRef1.title} with the ${itemRef2.title}`);
       return;
     }
 
@@ -60,17 +60,17 @@ class UnlockCommand {
     }
 
     if (!itemRef1.canBeLocked) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'You cannot unlock the ' + itemRef1.title + '.');
+      chasm.publish(Events.OUTPUT_WRITELN, `You cannot unlock the ${itemRef1.title}`);
       return;
     }
 
     if (!itemRef1.locked) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'The ' + itemRef1.title + ' is already unlocked.');
+      chasm.publish(Events.OUTPUT_WRITELN, `The ${itemRef1.title} is already unlocked.`);
       return;
     }
 
     itemRef1.locked = false;
     chasm.publish(Events.OUTPUT_WRITELN, 'Unlocked.');
-    chasm.publish(Events.PLAYER_SCORE, data[0] + '/' + itemRef1.title);
+    chasm.publish(Events.PLAYER_SCORE, `${data[0]}/${itemRef1.title}`);
   }
 }

@@ -13,7 +13,7 @@ class CloseCommand {
     foundItems = chasm.findItems(itemName1);
 
     if (foundItems.length === 0) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'You do not see the ' + itemName1 + ' here.');
+      chasm.publish(Events.OUTPUT_WRITELN, `You do not see the ${itemName1} here.`);
       return;
     }
 
@@ -21,7 +21,7 @@ class CloseCommand {
       itemRef1 = foundItems[0];
 
       if (!itemRef1.canBeOpened) {
-        chasm.publish(Events.OUTPUT_WRITELN, 'You cannot close the ' + itemName1 + '.');
+        chasm.publish(Events.OUTPUT_WRITELN, `You cannot close the ${itemName1}.`);
         return;
       }
 
@@ -46,6 +46,6 @@ class CloseCommand {
       return;
     }
 
-    chasm.publish(Events.OUTPUT_WRITELN, 'Which ' + itemName1 + ' did you mean?');
+    chasm.publish(Events.OUTPUT_WRITELN, `Which ${itemName1} did you mean?`);
   }
 }
