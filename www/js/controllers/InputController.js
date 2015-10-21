@@ -3,19 +3,20 @@
 class InputController {
   constructor(eventBus) {
     this.eventBus = eventBus;
-    this.view = new InputView();
+    this.promptView = new TextView('prompt');
+    this.responseView = new TextView('response');
     eventBus.subscribe(Events.INPUT_WRITE, this.onWrite, this);
     eventBus.subscribe(Events.INPUT_CLEAR, this.onClear, this);
     eventBus.subscribe(Events.INPUT_PROMPT, this.onPrompt, this);
   }
-  onWrite(data) {
-    this.view.write(data);
+  onWrite(str) {
+    this.responseView.text = str;
   }
   onClear() {
-    this.view.clear();
+    this.responseView.text = '';
   }
-  onPrompt(data) {
-    this.view.writePrompt(data);
+  onPrompt(str) {
+    this.promptView.text = str;
   }
   destroy() {
     this.eventBus.unsubscribe(Events.INPUT_WRITE, this.onWrite, this);

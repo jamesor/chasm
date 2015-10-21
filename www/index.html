@@ -6,7 +6,9 @@
 </head>
 <body>
   <div id="screen">
-    <section id="banner"></section>
+    <section id="banner">
+      <span id="place"></span><span id="score"></span><span id="moves"></span>
+    </section>
     <section id="image"></section>
     <section id="output"></section>
     <section id="input">
@@ -40,10 +42,9 @@
   <script src="js/models/places/TrollArmoury.js"></script>
   <script src="js/models/places/TrollKitchen.js"></script>
 
-  <script src="js/views/BannerView.js"></script>
   <script src="js/views/ImageView.js"></script>
   <script src="js/views/OutputView.js"></script>
-  <script src="js/views/InputView.js"></script>
+  <script src="js/views/TextView.js"></script>
 
   <script src="js/controllers/inputDelegates/BasicInput.js"></script>
   <script src="js/controllers/inputDelegates/GameInput.js"></script>

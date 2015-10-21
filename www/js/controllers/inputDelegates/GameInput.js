@@ -9,13 +9,8 @@ class GameInput {
     eventBus.publish(Events.OUTPUT_WRITE, `>${input}<br>`);
     eventBus.publish(Events.INPUT_CLEAR);
 
-    if (input === '') {
-      eventBus.publish(Events.OUTPUT_WRITELN, 'I beg your pardon?');
-      return;
-    }
-
     var token;
-    for (var i=tokens.length-1; i>=0; i--) {
+    for (let i=tokens.length-1; i>=0; i--) {
       token = tokens[i];
       if (nArticles[token]) {
         tokens.splice(i, 1);
@@ -40,7 +35,7 @@ class GameInput {
       eventBus.publish(tokens[0], tokens);
       eventBus.publish(Events.PLAYER_MOVE);
     } else {
-      
+      eventBus.publish(Events.OUTPUT_WRITELN, 'I beg your pardon?');
     }
   }
 }
