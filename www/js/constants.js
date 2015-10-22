@@ -47,7 +47,7 @@ const nArticles = Object.freeze('a,an,the'.toDictionary());
 
 const nVocabulary = Object.freeze((
   /* dire */ 'north,n,south,s,east,e,west,w,up,u,down,d,walk,go,' + 
-  /* actn */ 'take,drop,open,close,attack,hit,look,l,inventory,i,put,examine,lock,unlock,foo,' +
+  /* actn */ 'take,drop,open,close,attack,hit,look,l,inventory,i,put,examine,lock,unlock,foo,look,' +
   /* char */ 'goblin,troll,' +
   /* adjs */ 'silver,wooden,shiny,broken,dull,metal,small,red,rusty,' + 
   /* item */ 'key,door,chest,sword,toolbox,shed,' +

@@ -1,7 +1,7 @@
 'use strict';
 
 class TextView {
-  constructor(id, len, val) {
+  constructor(id, val, len) {
     this.el = document.getElementById(id);
     this.len = len || 0;
     this.text = val || '';
@@ -11,6 +11,6 @@ class TextView {
     if (this.len) {
       html = html.sizeTo(this.len);
     }
-    this.el.innerHTML = html.replace(/\s/g, '&nbsp;');
+    this.el.innerHTML = html.replace(/ /g, '&nbsp;');
   }
 }
