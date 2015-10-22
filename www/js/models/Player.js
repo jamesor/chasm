@@ -18,7 +18,7 @@ class Player extends Entity {
 
     str = 'Your are carrying:<br>';
     this._items.forEach(function (item) {
-      str += '&nbsp;' + item.describe(true).capitalizeFirstLetter() + '<br>';
+      str += `&nbsp;${item.describe(true).capitalizeFirstLetter()}<br>`;
     });
     
     return str;

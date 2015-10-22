@@ -47,7 +47,8 @@ class KeyboardController {
   }
   
   onKeypress(e) {
-    if (this._inputBuffer.length < 39) {
+    const MAX_LINE_LENGTH = 39;
+    if (this._inputBuffer.length < MAX_LINE_LENGTH) {
       this._inputBuffer += String.fromCharCode(e.which);
       this.eventBus.publish(Events.INPUT_WRITE, this._inputBuffer);
     }

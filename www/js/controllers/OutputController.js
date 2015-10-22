@@ -8,11 +8,11 @@ class OutputController {
     eventBus.subscribe(Events.OUTPUT_WRITELN, this.onWriteLine, this);
     eventBus.subscribe(Events.OUTPUT_CLEAR, this.onClear, this);
   }
-  onWrite(data) {
-    this.view.write(data);
+  onWrite(str) {
+    this.view.write(str);
   }
-  onWriteLine(data) {
-    this.view.write('<p>'+data+'</p>');
+  onWriteLine(str) {
+    this.view.write(`<p>${str}</p>`);
   }
   onClear() {
     this.view.clear();

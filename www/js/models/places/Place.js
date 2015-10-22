@@ -13,16 +13,16 @@ class Place extends Entity {
   }
 
   get imageSrc() {
-    return 'images/'+this.title.toLowerCase().replace(/ /g,'-')+'.png';
+    return `images/${this.title.toLowerCase().replace(/ /g,'-')}.png`;
   }
 
   look() {
-    return '<strong>' + this.title + '</strong><br>' + this.description + '<br>' + this.itemsToList();
+    return `<strong>${this.title}</strong><br>${this.description}<br>${this.itemsToList()}`;
   }
 
   describe() {
     if (this.visited) {
-      return '<strong>' + this.title + '</strong><br>' + this.itemsToList();
+      return `<strong>${this.title}</strong><br>${this.itemsToList()}`;
     }
     this.visited = true;
     return this.look();
@@ -43,19 +43,4 @@ class Place extends Entity {
   getExit(direction) {
     return this._exits.get(direction);
   }
-
-/*
-  getPlace(direction) {
-    var exit = this._exits.get(direction);
-    if (!exit) {
-      return 'You cannot travel in that direction.';
-    } else if (!exit.opened) {
-      return exit.closedMessage;
-    } else if (exit.locked) {
-      return exit.lockedMessage;
-    } else {
-      return exit.getPlace(direction);
-    }
-  }
-*/
 }

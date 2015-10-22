@@ -11,7 +11,7 @@ class Entity {
   describe(withContents) {
     var str = this.description;
     if (withContents && this.hasItems()) {
-      str += ' with ' + this.itemsToSentence();
+      str += ` with ${this.itemsToSentence()}`;
     }
     return str;
   }
@@ -76,7 +76,7 @@ class Entity {
         str += (indent) ? '' : ' is here.';
         str += '<br>';
         if (item.canHoldItems && item.opened && item.hasItems()) {
-          str += indent + 'The ' + item.title + ' contains:<br>';
+          str += indent + `The ${item.title} contains:<br>`;
           str += buildString(item._items, indent + '&nbsp;');
         }
       });
@@ -91,9 +91,7 @@ class Entity {
     var str = '', ary = [], last;
 
     if (this._items.size > 0) {
-      this._items.forEach(function (item) {
-        ary.push(item.description);
-      });
+      this._items.forEach(item => ary.push(item.description));
       last = ary.pop();
       str = ((ary.length > 0) ? ary.join(', ') + ' and ' : '') + last;
     }
