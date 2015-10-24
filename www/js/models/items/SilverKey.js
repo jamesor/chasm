@@ -7,5 +7,9 @@ class SilverKey extends Item {
     this.commonTitle = 'key';
     this.canBeOpened = false;
     this.canHoldItems = false;
+
+    this.usage = {
+      'lock': [Items.WOODEN_CHEST]
+    };
   }
 }

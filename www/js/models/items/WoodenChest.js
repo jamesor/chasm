@@ -15,6 +15,5 @@ class WoodenChest extends Item {
 
     this.canBeLocked = true;
     this.locked = true;
-    this.unlocksWith = Items.SILVER_KEY;
   }
 }

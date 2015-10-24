@@ -30,3 +30,10 @@ Images have been created using the online service from [http://c64.superdefault.
 + `n`, `north`, `e`, `east`, `s`, `south`, `w`, `west`, `u`, `up`, `d` and `down` are commands you can use to travel from one location to another.
 + `i` or `inventory` will list the items you are currently carrying.
 + `l` or `look` will redisplay the description of the location you are currently in.
++ `look in` will let you see the contents of an item that may contain other items.
++ `look at` will give you a more detailed explaination of an item.
++ `examine` will work that same at `look at`.
++ `take` and `drop`
++ `put ... in` will let you put an item inside another item.
++ `lock ... with` and `unlock ... with`
++ `open` and `close`

@@ -10,6 +10,7 @@ class Place extends Entity {
 
   addExit(direction, place) {
     this._exits.set(direction, place);
+    return this;
   }
 
   get imageSrc() {

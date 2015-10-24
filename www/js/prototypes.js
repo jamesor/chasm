@@ -20,4 +20,6 @@ String.prototype.toDictionary = function() {
 
 // Shims
 
-Object.values = obj => Object.keys(obj).map(key => obj[key]);
+if (typeof Object.values === 'undefined') {
+  Object.values = obj => Object.keys(obj).map(key => obj[key]);
+}

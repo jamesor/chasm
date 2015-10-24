@@ -62,6 +62,8 @@ class Chasm extends BaseApp {
     this.addRef(new WoodenChest());
     this.addRef(new SilverKey());
     this.addRef(new Toolbox());
+    this.addRef(new Rope());
+    this.addRef(new MapleTree());
 
     // Exits
 
@@ -98,9 +100,18 @@ class Chasm extends BaseApp {
 
     // Stash item objects in places
 
-    this.getRef(Places.FOREST_CLEARING).addItem( this.getRef(Items.WOODEN_CHEST) );
-    this.getRef(Places.SHED).addItem( this.getRef(Items.TOOLBOX) );
-    this.getRef(Items.TOOLBOX).addItem( this.getRef(Items.SILVER_KEY) );
+    this.getRef(Places.FOREST_CLEARING)
+        .addItem(this.getRef(Items.SILVER_KEY))
+        .addItem(this.getRef(Items.WOODEN_CHEST))
+        .addItem(this.getRef(Items.ROPE));
+
+    this.getRef(Places.SHED)
+        .addItem(this.getRef(Items.TOOLBOX));
+
+    this.getRef(Places.CHASM_ENTRANCE)
+        .addItem(this.getRef(Items.MAPLE_TREE));
+
+    this.getRef(Items.TOOLBOX)
 
     // Starting Position
 

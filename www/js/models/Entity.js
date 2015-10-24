@@ -17,18 +17,16 @@ class Entity {
   }
   
   addItem(item) {
-    if (!this.canHoldItems) {
-      return false;
-    }
-    if (item) {
+    if (this.canHoldItems && item) {
       item.location = this.title; // weak ref to this inventory for removal
       this._items.set(item.title, item);
-      return true;
     }
+    return this;
   }
   
   removeItem(itemName) {
     this._items.delete(itemName);
+    return this;
   }
   
   hasItem(itemName) {
@@ -72,12 +70,14 @@ class Entity {
       }
 
       list.forEach(function (item) {
-        str += indent + item.description.capitalizeFirstLetter();
-        str += (indent) ? '' : ' is here.';
-        str += '<br>';
-        if (item.canHoldItems && item.opened && item.hasItems()) {
-          str += indent + `The ${item.title} contains:<br>`;
-          str += buildString(item._items, indent + '&nbsp;');
+        if (!item.hideFromList) {
+          str += indent + item.description.capitalizeFirstLetter();
+          str += (indent) ? '' : ' is here.';
+          str += '<br>';
+          if (item.canHoldItems && item.opened && item.hasItems()) {
+            str += indent + `The ${item.title} contains:<br>`;
+            str += buildString(item._items, indent + '&nbsp;');
+          }
         }
       });
 
@@ -97,5 +97,9 @@ class Entity {
     }
 
     return str;
+  }
+
+  itemsToArray() {
+    return this._items.values();
   }
 }
