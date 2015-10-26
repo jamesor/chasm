@@ -6,20 +6,10 @@ class Chasm extends BaseApp {
     this.refs = new Map();
     this.items = new Map();
     this.player = new Player(this);
-    this._points = new Map();
     this.initModels();
     this.initControllers();
     this.initCommands();
     this.subscribe(Events.GAME_START, this.startGame, this);
-  }
-
-  score(key) {
-    var points = this._points.get(key);
-    if (points) {
-      this.player.score += points;
-      this.publish(Events.PLAYER_SCORED, this.player.score);
-      this._points.delete(key);
-    }
   }
 
   getRef(key) {
@@ -47,11 +37,6 @@ class Chasm extends BaseApp {
   // Models
  
   initModels() {
-
-    // Set Points
-
-    this._points.set(`unlock/${Items.WOODEN_CHEST}/${Items.SILVER_KEY}`, 10);
-    this._points.set(`tie/${Items.ROPE}/${Items.MAPLE_TREE}`, 5);
 
     // Places
 

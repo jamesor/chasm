@@ -71,6 +71,6 @@ class UnlockCommand {
 
     itemRef1.locked = false;
     chasm.publish(Events.OUTPUT_WRITELN, 'Unlocked.');
-    chasm.publish(Events.PLAYER_SCORE, `${data[0]}/${itemRef1.title}`);
+    chasm.publish(Events.PLAYER_SCORE, `${data[0]}/${itemRef1.title}/${itemRef2.title}`);
   }
 }

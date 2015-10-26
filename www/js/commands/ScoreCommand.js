@@ -2,6 +2,6 @@
 
 class ScoreCommand {
   execute(data) {
-    chasm.score(data);
+    chasm.player.scorePoints(data);
   }
 }
