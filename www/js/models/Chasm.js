@@ -35,7 +35,7 @@ class Chasm extends BaseApp {
   }
 
   // Models
- 
+
   initModels() {
 
     // Places
@@ -58,32 +58,32 @@ class Chasm extends BaseApp {
 
     // Exits
 
-    this.addRef(new DooredExit(Exits.SHED_DOOR, 
+    this.addRef(new DooredExit(Exits.SHED_DOOR,
                 [
                   ['n', this.getRef(Places.SHED)],
                   ['s', this.getRef(Places.FOREST_CLEARING)]
                 ]));
-    this.addRef(new Exit(Exits.FOREST2CHASM, 
+    this.addRef(new Exit(Exits.FOREST2CHASM,
                 [
                   ['e', this.getRef(Places.CHASM_ENTRANCE)],
                   ['w', this.getRef(Places.FOREST_CLEARING)]
                 ]));
-    this.addRef(new Exit(Exits.PASSGE2TROLLRM, 
+    this.addRef(new Exit(Exits.PASSGE2TROLLRM,
                 [
                   ['d', this.getRef(Places.TROLL_ROOM)],
                   ['u', this.getRef(Places.NARROW_PASSAGE)]
                 ]));
-    this.addRef(new DooredExit(Exits.METAL_DOOR, 
+    this.addRef(new DooredExit(Exits.METAL_DOOR,
                 [
                   ['n', this.getRef(Places.TROLL_ROOM)],
                   ['s', this.getRef(Places.TROLL_ARMOURY)]
                 ]));
-    this.addRef(new DooredExit(Exits.WOODEN_DOOR, 
+    this.addRef(new DooredExit(Exits.WOODEN_DOOR,
                 [
                   ['e', this.getRef(Places.TROLL_ROOM)],
                   ['w', this.getRef(Places.TROLL_KITCHEN)]
                 ]));
-    this.addRef(new Exit(Exits.CHASM2PASSGE, 
+    this.addRef(new Exit(Exits.CHASM2PASSGE,
                 [
                   ['d', this.getRef(Places.NARROW_PASSAGE)],
                   ['u', this.getRef(Places.CHASM_ENTRANCE)]
@@ -110,7 +110,7 @@ class Chasm extends BaseApp {
   }
 
   // Controllers
-  
+
   initControllers() {
     this.controllers = [
       new BannerController(this),

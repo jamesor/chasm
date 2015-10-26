@@ -1,75 +1,63 @@
 'use strict';
 
 class PutCommand {
+  parseInput(data, prepList) {
+    var verb  = data[0];
+    var noun1 = (data[1]) ? ItemsProxy.findAll(data[1]) : null;
+    var prep  = (data[2] && prepList.includes(data[2])) ? data[2] : null;
+    var noun2 = (data[3]) ? ItemsProxy.findAll(data[3]) : null;
+    return {verb, noun1, prep, noun2};
+  }
+
   execute(data) {
-    var itemName1, itemRef1, foundItems1;
-    var itemName2, itemRef2, foundItems2;
+    var input = this.parseInput(data, 'in,into,on');
+    var output;
+    var target;
 
-    if (data.length === 1) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'What do you want to put?');
-      return;
+    if (!input.noun1) {
+      output = 'What do you want to put?';
+    }
+    else if (!input.noun1.item) {
+      output = input.noun1.output;
+    }
+    else if (input.prep || input.noun2) {
+      if (!input.prep) {
+        output = `I don't understand that sentence.`;
+      }
+      else if (!input.noun2) {
+        output = `What do you want to put the ${input.noun1.term} ${input.prep}?`;
+      }
+      else if (!input.noun2.item) {
+        output = input.noun2.output;
+      }
+      else if (input.noun1.item === input.noun2.item) {
+        output = 'I should recurse infinitely to teach you a lesson, but...';
+      }
+      else if (!input.noun1.item.canBeTaken) {
+        output = `You cannot take the ${input.noun1.term}.`;
+      }
+      else if (!input.noun2.item.canHoldItems) {
+        output = `That can't contain things.`;
+      }
+      else if (!input.noun2.item.opened) {
+        output = `The ${input.noun1.term} is closed.`;
+      }
+      else {
+        target = input.noun2.item;
+        output = `You put the ${input.noun1.term} into the ${input.noun2.term}.`;
+      }
+    }
+    else {
+      target = chasm.place;
+      output = `You put the ${input.noun1.term} down.`;
     }
 
-    itemName1 = data[1];
-    foundItems1 = chasm.findItems(itemName1);
-
-    if (foundItems1.length === 0) {
-      chasm.publish(Events.OUTPUT_WRITELN, `You do not see the ${itemName1} here.`);
-      return;
+    if (target) {
+      let parent = chasm.getRef(input.noun1.item.parent);
+      parent.removeItem(input.noun1.item.title);
+      target.addItem(input.noun1.item);
     }
 
-    if (foundItems1.length > 1) {
-      chasm.publish(Events.OUTPUT_WRITELN, `Which ${itemName1} did you mean?`);
-      return;
-    }
-
-    if ('in,into'.indexOf(data[2]) === -1) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'I don\'t understand that sentence.');
-      return;
-    }
-
-    if (data.length < 4) {
-      chasm.publish(Events.OUTPUT_WRITELN, `What do you want to put the ${itemName1} in?`);
-    }
-
-    itemName2 = data[3];
-    foundItems2 = chasm.findItems(itemName2);
-
-    if (foundItems2.length === 0) {
-      chasm.publish(Events.OUTPUT_WRITELN, `You do not see the ${itemName2} here.`);
-      return;
-    }
-
-    if (foundItems2.length > 1) {
-      chasm.publish(Events.OUTPUT_WRITELN, `Which ${itemName2} did you mean?`);
-      return;
-    }
-
-    itemRef1 = foundItems1[0];
-    itemRef2 = foundItems2[0];
-
-    if (itemRef1 === itemRef2) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'I should recurse infinitely to teach you a lesson, but...');
-      return;
-    }
-
-    if (!itemRef1.canBeTaken) {
-      chasm.publish(Events.OUTPUT_WRITELN, `You cannot take the ${itemName1}.`);
-      return;
-    }
-
-    if (!itemRef2.canHoldItems) {
-      chasm.publish(Events.OUTPUT_WRITELN, `That can\'t contain things.`);
-      return;
-    }
-
-    if (!itemRef2.opened) {
-      chasm.publish(Events.OUTPUT_WRITELN, `The ${itemName2} is closed.`);
-      return;
-    }
-
-    chasm.getRef(itemRef1.parent).removeItem(itemRef1.title);
-    chasm.getRef(itemRef2.title).addItem(itemRef1);
-    chasm.publish(Events.OUTPUT_WRITELN, `You put the ${itemName1} into the ${itemName2}.`);
+    chasm.publish(Events.OUTPUT_WRITELN, output);
   }
 }
