@@ -19,4 +19,15 @@ class Item extends Entity {
     }
     return false;
   }
-}
+
+  alterDescription(str) {
+    this.tmpDescription = this.longDescription;
+    this.longDescription = str;
+  }
+
+  restoreDescription() {
+    if (this.tmpDescription) {
+      this.longDescription = this.tmpDescription;
+    }
+  }
+ }

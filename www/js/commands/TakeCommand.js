@@ -37,7 +37,7 @@ class TakeCommand {
         return;
       }
 
-      chasm.getRef(itemRef1.location).removeItem(itemRef1.title);
+      chasm.getRef(itemRef1.parent).removeItem(itemRef1.title);
       chasm.player.addItem(itemRef1);
       chasm.publish(Events.OUTPUT_WRITELN, 'Taken.');
       return;

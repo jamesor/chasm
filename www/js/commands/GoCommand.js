@@ -17,7 +17,10 @@ class GoCommand {
     if (direction) {
       exit = chasm.place.getExit(direction);
       if (exit) {
-        if (exit.opened) {
+        if (exit.blocked) {
+          output = 'You can\'t go that way... yet.';
+        }
+        else if (exit.opened) {
           if (!exit.locked) {
             let place = exit.getPlace(direction);
             if (place) {

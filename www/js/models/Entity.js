@@ -18,7 +18,7 @@ class Entity {
   
   addItem(item) {
     if (this.canHoldItems && item) {
-      item.location = this.title; // weak ref to this inventory for removal
+      item.parent = this.title; // weak ref to this inventory for removal
       this._items.set(item.title, item);
     }
     return this;

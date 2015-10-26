@@ -19,7 +19,7 @@ class DropCommand {
 
     if (foundItems.length === 1) {
       let itemRef1 = foundItems[0];
-      chasm.getRef(itemRef1.location).removeItem(itemRef1.title);
+      chasm.getRef(itemRef1.parent).removeItem(itemRef1.title);
       chasm.place.addItem(itemRef1);
       chasm.publish(Events.OUTPUT_WRITELN, 'Dropped.');
       return;

@@ -37,6 +37,11 @@ class Chasm extends BaseApp {
 
   addRef(object) {
     this.refs.set(object.title, object);
+    return object;
+  }
+
+  removeRef(title) {
+    this.refs.delete(title);
   }
 
   // Models
@@ -45,7 +50,8 @@ class Chasm extends BaseApp {
 
     // Set Points
 
-    this._points.set('unlock/' + Items.WOODEN_CHEST, 10);
+    this._points.set(`unlock/${Items.WOODEN_CHEST}/${Items.SILVER_KEY}`, 10);
+    this._points.set(`tie/${Items.ROPE}/${Items.MAPLE_TREE}`, 5);
 
     // Places
 
@@ -72,17 +78,12 @@ class Chasm extends BaseApp {
                   ['n', this.getRef(Places.SHED)],
                   ['s', this.getRef(Places.FOREST_CLEARING)]
                 ]));
-    this.addRef(new Exit(Exits.DEFAULT, 
+    this.addRef(new Exit(Exits.FOREST2CHASM, 
                 [
                   ['e', this.getRef(Places.CHASM_ENTRANCE)],
                   ['w', this.getRef(Places.FOREST_CLEARING)]
                 ]));
-    this.addRef(new Exit(Exits.DEFAULT, 
-                [
-                  ['d', this.getRef(Places.NARROW_PASSAGE)],
-                  ['u', this.getRef(Places.CHASM_ENTRANCE)]
-                ]));
-    this.addRef(new Exit(Exits.DEFAULT, 
+    this.addRef(new Exit(Exits.PASSGE2TROLLRM, 
                 [
                   ['d', this.getRef(Places.TROLL_ROOM)],
                   ['u', this.getRef(Places.NARROW_PASSAGE)]
@@ -97,6 +98,11 @@ class Chasm extends BaseApp {
                   ['e', this.getRef(Places.TROLL_ROOM)],
                   ['w', this.getRef(Places.TROLL_KITCHEN)]
                 ]));
+    this.addRef(new Exit(Exits.CHASM2PASSGE, 
+                [
+                  ['d', this.getRef(Places.NARROW_PASSAGE)],
+                  ['u', this.getRef(Places.CHASM_ENTRANCE)]
+                ])).blocked = true;
 
     // Stash item objects in places
 
@@ -111,7 +117,7 @@ class Chasm extends BaseApp {
     this.getRef(Places.CHASM_ENTRANCE)
         .addItem(this.getRef(Items.MAPLE_TREE));
 
-    this.getRef(Items.TOOLBOX)
+    this.getRef(Items.TOOLBOX);
 
     // Starting Position
 
@@ -164,6 +170,11 @@ class Chasm extends BaseApp {
     this.registerCommand('unlock', UnlockCommand);
     this.registerCommand('lock', LockCommand);
     this.registerCommand('foo', FooCommand);
+    this.registerCommand('tie', TieCommand);
+    this.registerCommand('untie', UntieCommand);
+
+    this.registerCommand(`tie/${Items.ROPE}/${Items.MAPLE_TREE}`, TieRopeToMapleTreeCommand);
+    this.registerCommand(`untie/${Items.ROPE}/${Items.MAPLE_TREE}`, UntieRopeFromMapleTreeCommand);
   }
 
   startGame() {

@@ -5,6 +5,7 @@ class Exit {
     this.title = title;
     this._places = new Map(places);
     this.opened = true;
+    this.blocked = false;
 
     // create back links
     places[0][1].addExit(places[1][0], this);

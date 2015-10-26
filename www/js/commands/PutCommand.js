@@ -68,7 +68,7 @@ class PutCommand {
       return;
     }
 
-    chasm.getRef(itemRef1.location).removeItem(itemRef1.title);
+    chasm.getRef(itemRef1.parent).removeItem(itemRef1.title);
     chasm.getRef(itemRef2.title).addItem(itemRef1);
     chasm.publish(Events.OUTPUT_WRITELN, `You put the ${itemName1} into the ${itemName2}.`);
   }
