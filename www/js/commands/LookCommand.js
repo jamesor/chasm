@@ -2,49 +2,36 @@
 
 class LookCommand {
   execute(data) {
-    var itemName1, foundItems;
+    var prep = data[1];
+    var noun = data[2];
+    var output;
 
     if (data.length === 1) {
-      chasm.publish(Events.OUTPUT_WRITELN, chasm.place.look());
-      return;
+      output = chasm.place.look();
     }
-
-    if (data[1] === 'at') {
-      if (data.length !== 3) {
-        chasm.publish(Events.OUTPUT_WRITELN, 'What do you want to look at?');
-      }
-      else {
-        chasm.publish('examine', ['examine', data[2]]);
-      }
-      return;
-    }
-
-    if (data[1] === 'in') {
-      if (data.length !== 3) {
-        chasm.publish(Events.OUTPUT_WRITELN, 'What do you want to look in?');
+    else if (prep === 'at') {
+      let result = ItemsProxy.findAll(noun);
+      if (result.item) {
+        chasm.publish('examine', ['examine', result.term]);
         return;
       }
+      else {
+        output = result.output;
+      }
     }
-
-    if (data.length !== 3) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'I don\'t understand that sentence.');
-      return;
-    }
-
-    itemName1 = data[2];
-    foundItems = chasm.findItems(itemName1);
-
-    if (foundItems.length === 1) {
-      let itemRef1 = foundItems[0];
-      if (itemRef1.opened) {
-        chasm.publish(Events.OUTPUT_WRITELN, itemRef1.itemsToList());
+    else if (prep === 'in') {
+      let result = ItemsProxy.findAll(noun);
+      if (result.item) {
+        output = result.item.lookInside();
       }
       else {
-        chasm.publish(Events.OUTPUT_WRITELN, `The ${itemRef1.title} isn\'t open.`);
+        output = result.output;
       }
-      return;
+    }
+    else {
+      output = 'I don\'t understand that sentence.';
     }
 
-    chasm.publish(Events.OUTPUT_WRITELN, `Which ${itemName1} did you mean?`);
+    chasm.publish(Events.OUTPUT_WRITELN, output);
   }
 }

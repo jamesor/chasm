@@ -30,4 +30,16 @@ class Item extends Entity {
       this.longDescription = this.tmpDescription;
     }
   }
+  
+  lookInside() {
+    if (!this.canHoldItems) {
+      return `The ${this.title} can't contain other objects.`;
+    }
+    else if (!this.opened) {
+      return `The ${this.title} is closed.`;
+    }
+    else {
+      return this.itemsToList();
+    }
+  }
  }

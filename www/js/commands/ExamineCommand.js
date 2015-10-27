@@ -2,33 +2,26 @@
 
 class ExamineCommand {
   execute(data) {
-    var itemName1, itemRef1, foundItems;
+    var input, output;
 
-    if (data.length === 1) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'What do you want to examine?');
-      return;
+    input = InputUtils.parse(data);
+
+    if (!input.noun1) {
+      output = 'What do you want to ${input.verb}?';
+    }
+    else if (!input.noun1.item) {
+      output = input.noun1.output;
+    }
+    else if (!input.noun1) {
+      output = `You do not see the ${input.noun1.term} here.`;
+    }
+    else if (!input.noun1.item.longDescription) {
+      output = `You see nothing special about the ${input.noun1.term}.`;
+    }
+    else {
+      output = input.noun1.item.longDescription;
     }
 
-    itemName1 = data[1];
-    foundItems = chasm.findItems(itemName1);
-
-    if (foundItems.length === 0) {
-      chasm.publish(Events.OUTPUT_WRITELN, `You do not see the ${itemName1} here.`);
-      return;
-    }
-
-    if (foundItems.length === 1) {
-      itemRef1 = foundItems[0];
-
-      if (!itemRef1.longDescription) {
-        chasm.publish(Events.OUTPUT_WRITELN, `I see nothing special about the ${itemName1}.`);
-        return;
-      }
-
-      chasm.publish(Events.OUTPUT_WRITELN, itemRef1.longDescription);
-      return;
-    }
-
-    chasm.publish(Events.OUTPUT_WRITELN, `Which ${itemName1} did you mean?`);
+    chasm.publish(Events.OUTPUT_WRITELN, output);
   }
 }

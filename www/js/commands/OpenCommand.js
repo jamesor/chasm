@@ -2,7 +2,7 @@
 
 class OpenCommand {
   execute(data) {
-    var input, output, target;
+    var input, output;
 
     input = InputUtils.parse(data);
 
