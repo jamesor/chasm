@@ -2,47 +2,39 @@
 
 class TakeCommand {
   execute(data) {
-    var itemName1, itemRef1, foundItems;
+    var input, output, target;
 
-    if (data.length === 1) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'What do you want to take?');
-      return;
+    input = InputUtils.parse(data, 'in,into,on');
+
+    if (!input.noun1) {
+      output = 'What do you want to ${input.verb}?';
+    }
+    else if (!input.noun1.item) {
+      output = input.noun1.output;
+    }
+    else if (!input.noun1) {
+      output = `You do not see the ${input.noun1.term} here.`;
+    }
+    else if (!input.noun1.item.canBeTaken) {
+      let resp = [
+        'A valiant attempt.',
+        'You can\'t be serious.',
+        'What a concept!',
+        'Not likely.',
+        'An interesting idea...'
+      ];
+      output = resp[MathUtils.getRandomInt(0,resp.length)];
+    }
+    else if (chasm.player.hasItem(input.noun1.item.title)) {
+      output = `You already have the ${input.noun1.item.title}.`;
+    }
+    else {
+      let parent = chasm.getRef(input.noun1.item.parent);
+      parent.removeItem(input.noun1.item.title);
+      chasm.player.addItem(input.noun1.item);
+      output = `${input.noun1.item.title.capitalizeFirstLetter()} taken.`;
     }
 
-    itemName1 = data[1];
-    foundItems = chasm.findItems(itemName1);
-
-    if (foundItems.length === 0) {
-      chasm.publish(Events.OUTPUT_WRITELN, `You do not see the ${itemName1} here.`);
-      return;
-    }
-
-    if (foundItems.length === 1) {
-      itemRef1 = foundItems[0];
-
-      if (!itemRef1.canBeTaken) {
-        let resp = [
-          'A valiant attempt.',
-          'You can\'t be serious.',
-          'What a concept!',
-          'Not likely.',
-          'An interesting idea...'
-        ];
-        chasm.publish(Events.OUTPUT_WRITELN, resp[MathUtils.getRandomInt(0,resp.length)]);
-        return;
-      }
-
-      if (chasm.player.hasItem(itemName1)) {
-        chasm.publish(Events.OUTPUT_WRITELN, `You already have the ${itemName1}.`);
-        return;
-      }
-
-      chasm.getRef(itemRef1.parent).removeItem(itemRef1.title);
-      chasm.player.addItem(itemRef1);
-      chasm.publish(Events.OUTPUT_WRITELN, 'Taken.');
-      return;
-    }
-
-    chasm.publish(Events.OUTPUT_WRITELN, `Which ${itemName1} did you mean?`);
+    chasm.publish(Events.OUTPUT_WRITELN, output);
   }
 }

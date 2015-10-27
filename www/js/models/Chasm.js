@@ -128,7 +128,8 @@ class Chasm extends BaseApp {
     this.registerCommand(Events.PLAYER_MOVE, MoveCommand);
 
     this.registerCommand('take', TakeCommand);
-    this.registerCommand('drop', DropCommand);
+    this.registerCommand('drop', PutCommand);
+    this.registerCommand('put', PutCommand);
     this.registerCommand('north', GoCommand);
     this.registerCommand('n', GoCommand);
     this.registerCommand('south', GoCommand);
@@ -150,10 +151,9 @@ class Chasm extends BaseApp {
     // this.registerCommand('use', UseCommand);
     this.registerCommand('open', OpenCommand);
     this.registerCommand('close', CloseCommand);
-    this.registerCommand('put', PutCommand);
     this.registerCommand('examine', ExamineCommand);
-    this.registerCommand('unlock', UnlockCommand);
-    this.registerCommand('lock', LockCommand);
+    this.registerCommand('unlock', LockUnlockCommand);
+    this.registerCommand('lock', LockUnlockCommand);
     this.registerCommand('foo', FooCommand);
     this.registerCommand('tie', TieCommand);
     this.registerCommand('untie', UntieCommand);

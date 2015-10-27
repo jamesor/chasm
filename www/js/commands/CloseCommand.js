@@ -2,50 +2,45 @@
 
 class CloseCommand {
   execute(data) {
-    var itemName1, itemRef1, foundItems;
+    var input, output, target;
 
-    if (data.length === 1) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'What do you want to close?');
-      return;
+    input = InputUtils.parse(data);
+
+    if (!input.noun1) {
+      output = 'What do you want to ${input.verb}?';
     }
-
-    itemName1 = data[1];
-    foundItems = chasm.findItems(itemName1);
-
-    if (foundItems.length === 0) {
-      chasm.publish(Events.OUTPUT_WRITELN, `You do not see the ${itemName1} here.`);
-      return;
+    else if (!input.noun1.item) {
+      output = input.noun1.output;
     }
+    else if (!input.noun1) {
+      output = `You do not see the ${input.noun1.term} here.`;
+    }
+    else if (input.noun1.item.locked) {
+      output = `The ${input.noun1.term} is locked.`;
+    }
+    else if (!input.noun1.item.canBeOpened) {
+      output = `You cannot ${input.verb} the ${input.noun1.term}.`;
+    }
+    else if (!input.noun1.item.opened) {
+      let resp = [
+        'I think you\'ve already done that.',
+        'You think it isn\'t?',
+        'Look around.'
+      ];
+      output = resp[MathUtils.getRandomInt(0,resp.length)];
+    }
+    else {
+      input.noun1.item.opened = false;
 
-    if (foundItems.length === 1) {
-      itemRef1 = foundItems[0];
+      output = `You closed the ${input.noun1.item.title}`;
 
-      if (!itemRef1.canBeOpened) {
-        chasm.publish(Events.OUTPUT_WRITELN, `You cannot close the ${itemName1}.`);
-        return;
+      if (input.noun1.item.closeMessage) {
+        output = input.noun1.item.closeMessage;
       }
 
-      if (!itemRef1.opened) {
-        let resp = [
-          'I think you\'ve already done that.',
-          'You think it isn\'t?',
-          'Look around.'
-        ]
-        chasm.publish(Events.OUTPUT_WRITELN, resp[MathUtils.getRandomInt(0,resp.length)]);
-        return;
-      }
-
-      itemRef1.opened = false;
-      let output = 'Closed.';
-
-      if (itemRef1.openMessage) {
-        output = itemRef1.closeMessage;
-      }
-
-      chasm.publish(Events.OUTPUT_WRITELN, output);
-      return;
+      output += '.';
     }
 
-    chasm.publish(Events.OUTPUT_WRITELN, `Which ${itemName1} did you mean?`);
+    chasm.publish(Events.OUTPUT_WRITELN, output);
   }
 }

@@ -2,56 +2,44 @@
 
 class OpenCommand {
   execute(data) {
-    var itemName1, foundItems;
+    var input, output, target;
 
-    if (data.length === 1) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'What do you wish to open?');
-      return;
+    input = InputUtils.parse(data);
+
+    if (!input.noun1) {
+      output = 'What do you want to ${input.verb}?';
     }
-
-    itemName1 = data[1];
-    foundItems = chasm.findItems(itemName1);
-
-    if (foundItems.length === 0) {
-      chasm.publish(Events.OUTPUT_WRITELN, `You do not see the ${itemName1} here.`);
-      return;
+    else if (!input.noun1.item) {
+      output = input.noun1.output;
     }
+    else if (!input.noun1) {
+      output = `You do not see the ${input.noun1.term} here.`;
+    }
+    else if (input.noun1.item.locked) {
+      output = `The ${input.noun1.term} is locked.`;
+    }
+    else if (!input.noun1.item.canBeOpened) {
+      output = `You cannot ${input.verb} the ${input.noun1.term}.`;
+    }
+    else if (input.noun1.item.opened) {
+      output = `The ${input.noun1.term} is already open.`;
+    }
+    else {
+      input.noun1.item.opened = true;
 
-    if (foundItems.length === 1) {
-      let itemRef1 = foundItems[0];
-      
-      if (itemRef1.locked) {
-        chasm.publish(Events.OUTPUT_WRITELN, `The ${itemName1} is locked.`);
-        return;
+      output = `You opened the ${input.noun1.item.title}`;
+
+      if (input.noun1.item.openMessage) {
+        output = input.noun1.item.openMessage;
       }
 
-      if (!itemRef1.canBeOpened) {
-        chasm.publish(Events.OUTPUT_WRITELN, `You cannot open the ${itemName}.`);
-        return;
-      }
-
-      if (itemRef1.opened) {
-        chasm.publish(Events.OUTPUT_WRITELN, `The ${itemName1} is already open.`);
-        return;
-      }
-
-      itemRef1.opened = true;
-
-      let output = `The ${itemRef1.title} is open`;
-
-      if (itemRef1.openMessage) {
-        output = itemRef1.openMessage;
-      }
-
-      if (itemRef1.canHoldItems && itemRef1.hasItems()) {
-        output += `, revealing ${itemRef1.itemsToSentence()}`;
+      if (input.noun1.item.canHoldItems && input.noun1.item.hasItems()) {
+        output += `, revealing ${input.noun1.item.itemsToSentence()}`;
       }
 
       output += '.';
-      chasm.publish(Events.OUTPUT_WRITELN, output);
-      return;
     }
 
-    chasm.publish(Events.OUTPUT_WRITELN, `Which ${itemName1} did you mean?`);
+    chasm.publish(Events.OUTPUT_WRITELN, output);
   }
 }
