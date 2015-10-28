@@ -6,18 +6,17 @@ class Item extends Entity {
     this.canBeTaken = true;
     this.canBeOpened = false;
     this.opened = false;
-    this.usage = {};
+    this.usage = new Map();
   }
 
-  canUseWith(verb, itemName) {
-    if (this.usage[verb]) {
-      for (let item of this.usage[verb]) {
-        if (item === itemName) {
-          return true;
-        }
-      }
+  canDo(key) {
+    return this.usage.has(key);
+  }
+
+  canDoWith(key, value) {
+    if (this.canDo(key)) {
+      return (this.usage.get(key).indexOf(value) !== -1);
     }
-    return false;
   }
 
   alterDescription(str) {

@@ -8,8 +8,6 @@ class SilverKey extends Item {
     this.canBeOpened = false;
     this.canHoldItems = false;
 
-    this.usage = {
-      'lock': [Items.WOODEN_CHEST]
-    };
+    this.usage.set('lock', [Items.WOODEN_CHEST]);
   }
 }

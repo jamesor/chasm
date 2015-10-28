@@ -55,7 +55,7 @@ const nVocabulary = Object.freeze((
   /* char */ 'goblin,troll,' +
   /* adjs */ 'silver,wooden,shiny,broken,dull,metal,small,red,rusty,maple,' + 
   /* item */ 'key,door,chest,sword,toolbox,shed,rope,tree,' +
-  /* prep */ 'at,with,in,into,to,from'
+  /* prep */ 'at,with,in,into,to,from,around'
   ).toDictionary());
 
 const nItems = Object.freeze(([...Object.values(Items), ...Object.values(Exits), ...Object.values(Places)]).toDictionary());

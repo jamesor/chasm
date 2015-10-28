@@ -29,7 +29,7 @@ class LockUnlockCommand {
     else if (!input.noun2.item.canBeTaken) {
       output = `You cannot take the ${input.noun2.term}.`;
     }
-    else if (!input.noun2.item.canUseWith(TERM, input.noun1.item.title)) {
+    else if (!input.noun2.item.canDoWith(TERM, input.noun1.item.title)) {
       output = `You can't ${input.verb} the ${input.noun1.term} with the ${input.noun2.term}`;
     }
     else if (!input.noun1.item.canBeLocked) {

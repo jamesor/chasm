@@ -33,7 +33,7 @@ class Place extends Entity {
     var foundList = super.findItems(itemName);
 
     this._exits.forEach(function (exit) {
-      if (exit.canBeOpened && (exit.title === itemName || exit.commonTitle === itemName)) {
+      if (typeof exit.open !== 'undefined' && (exit.title === itemName || exit.commonTitle === itemName)) {
         foundList.push(exit);
       }
     });

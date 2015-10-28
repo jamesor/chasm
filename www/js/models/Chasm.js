@@ -149,8 +149,8 @@ class Chasm extends BaseApp {
     this.registerCommand('inventory', InventoryCommand);
     this.registerCommand('i', InventoryCommand);
     // this.registerCommand('use', UseCommand);
-    this.registerCommand('open', OpenCommand);
-    this.registerCommand('close', CloseCommand);
+    this.registerCommand('open', CloseOpenCommand);
+    this.registerCommand('close', CloseOpenCommand);
     this.registerCommand('examine', ExamineCommand);
     this.registerCommand('unlock', LockUnlockCommand);
     this.registerCommand('lock', LockUnlockCommand);

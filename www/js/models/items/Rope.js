@@ -4,13 +4,9 @@ class Rope extends Item {
   constructor() {
     super(Items.ROPE, 'rope');
     this.longDescription = 'A long and thick length of woven cabled rope, capable of supporting significant weight.';
-
-    this.canBeTied = true;
     this.tiedTo = null;
-
-    this.usage = {
-      'tie': [Items.MAPLE_TREE]
-    };
+    this.usage.set('tie', [Items.MAPLE_TREE]);
+    this.usage.set('untie', [Items.MAPLE_TREE]);
   }
 
   tie(itemRef) {

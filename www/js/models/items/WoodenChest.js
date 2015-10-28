@@ -8,12 +8,34 @@ class WoodenChest extends Item {
     this.canHoldItems = true;
     this.canBeTaken = false;
     
-    this.canBeOpened = true;
     this.opened = false;
-    this.openMessage = 'The chest swings open';
-    this.closeMessage = 'The chest swings closed';
 
     this.canBeLocked = true;
     this.locked = true;
+  }
+
+  open() {
+    if (this.opened) {
+      return InputUtils.getAlreadyDoneResponse();
+    }
+
+    this.opened = true;
+
+    var output = `You opened the ${this.title}`;
+
+    if (this.canHoldItems && this.hasItems()) {
+      output += `, revealing ${this.itemsToSentence()}`;
+    }
+
+    return `${output}.`;
+  }
+
+  close() {
+    if (!this.opened) {
+      return InputUtils.getAlreadyDoneResponse();
+    }
+    
+    this.opened = false;
+    return `You closed the ${this.title}.`;
   }
 }
