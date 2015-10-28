@@ -24,6 +24,7 @@ class Rope extends Item {
 
   untie() {
     if (this.tiedTo) {
+      let tiedToTitle = this.tiedTo.title;
       this.tiedTo.restoreDescription();
       this.tiedTo = null;
       this.canBeTaken = true;

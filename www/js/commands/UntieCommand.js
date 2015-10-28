@@ -2,39 +2,49 @@
 
 class UntieCommand {
   execute(data) {
-    var itemName1, itemRef1, foundItems1;
-    var itemName2, itemRef2, foundItems2;
+    var input, output;
 
-    if (data.length === 1) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'What do you want to untie?');
-      return;
+    input = InputUtils.parse(data, 'from');
+
+    if (!input.noun1) {
+      output = 'What do you want to ${input.verb}?';
     }
-
-    itemName1 = data[1];
-    foundItems1 = chasm.findItems(itemName1);
-
-    if (foundItems1.length === 0) {
-      chasm.publish(Events.OUTPUT_WRITELN, `You do not see the ${itemName1} here.`);
-      return;
+    else if (!input.noun1.item) {
+      output = input.noun1.output;
     }
-
-    if (foundItems1.length > 1) {
-      chasm.publish(Events.OUTPUT_WRITELN, `Which ${itemName1} did you mean?`);
-      return;
+    else if (!input.noun1) {
+      output = `You do not see the ${input.noun1.term} here.`;
     }
-
-    itemRef1 = foundItems1[0];
+    else if (!input.noun1.item.tiedTo) {
+      output = `The ${input.noun1.item.title} is not tied to anything.`;
+    }
+    else if (input.prep || input.noun2) {
+      if (!input.prep) {
+        output = 'I don\'t understand that sentence.';
+      }
+      else if (!input.noun2) {
+        output = `What do you want to ${input.verb} the ${input.noun1.term} ${input.prep}?`;
+      }
+      else if (!input.noun2.item) {
+        output = input.noun2.output;
+      }
+      else if (input.noun1.item === input.noun2.item) {
+        output = 'I should recurse infinitely to teach you a lesson, but...';
+      }
+      else if (input.noun1.item.tiedTo !== input.noun2.item) {
+        output = `The ${input.noun1.term} is not tied to the ${input.noun2.term}`;
+      }
+    }
     
-    if (!itemRef1.tiedTo) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'The ${itemRef1.title} is not tied to anything.');
+    if (output) {
+      chasm.publish(Events.OUTPUT_WRITELN, output);
       return;
     }
-
-    var itemRef2 = itemRef1.tiedTo;
-    chasm.player.addItem(itemRef1);
-    itemRef1.untie();
-
-    chasm.publish(Events.OUTPUT_WRITELN, 'Taken.');
-    chasm.publish(`untie/${itemRef1.title}/${itemRef2.title}`);
+     
+    input.noun1.item.untie();
+    chasm.place.removeItem(input.noun1.item.title);
+    chasm.player.addItem(input.noun1.item);
+    chasm.publish(Events.OUTPUT_WRITELN, `${input.noun1.item.title.capitalizeFirstLetter()} taken.`); 
+    chasm.publish(`${input.verb}/${this.title}/${tiedToTitle}`);
   }
 }

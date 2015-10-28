@@ -2,80 +2,44 @@
 
 class TieCommand {
   execute(data) {
-    var itemName1, itemRef1, foundItems1;
-    var itemName2, itemRef2, foundItems2;
+    var input, output;
 
-    if (data.length === 1) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'What do you want to tie?');
+    input = InputUtils.parse(data, 'to,around');
+
+    if (!input.noun1) {
+      output = 'What do you want to ${input.verb}?';
+    }
+    else if (!input.noun1.item) {
+      output = input.noun1.output;
+    }
+    else if (!input.noun1) {
+      output = `You do not see the ${input.noun1.term} here.`;
+    }
+    else if (input.noun1.item.tiedTo) {
+      output = `The ${input.noun1.item.title} is already tied to the ${input.noun1.item.tiedTo.title}.`;
+    }
+    else if (!input.prep) {
+      output = 'I don\'t understand that sentence.';
+    }
+    else if (!input.noun2) {
+      output = `What do you want to ${input.verb} the ${input.noun1.term} ${input.prep}?`;
+    }
+    else if (!input.noun2.item) {
+      output = input.noun2.output;
+    }
+    else if (input.noun1.item === input.noun2.item) {
+      output = 'I should recurse infinitely to teach you a lesson, but...';
+    }
+  
+    if (output) {
+      chasm.publish(Events.OUTPUT_WRITELN, output);
       return;
     }
 
-    itemName1 = data[1];
-    foundItems1 = chasm.findItems(itemName1);
-
-    if (foundItems1.length === 0) {
-      chasm.publish(Events.OUTPUT_WRITELN, `You do not see the ${itemName1} here.`);
-      return;
-    }
-
-    if (foundItems1.length > 1) {
-      chasm.publish(Events.OUTPUT_WRITELN, `Which ${itemName1} did you mean?`);
-      return;
-    }
-
-    if (data.length < 4) {
-      chasm.publish(Events.OUTPUT_WRITELN, `What do you want to tie the ${itemName1} around?`);
-      return;
-    }
-
-    if (!'around,to,on'.includes(data[2])) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'I don\'t understand that sentence.');
-      return;
-    }
-
-    itemName2 = data[3];
-    foundItems2 = chasm.findItems(itemName2);
-
-    if (foundItems2.length === 0) {
-      chasm.publish(Events.OUTPUT_WRITELN, `You do not see the ${itemName2} here.`);
-      return;
-    }
-
-    if (foundItems2.length > 1) {
-      chasm.publish(Events.OUTPUT_WRITELN, `Which ${itemName2} did you mean?`);
-      return;
-    }
-
-    itemRef1 = foundItems1[0];
-    itemRef2 = foundItems2[0];
-
-    if (!itemRef1.canUseWith('tie', itemRef2.title)) {
-      chasm.publish(Events.OUTPUT_WRITELN, `You can't tie the ${itemRef1.title} around the ${itemRef2.title}`);
-      return;
-    }
-
-    if (itemRef1 === itemRef2) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'I should recurse infinitely to teach you a lesson, but...');
-      return;
-    }
-
-    if (itemRef1.tiedTo === itemRef2) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'You\'ve already done that.');
-      return;
-    }
-    
-    if (itemRef1.tiedTo) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'The ${itemRef1.title} is already tied to another object');
-      return;
-    }
-
-    itemRef1.tie(itemRef2);
-
-    chasm.player.removeItem(itemRef1.title);
-    chasm.place.addItem(itemRef1);
-
-    chasm.publish(Events.OUTPUT_WRITELN, `The ${itemRef1.title} is now securely fasted to the ${itemRef2.title}.`);
-    chasm.publish(Events.PLAYER_SCORE, `tie/${itemRef1.title}/${itemRef2.title}`);
-    chasm.publish(`tie/${itemRef1.title}/${itemRef2.title}`);
+    input.noun1.item.tie(input.noun2.item);
+    chasm.player.removeItem(input.noun1.item.title);
+    chasm.place.addItem(input.noun1.item);
+    chasm.publish(Events.OUTPUT_WRITELN, `The ${input.noun1.item.title} is now securely fastened to the ${input.noun2.item.title}.`);
+    chasm.publish(`${input.verb}/${input.noun1.item.title}/${input.noun2.item.title}`);
   }
 }

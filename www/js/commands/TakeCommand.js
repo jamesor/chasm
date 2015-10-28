@@ -2,7 +2,7 @@
 
 class TakeCommand {
   execute(data) {
-    var input, output, target;
+    var input, output;
 
     input = InputUtils.parse(data, 'in,into,on');
 

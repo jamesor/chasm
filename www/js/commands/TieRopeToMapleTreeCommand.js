@@ -3,6 +3,6 @@
 class TieRopeToMapleTreeCommand {
   execute() {
     chasm.getRef(Exits.CHASM2PASSGE).blocked = false;
-    chasm.publish(Events.OUTPUT_WRITELN, 'You toss the other end of the rope into the chasm which can be used to climb down.')
+    chasm.publish(Events.OUTPUT_WRITELN, 'You toss the loose end of the rope into the chasm which can now be used to climb down.')
   }
 }
