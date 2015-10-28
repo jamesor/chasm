@@ -1,7 +1,7 @@
 'use strict';
 
 class InputUtils {
-  
+
   static parse(data, prepList) {
     var verb  = data[0];
     var noun1 = (data[1]) ? ItemsProxy.findAll(data[1]) : null;
@@ -71,10 +71,10 @@ class InputUtils {
 
   static testUsage(input) {
     if (input.noun1 && input.noun2) {
-      if (!input.noun1.item.usage[input.verb]) {
+      if (!input.noun1.item.usage.has(input.verb)) {
         return `The ${input.noun1.term} isn't something you can ${input.verb}.`;
       }
-      else if (input.noun1.item.usage[input.verb].indexOf(input.noun2.item.title) === -1) {
+      else if (input.noun1.item.usage.get(input.verb).indexOf(input.noun2.item.title) === -1) {
         return `The ${input.noun1.term} can't be used with the ${input.noun2.term}.`;
       }
     }
