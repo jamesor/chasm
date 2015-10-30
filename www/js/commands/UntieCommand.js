@@ -1,9 +1,8 @@
 'use strict';
 
 class UntieCommand extends BaseCommand {
-  
+  static verbs() { return ['untie','unwrap']; }
   execute() {
-    
     if (!this.output) {
       if (!this.item.tiedTo) {
         this.output = `The ${this.item.title} is not tied to anything.`;
@@ -27,5 +26,4 @@ class UntieCommand extends BaseCommand {
 
     super.execute();
   }
-
 }

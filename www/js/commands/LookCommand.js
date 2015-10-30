@@ -1,6 +1,7 @@
 'use strict';
 
 class LookCommand {
+  static verbs() { return ['look']; }
   execute(data) {
     var prep = data[1];
     var noun = data[2];

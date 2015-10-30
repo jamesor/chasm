@@ -1,11 +1,12 @@
 'use strict';
 
 class TieCommand extends BaseCommand {
-
+  static verbs() { return ['tie','wrap']; }
   execute() {
-    
-    if (!this.output && this.item.tiedTo) {
-      this.output = `The ${this.item.title} is already tied to something.`;
+    if (!this.output) {
+      if (this.item.tiedTo) {
+        this.output = `The ${this.item.title} is already tied to something.`;
+      }
     }
 
     if (this.output) {
@@ -22,5 +23,4 @@ class TieCommand extends BaseCommand {
 
     super.execute();
   }
-
 }

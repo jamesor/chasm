@@ -5,6 +5,8 @@ class GoCommand {
     this.data = data;
   }
 
+  static verbs() { return ['n','s','e','w','u','d','north','south','east','west','up','down','go','walk','run']; }
+
   execute() {
     var direction = this.data[0];
     var output = 'You can\'t go that way.';

@@ -1,13 +1,16 @@
 'use strict';
 
 class CloseCommand extends BaseCommand {
+  static verbs() { return ['close']; }
   execute() {
-    if (!this.output && !this.item.opened) {
-      this.output = InputUtils.getAlreadyDoneResponse();
+    if (!this.output) {
+      if (!this.item.opened) {
+        this.output = InputUtils.getAlreadyDoneResponse();
+      }
     }
-    
+
     if (this.output) {
-      chasm.publish(Events.OUTPUT_WRITELN, this.output);      
+      chasm.publish(Events.OUTPUT_WRITELN, this.output);
       return;
     }
 

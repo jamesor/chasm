@@ -1,19 +1,19 @@
 'use strict';
 
 class OpenCommand extends BaseCommand {
-
+  static verbs() { return ['open']; }
   execute() {
     if (!this.output) {
-      if (this.item.opened) {
-        this.output = InputUtils.getAlreadyDoneResponse();
-      }
       if (this.item.locked) {
         this.output = `The ${this.item.title} is locked.`;
+      }
+      else if (this.item.opened) {
+        this.output = InputUtils.getAlreadyDoneResponse();
       }
     }
 
     if (this.output) {
-      chasm.publish(Events.OUTPUT_WRITELN, this.output);      
+      chasm.publish(Events.OUTPUT_WRITELN, this.output);
       return;
     }
 
@@ -28,5 +28,4 @@ class OpenCommand extends BaseCommand {
 
     super.execute();
   }
-
 }

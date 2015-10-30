@@ -1,56 +1,40 @@
 'use strict';
 
-class PutCommand {
+class PutCommand extends BaseCommand {
+  static verbs() { return ['put','drop']; }
+  execute() {
+    var successStr;
 
-  execute(data) {
-    var input, output, target;
-
-    input = InputUtils.parse(data, 'in,into,on');
-
-    if (!input.noun1) {
-      output = 'What do you want to ${input.verb}?';
-    }
-    else if (!input.noun1.item) {
-      output = input.noun1.output;
-    }
-    else if (input.prep || input.noun2) {
-      if (!input.prep) {
-        output = 'I don\'t understand that sentence.';
-      }
-      else if (!input.noun2) {
-        output = `What do you want to ${input.verb} the ${input.noun1.term} ${input.prep}?`;
-      }
-      else if (!input.noun2.item) {
-        output = input.noun2.output;
-      }
-      else if (input.noun1.item === input.noun2.item) {
-        output = 'I should recurse infinitely to teach you a lesson, but...';
-      }
-      else if (!input.noun1.item.canBeTaken) {
-        output = `You cannot take the ${input.noun1.term}.`;
-      }
-      else if (!input.noun2.item.canHoldItems) {
-        output = 'That can\'t contain things.';
-      }
-      else if (!input.noun2.item.opened) {
-        output = `The ${input.noun1.term} is closed.`;
+    if (!this.output) {
+      if (this.target) {
+        if (!this.item.canBeTaken) {
+          this.output = `You cannot take the ${this.item.title}.`;
+        }
+        else if (!this.target.canHoldItems) {
+          this.output = 'That can\'t contain things.';
+        }
+        else if (!this.item.opened) {
+          output = `The ${this.item.title} is closed.`;
+        }
+        else {
+          successStr = `You ${this.verb} the ${this.item.title} ${this.prep} the ${this.target.title}.`;
+        }
       }
       else {
-        target = input.noun2.item;
-        output = `You ${input.verb} the ${input.noun1.term} ${input.prep} the ${input.noun2.term}.`;
+        this.target = chasm.place;
+        successStr = `${this.item.title.capitalizeFirstLetter()} dropped.`;
       }
     }
-    else {
-      target = chasm.place;
-      output = `${input.noun1.item.title.capitalizeFirstLetter()} dropped.`;
+
+    if (this.output) {
+      chasm.publish(Events.OUTPUT_WRITELN, this.output);
+      return;
     }
 
-    if (target) {
-      let parent = chasm.getRef(input.noun1.item.parent);
-      parent.removeItem(input.noun1.item.title);
-      target.addItem(input.noun1.item);
-    }
+    chasm.getRef(this.item.parent).removeItem(this.item.title);
+    this.target.addItem(this.item);
+    this.output = successStr;
 
-    chasm.publish(Events.OUTPUT_WRITELN, output);
+    super.execute();
   }
 }

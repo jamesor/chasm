@@ -1,8 +1,8 @@
 'use strict';
 
 class TakeCommand extends BaseCommand {
+  static verbs() { return ['take']; }
   execute(data) {
-
     if (!this.output) {
       if (chasm.player.hasItem(this.item.title)) {
         this.output `You already have the ${this.item.title}.`;

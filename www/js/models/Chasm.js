@@ -34,8 +34,6 @@ class Chasm extends BaseApp {
     this.refs.delete(title);
   }
 
-  // Models
-
   initModels() {
 
     // Places
@@ -109,8 +107,6 @@ class Chasm extends BaseApp {
     this.place = this.getRef(Places.FOREST_CLEARING);
   }
 
-  // Controllers
-
   initControllers() {
     this.controllers = [
       new BannerController(this),
@@ -121,45 +117,17 @@ class Chasm extends BaseApp {
     ];
   }
 
-  // Commands
-
   initCommands() {
-    this.registerCommand(Events.PLAYER_SCORE, ScoreCommand);
-    this.registerCommand(Events.PLAYER_MOVE, MoveCommand);
+    [
+      // General Commands
+      CloseCommand, ExamineCommand, FooCommand, GoCommand, InventoryCommand,
+      LockCommand, MoveCommand, OpenCommand, PutCommand, ScoreCommand,
+      TakeCommand, TieCommand, UnlockCommand, UntieCommand,
 
-    this.registerCommand('take', TakeCommand);
-    this.registerCommand('drop', PutCommand);
-    this.registerCommand('put', PutCommand);
-    this.registerCommand('north', GoCommand);
-    this.registerCommand('n', GoCommand);
-    this.registerCommand('south', GoCommand);
-    this.registerCommand('s', GoCommand);
-    this.registerCommand('east', GoCommand);
-    this.registerCommand('e', GoCommand);
-    this.registerCommand('west', GoCommand);
-    this.registerCommand('w', GoCommand);
-    this.registerCommand('up', GoCommand);
-    this.registerCommand('u', GoCommand);
-    this.registerCommand('down', GoCommand);
-    this.registerCommand('d', GoCommand);
-    this.registerCommand('walk', GoCommand);
-    this.registerCommand('go', GoCommand);
-    this.registerCommand('look', LookCommand);
-    this.registerCommand('l', LookCommand);
-    this.registerCommand('inventory', InventoryCommand);
-    this.registerCommand('i', InventoryCommand);
-    // this.registerCommand('use', UseCommand);
-    this.registerCommand('open', OpenCommand);
-    this.registerCommand('close', CloseCommand);
-    this.registerCommand('examine', ExamineCommand);
-    this.registerCommand('unlock', UnlockCommand);
-    this.registerCommand('lock', LockCommand);
-    this.registerCommand('foo', FooCommand);
-    this.registerCommand('tie', TieCommand);
-    this.registerCommand('untie', UntieCommand);
-
-    this.registerCommand(`tie/${Items.ROPE}/${Items.MAPLE_TREE}`, TieRopeToMapleTreeCommand);
-    this.registerCommand(`untie/${Items.ROPE}/${Items.MAPLE_TREE}`, UntieRopeFromMapleTreeCommand);
+      // Custom Commands
+      TieRopeToMapleTreeCommand,
+      UntieRopeFromMapleTreeCommand
+    ].forEach(Cls => Cls.verbs().map(verb => this.registerCommand(verb, Cls)));
   }
 
   startGame() {

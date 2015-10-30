@@ -1,6 +1,7 @@
 'use strict';
 
 class FooCommand {
+  static verbs() { return ['foo']; }
   execute(data) {
     if (data.length === 1) {
       chasm.publish(Events.OUTPUT_WRITELN, 'Well, FOO, BAR, and BLETCH to you too!');
