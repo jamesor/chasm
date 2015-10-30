@@ -1,5 +1,15 @@
 'use strict';
 
+const PrepLookup = Object.freeze({
+  'tie'    : ['to','around'],
+  'untie'  : ['from'],
+  'take'   : ['from'],
+  'put'    : ['in','into','on'],
+  'unlock' : ['with'],
+  'lock'   : ['with'],
+  'take'   : ['from']
+});
+
 const Places = Object.freeze({
   FOREST_CLEARING : 'Forest Clearing',
   CHASM_ENTRANCE  : 'Chasm Entrance',

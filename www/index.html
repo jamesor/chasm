@@ -26,9 +26,12 @@
   <script src="js/models/BaseApp.js"></script>
   <script src="js/models/Chasm.js"></script>
   <script src="js/models/Entity.js"></script>
+  <script src="js/models/Item.js"></script>
+  <script src="js/models/Container.js"></script>
+  <script src="js/models/Place.js"></script>
   <script src="js/models/Scoreboard.js"></script>
   <script src="js/models/Player.js"></script>
-  <script src="js/models/items/Item.js"></script>
+  
   <script src="js/models/items/WoodenChest.js"></script>
   <script src="js/models/items/SilverKey.js"></script>
   <script src="js/models/items/Toolbox.js"></script>
@@ -39,7 +42,6 @@
   <script src="js/models/exits/DooredExit.js"></script>
   <script src="js/models/exits/LockedExit.js"></script>
 
-  <script src="js/models/places/Place.js"></script>
   <script src="js/models/places/ForestClearing.js"></script>
   <script src="js/models/places/Shed.js"></script>
   <script src="js/models/places/ChasmEntrance.js"></script>
@@ -60,16 +62,19 @@
   <script src="js/controllers/InputController.js"></script>
   <script src="js/controllers/KeyboardController.js"></script>
 
+  <script src="js/commands/BaseCommand.js"></script>
   <script src="js/commands/ScoreCommand.js"></script>
   <script src="js/commands/MoveCommand.js"></script>
   <script src="js/commands/TakeCommand.js"></script>
   <script src="js/commands/GoCommand.js"></script>
   <script src="js/commands/LookCommand.js"></script>
   <script src="js/commands/InventoryCommand.js"></script>
-  <script src="js/commands/CloseOpenCommand.js"></script>
+  <script src="js/commands/OpenCommand.js"></script>
+  <script src="js/commands/CloseCommand.js"></script>
   <script src="js/commands/PutCommand.js"></script>
   <script src="js/commands/ExamineCommand.js"></script>
-  <script src="js/commands/LockUnlockCommand.js"></script>
+  <script src="js/commands/LockCommand.js"></script>
+  <script src="js/commands/UnlockCommand.js"></script>
   <script src="js/commands/FooCommand.js"></script>
   <script src="js/commands/TieCommand.js"></script>
   <script src="js/commands/UntieCommand.js"></script>

@@ -1,14 +1,18 @@
 'use strict';
 
 class GoCommand {
-  execute(data) {
-    var direction = data[0];
+  constructor(data) {
+    this.data = data;
+  }
+
+  execute() {
+    var direction = this.data[0];
     var output = 'You can\'t go that way.';
     var exit;
 
     if ((direction === 'walk' || direction === 'go')) {
-      if (data.length === 2) {
-        direction = data[1];
+      if (this.data.length === 2) {
+        direction = this.data[1];
       }
     }
 

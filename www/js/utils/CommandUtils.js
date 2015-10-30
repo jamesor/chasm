@@ -1,9 +1,0 @@
-'use static';
-
-class CommandUtils {
-  
-
-
-
-  
-}
