@@ -1,9 +1,8 @@
 'use strict';
 
-class Place extends Entity {
+class Place extends Container {
   constructor(title, description) {
     super(title, description);
-    this.canHoldItems = true;
     this.visited = false;
     this._exits = new Map();
   }
@@ -33,7 +32,7 @@ class Place extends Entity {
     var foundList = super.findItems(itemName);
 
     this._exits.forEach(function (exit) {
-      if (typeof exit.open !== 'undefined' && (exit.title === itemName || exit.commonTitle === itemName)) {
+      if (exit.title === itemName || exit.commonTitle === itemName) {
         foundList.push(exit);
       }
     });

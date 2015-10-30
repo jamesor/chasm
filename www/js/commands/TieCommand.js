@@ -1,24 +1,26 @@
 'use strict';
 
-class TieCommand {
-  execute(data) {
-    var input  = InputUtils.parse(data, ['to','around']);
-    var output = InputUtils.testVerbNounPrepNoun(input) || 
-                 InputUtils.testUsage(input);
-  
-    if (!output && input.noun1.item.tiedTo) {
-      output = `The ${input.noun1.term} is already tied to ${input.noun1.item.tiedTo.title}.`;
+class TieCommand extends BaseCommand {
+
+  execute() {
+    
+    if (!this.output && this.item.tiedTo) {
+      this.output = `The ${this.item.title} is already tied to something.`;
     }
 
-    if (output) {
-      chasm.publish(Events.OUTPUT_WRITELN, output);
+    if (this.output) {
+      chasm.publish(Events.OUTPUT_WRITELN, this.output);
       return;
     }
 
-    input.noun1.item.tie(input.noun2.item);
-    chasm.player.removeItem(input.noun1.item.title);
-    chasm.place.addItem(input.noun1.item);
-    chasm.publish(Events.OUTPUT_WRITELN, `The ${input.noun1.item.title} is now securely fastened to the ${input.noun2.item.title}.`);
-    chasm.publish(`${input.verb}/${input.noun1.item.title}/${input.noun2.item.title}`);
+    this.target.longDescription = `${this.target.longDescription} ${this.item.title.capitalizeFirstLetter()} is securely fastened around it.`;
+    this.item.tiedTo = this.target;
+    this.item.setFeature('take', false);
+    chasm.player.removeItem(this.item);
+    chasm.place.addItem(this.item);
+    this.output = `The ${this.item.title} is now securely fastened to the ${this.target.title}.`;
+
+    super.execute();
   }
+
 }

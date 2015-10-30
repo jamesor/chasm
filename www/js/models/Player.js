@@ -1,6 +1,6 @@
 'use strict';
 
-class Player extends Entity {
+class Player extends Container {
   constructor(eventBus) {
     super('player', 'You are an attractive adventurer with an athetic build.');
     this.eventBus = eventBus;

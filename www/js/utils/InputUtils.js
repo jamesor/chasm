@@ -1,9 +1,10 @@
 'use strict';
 
 class InputUtils {
-  
-  static parse(data, prepList) {
+
+  static parse(data) {
     var verb  = data[0];
+    var prepList = PrepLookup[verb];
     var noun1 = (data[1]) ? ItemsProxy.findAll(data[1]) : null;
     var prep  = (data[2] && (prepList && prepList.indexOf(data[2]) !== -1)) ? data[2] : null;
     var noun2 = (data[3]) ? ItemsProxy.findAll(data[3]) : null;
@@ -18,11 +19,11 @@ class InputUtils {
   }
 
   static testNoun1(input) {
-    if (!input.noun1.item) {
-      return input.noun1.output;
-    }
-    else if (!input.noun1) {
+    if (!input.noun1) {
       return `You do not see the ${input.noun1.term} here.`;
+    }
+    else if (!input.noun1.item) {
+      return input.noun1.output;
     }
   }
 
@@ -53,31 +54,33 @@ class InputUtils {
     return resp[MathUtils.getRandomInt(0, resp.length)];
   }
 
+  static testAction(input) {
+    var result = input.noun1.item.canDo(input.verb);
+    if (typeof result === 'string') {
+      return result;
+    } else if (result === false) {
+      return `The ${input.noun1.term} isn't something you can ${input.verb}.`;
+    }
+  }
+
+  static testActionWithTarget(input) {
+    if (!input.noun1.item.canDoWith(input.verb, input.noun2.item.title)) {
+      return `You cannot ${input.verb} the ${input.noun1.term} ${input.prep} the ${input.noun2.item.term}.`;
+    }
+  }
+
   static testVerbNoun(input) {
-    var output = InputUtils.testVerb(input);
-    if (output) return output;
-    output = InputUtils.testNoun1(input);
-    if (output) return output;
+    return InputUtils.testVerb(input) ||
+           InputUtils.testNoun1(input) ||
+           InputUtils.testAction(input);
   }
 
   static testVerbNounPrepNoun(input) {
-    var output = InputUtils.testVerbNoun(input);
-    if (output) return output;
-    output = InputUtils.testPrep(input);
-    if (output) return output;
-    output = InputUtils.testNoun2(input);
-    if (output) return output;
-  }
-
-  static testUsage(input) {
-    if (input.noun1 && input.noun2) {
-      if (!input.noun1.item.usage[input.verb]) {
-        return `The ${input.noun1.term} isn't something you can ${input.verb}.`;
-      }
-      else if (input.noun1.item.usage[input.verb].indexOf(input.noun2.item.title) === -1) {
-        return `The ${input.noun1.term} can't be used with the ${input.noun2.term}.`;
-      }
-    }
+    return InputUtils.testVerb(input) ||
+           InputUtils.testNoun1(input) ||
+           InputUtils.testPrep(input) ||
+           InputUtils.testNoun2(input) ||
+           InputUtils.testActionWithTarget(input);
   }
 
 }

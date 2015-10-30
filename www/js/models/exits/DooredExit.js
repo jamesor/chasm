@@ -6,34 +6,12 @@ class DooredExit extends Exit {
     this.commonTitle = 'door';
     this.opened = false;
     this.closedMessage = `The ${this.title} is closed.`;
+
+    this._features.set('open', true);
+    this._features.set('close', true);
   }
 
   getPlace(direction) {
     return (this.opened) ? super.getPlace(direction) : false;
-  }
-
-  open() {
-    if (this.opened) {
-      return InputUtils.getAlreadyDoneResponse();
-    }
-
-    this.opened = true;
-
-    var output = `You opened the ${this.title}`;
-
-    if (this.canHoldItems && this.hasItems()) {
-      output += `, revealing ${this.itemsToSentence()}`;
-    }
-
-    return `${output}.`;
-  }
-
-  close() {
-    if (!this.opened) {
-      return InputUtils.getAlreadyDoneResponse();
-    }
-    
-    this.opened = false;
-    return `You closed the ${this.title}.`;
   }
 }

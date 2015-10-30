@@ -27,7 +27,7 @@ class BaseApp {
     if (this.topics.has(topic) && this.topics.get(topic).length > 0) {
       this.topics.get(topic).forEach(function(listener) {
         if (listener.cmd) {
-          new listener.cmd().execute(data);
+          new listener.cmd(data).execute();
         } else if (listener.cxt) {
           listener.fn.call(listener.cxt, data);
         } else {

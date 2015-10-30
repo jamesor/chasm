@@ -92,21 +92,21 @@ class Chasm extends BaseApp {
     // Stash item objects in places
 
     this.getRef(Places.FOREST_CLEARING)
-        .addItem(this.getRef(Items.SILVER_KEY))
-        .addItem(this.getRef(Items.WOODEN_CHEST))
-        .addItem(this.getRef(Items.ROPE));
+        .addItem(this.getRef(Items.WOODEN_CHEST));
 
     this.getRef(Places.SHED)
         .addItem(this.getRef(Items.TOOLBOX));
 
     this.getRef(Places.CHASM_ENTRANCE)
-        .addItem(this.getRef(Items.MAPLE_TREE));
+        .addItem(this.getRef(Items.MAPLE_TREE))
+        .addItem(this.getRef(Items.ROPE));
 
-    this.getRef(Items.TOOLBOX);
+    this.getRef(Items.TOOLBOX)
+        .addItem(this.getRef(Items.SILVER_KEY));
 
     // Starting Position
 
-    this.place = this.getRef(Places.FOREST_CLEARING);
+    this.place = this.getRef(Places.CHASM_ENTRANCE);
   }
 
   // Controllers
@@ -149,11 +149,11 @@ class Chasm extends BaseApp {
     this.registerCommand('inventory', InventoryCommand);
     this.registerCommand('i', InventoryCommand);
     // this.registerCommand('use', UseCommand);
-    this.registerCommand('open', CloseOpenCommand);
-    this.registerCommand('close', CloseOpenCommand);
+    this.registerCommand('open', OpenCommand);
+    this.registerCommand('close', CloseCommand);
     this.registerCommand('examine', ExamineCommand);
-    this.registerCommand('unlock', LockUnlockCommand);
-    this.registerCommand('lock', LockUnlockCommand);
+    this.registerCommand('unlock', UnlockCommand);
+    this.registerCommand('lock', LockCommand);
     this.registerCommand('foo', FooCommand);
     this.registerCommand('tie', TieCommand);
     this.registerCommand('untie', UntieCommand);

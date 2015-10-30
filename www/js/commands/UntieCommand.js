@@ -1,29 +1,31 @@
 'use strict';
 
-class UntieCommand {
-  execute(data) {
-    var input  = InputUtils.parse(data, ['from']);
-    var output = InputUtils.testVerbNounPrepNoun(input) || 
-                 InputUtils.testUsage(input);
-
-    if (!output) {
-      if (!input.noun1.item.tiedTo) {
-        output = `The ${input.noun1.item.title} is not tied to anything.`;
+class UntieCommand extends BaseCommand {
+  
+  execute() {
+    
+    if (!this.output) {
+      if (!this.item.tiedTo) {
+        this.output = `The ${this.item.title} is not tied to anything.`;
       }
-      else if (input.noun1.item.tiedTo !== input.noun2.item) {
-        output = `The ${input.noun1.term} is not tied to the ${input.noun2.term}`;
+      else if (this.item.tiedTo !== this.target) {
+        this.output = `The ${this.item.title} is not tied to the ${target.title}`;
       }
     }
 
-    if (output) {
-      chasm.publish(Events.OUTPUT_WRITELN, output);
+    if (this.output) {
+      chasm.publish(Events.OUTPUT_WRITELN, this.output);
       return;
     }
-     
-    input.noun1.item.untie();
-    chasm.place.removeItem(input.noun1.item.title);
-    chasm.player.addItem(input.noun1.item);
-    chasm.publish(Events.OUTPUT_WRITELN, `${input.noun1.item.title.capitalizeFirstLetter()} taken.`); 
-    chasm.publish(`${input.verb}/${input.noun1.item.title}/${input.noun2.item.title}`);
+
+    this.target.restoreLongDescription();
+    this.item.tiedTo = null;
+    this.item.setFeature('take', true);
+    chasm.place.removeItem(this.item);
+    chasm.player.addItem(this.item);
+    this.output = `You've untied the ${this.item.title} from the ${this.target.title} and have taken it.`;
+
+    super.execute();
   }
+
 }
