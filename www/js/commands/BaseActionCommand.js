@@ -7,14 +7,13 @@ class BaseActionCommand extends BaseCommand {
     var input = InputUtils.parse(data);
 
     this.verb = input.verb;
-    this.item = (input.noun1 && input.noun1.item) ? input.noun1.item : null;
+    this.item = input.item;
+    this.prep = input.prep;
+    this.target = input.target;
+    this.noun1 = input.noun1;
+    this.noun2 = input.noun2;
 
-    if (!input.noun1 && !input.noun1.item) {
-      this.output = `You do not see the ${input.noun1.term} here.`;
-    }
-    else if (input.noun2 && (input.noun2.term || input.noun2.item)) {
-      this.prep   = input.prep || input.validPrep;
-      this.target = input.noun2.item;
+    if (this.target) {
       this.output = InputUtils.testVerbNounPrepNoun(input);
       this.action = `${this.verb}/${this.item.title}${(this.target)?'/'+this.target.title:''}`;
     }

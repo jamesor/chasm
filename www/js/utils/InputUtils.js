@@ -2,27 +2,65 @@
 
 class InputUtils {
 
+  static tokenize(input) {
+    var tokens = input.split(/\s+/);
+    var token;
+
+    for (let i=tokens.length-1; i>=0; i--) {
+      token = tokens[i];
+      if (nArticles[token]) {
+        tokens.splice(i, 1);
+      } 
+      else if (nVocabulary[token]) {
+        if (tokens.length > i) {
+          token += ' ' + tokens[i+1];
+          if (nItems[token]) {
+            tokens[i] = token;
+            tokens.splice(i+1, 1);
+          }
+        }
+      }
+      else {
+        throw new Error(`I don't know the word ${token}`);
+      }
+    }
+
+    if (tokens.length === 0) {
+      throw new Error('I beg your pardon?');
+    }
+
+    return tokens;
+  }
+
   static parse(data) {
     var verb  = data[0];
     var prepList = PrepLookup[verb];
     var noun1 = (data[1]) ? ItemsProxy.findAll(data[1]) : null;
     var prep  = (data[2] && (prepList && prepList.indexOf(data[2]) !== -1)) ? data[2] : null;
     var noun2 = (data[3]) ? ItemsProxy.findAll(data[3]) : null;
-    var validPrep = (prepList) ? prepList[0] : null;
-    return {verb, noun1, prep, noun2, validPrep};
+    var item, target;
+
+    if (noun1) {
+      item = noun1.item;
+    }
+
+    if (noun2) {
+      target = noun2.item;
+    }
+
+    prep = prep || (prepList) ? prepList[0] : null;
+
+    return {verb, noun1, prep, noun2, item, target};
   }
 
   static testVerb(input) {
-    if (!input.noun1) {
+    if (!input.item) {
       return `What do you want to ${input.verb}?`;
     }
   }
 
   static testNoun1(input) {
-    if (!input.noun1) {
-      return `You do not see the ${input.noun1.term} here.`;
-    }
-    else if (!input.noun1.item) {
+    if (input.noun1 && input.noun1.output) {
       return input.noun1.output;
     }
   }
@@ -37,10 +75,10 @@ class InputUtils {
     if (!input.noun2) {
       return `What do you want to ${input.verb} the ${input.noun1.term} ${input.prep}?`;
     }
-    else if (!input.noun2.item) {
+    else if (input.noun2.output) {
       return input.noun2.output;
     }
-    else if (input.noun1.item === input.noun2.item) {
+    else if (input.item === input.target) {
       return 'I should recurse infinitely to teach you a lesson, but...';
     }
   }
@@ -55,7 +93,7 @@ class InputUtils {
   }
 
   static testAction(input) {
-    var result = input.noun1.item.canDo(input.verb);
+    var result = input.item.canDo(input.verb);
     if (typeof result === 'string') {
       return result;
     } else if (result === false) {
@@ -64,8 +102,8 @@ class InputUtils {
   }
 
   static testActionWithTarget(input) {
-    if (!input.noun1.item.canDoWith(input.verb, input.noun2.item.title)) {
-      return `You cannot ${input.verb} the ${input.noun1.term} ${input.prep} the ${input.noun2.item.term}.`;
+    if (!input.item.canDoWith(input.verb, input.target.title)) {
+      return `You cannot ${input.verb} the ${input.noun1.term} ${input.prep} the ${input.noun2.term}.`;
     }
   }
 

@@ -7,7 +7,8 @@ const PrepLookup = Object.freeze({
   'put'    : ['in','into','on'],
   'unlock' : ['with'],
   'lock'   : ['with'],
-  'take'   : ['from']
+  'take'   : ['from'],
+  'open'   : ['with']
 });
 
 const Places = Object.freeze({
