@@ -1,6 +1,6 @@
 'use strict';
 
-class CloseCommand extends BaseCommand {
+class CloseCommand extends BaseActionCommand {
   static verbs() { return ['close']; }
   execute() {
     if (!this.output) {
@@ -10,7 +10,7 @@ class CloseCommand extends BaseCommand {
     }
 
     if (this.output) {
-      chasm.publish(Events.OUTPUT_WRITELN, this.output);
+      this.game.publish(Events.OUTPUT_WRITELN, this.output);
       return;
     }
 

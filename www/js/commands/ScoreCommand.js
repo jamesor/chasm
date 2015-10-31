@@ -1,8 +1,7 @@
 'use strict';
 
-class ScoreCommand {
-  static verbs() { return ['score']; }
-  execute(data) {
-    chasm.player.scorePoints(data);
+class ScoreCommand extends BaseCommand {
+  execute() {
+    this.game.player.scorePoints(this.data);
   }
 }

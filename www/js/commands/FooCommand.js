@@ -1,13 +1,13 @@
 'use strict';
 
-class FooCommand {
+class FooCommand extends BaseCommand {
   static verbs() { return ['foo']; }
-  execute(data) {
-    if (data.length === 1) {
-      chasm.publish(Events.OUTPUT_WRITELN, 'Well, FOO, BAR, and BLETCH to you too!');
+  execute() {
+    if (this.data.length === 1) {
+      this.game.publish(Events.OUTPUT_WRITELN, 'Well, FOO, BAR, and BLETCH to you too!');
       return;
     }
 
-    chasm.publish(Events.OUTPUT_WRITELN, 'I only understood you as far as wanting to foo.');
+    this.game.publish(Events.OUTPUT_WRITELN, 'I only understood you as far as wanting to foo.');
   }
 }

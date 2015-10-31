@@ -1,40 +1,12 @@
 'use strict';
 
 class Chasm extends BaseApp {
-  constructor() {
-    super();
+  initModels() {
+    super.initModels();
+
     this.refs = new Map();
     this.items = new Map();
     this.player = new Player(this);
-    this.initModels();
-    this.initControllers();
-    this.initCommands();
-    this.subscribe(Events.GAME_START, this.startGame, this);
-  }
-
-  getRef(key) {
-    if (key === 'player') {
-      return this.player
-    }
-    else if (this.refs.has(key)) {
-      return this.refs.get(key);
-    }
-    else if (this.items.has(key)) {
-      return this.items.get(key);
-    }
-    throw new Error(key + ' not found in chasm.getRef()');
-  }
-
-  addRef(object) {
-    this.refs.set(object.title, object);
-    return object;
-  }
-
-  removeRef(title) {
-    this.refs.delete(title);
-  }
-
-  initModels() {
 
     // Places
 
@@ -107,39 +79,11 @@ class Chasm extends BaseApp {
     this.place = this.getRef(Places.FOREST_CLEARING);
   }
 
-  initControllers() {
-    this.controllers = [
-      new BannerController(this),
-      new ImageController(this),
-      new OutputController(this),
-      new InputController(this),
-      new KeyboardController(this)
-    ];
-  }
-
   initCommands() {
+    super.initCommands();
     [
-      // General Commands
-      CloseCommand, ExamineCommand, FooCommand, GoCommand, InventoryCommand,
-      LockCommand, MoveCommand, OpenCommand, PutCommand, ScoreCommand,
-      TakeCommand, TieCommand, UnlockCommand, UntieCommand,
-
-      // Custom Commands
-      TieRopeToMapleTreeCommand,
+      TieRopeToMapleTreeCommand, 
       UntieRopeFromMapleTreeCommand
     ].forEach(Cls => Cls.verbs().map(verb => this.registerCommand(verb, Cls)));
-  }
-
-  startGame() {
-    this.publish(Events.PLACE_CHANGED, this.place);
-    this.publish(Events.OUTPUT_CLEAR);
-    this.publish(Events.OUTPUT_WRITELN, this.place.describe());
-    this.publish(Events.INPUT_PROMPT, '&gt;');
-  }
-
-  findItems(itemName) {
-    var playerItems = this.player.findItems(itemName);
-    var placeItems = this.place.findItems(itemName);
-    return [...playerItems, ...placeItems];
   }
 }

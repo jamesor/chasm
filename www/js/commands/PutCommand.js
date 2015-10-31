@@ -21,17 +21,17 @@ class PutCommand extends BaseCommand {
         }
       }
       else {
-        this.target = chasm.place;
+        this.target = this.game.place;
         successStr = `${this.item.title.capitalizeFirstLetter()} dropped.`;
       }
     }
 
     if (this.output) {
-      chasm.publish(Events.OUTPUT_WRITELN, this.output);
+      this.game.publish(Events.OUTPUT_WRITELN, this.output);
       return;
     }
 
-    chasm.getRef(this.item.parent).removeItem(this.item.title);
+    this.game.getRef(this.item.parent).removeItem(this.item);
     this.target.addItem(this.item);
     this.output = successStr;
 

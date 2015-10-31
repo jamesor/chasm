@@ -39,8 +39,8 @@ class Container extends Item {
     return this;
   }
   
-  removeItem(itemName) {
-    this._items.delete(itemName);
+  removeItem(item) {
+    this._items.delete(item.title);
     return this;
   }
   

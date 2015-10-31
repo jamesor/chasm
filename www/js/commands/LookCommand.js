@@ -1,19 +1,19 @@
 'use strict';
 
-class LookCommand {
-  static verbs() { return ['look']; }
-  execute(data) {
-    var prep = data[1];
-    var noun = data[2];
+class LookCommand extends BaseCommand {
+  static verbs() { return ['l','look']; }
+  execute() {
+    var prep = this.data[1];
+    var noun = this.data[2];
     var output;
 
-    if (data.length === 1) {
-      output = chasm.place.look();
+    if (this.data.length === 1) {
+      output = this.game.place.look();
     }
     else if (prep === 'at') {
       let result = ItemsProxy.findAll(noun);
       if (result.item) {
-        chasm.publish('examine', ['examine', result.term]);
+        this.game.publish('examine', ['examine', result.term]);
         return;
       }
       else {
@@ -33,6 +33,6 @@ class LookCommand {
       output = 'I don\'t understand that sentence.';
     }
 
-    chasm.publish(Events.OUTPUT_WRITELN, output);
+    this.game.publish(Events.OUTPUT_WRITELN, output);
   }
 }

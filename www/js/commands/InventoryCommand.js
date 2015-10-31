@@ -1,8 +1,8 @@
 'use strict';
 
-class InventoryCommand {
+class InventoryCommand extends BaseCommand {
   static verbs() { return ['i','inventory']; }
-  execute(data) {
-    chasm.publish(Events.OUTPUT_WRITELN, chasm.player.itemsToList());
+  execute() {
+    this.game.publish(Events.OUTPUT_WRITELN, this.game.player.itemsToList());
   }
 }

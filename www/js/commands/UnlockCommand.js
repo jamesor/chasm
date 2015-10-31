@@ -1,6 +1,6 @@
 'use strict';
 
-class UnlockCommand extends BaseCommand {
+class UnlockCommand extends BaseActionCommand {
   static verbs() { return ['unlock']; }
   execute() {
     if (!this.output) {
@@ -10,7 +10,7 @@ class UnlockCommand extends BaseCommand {
     }
 
     if (this.output) {
-      chasm.publish(Events.OUTPUT_WRITELN, this.output);
+      this.game.publish(Events.OUTPUT_WRITELN, this.output);
       return;
     }
 

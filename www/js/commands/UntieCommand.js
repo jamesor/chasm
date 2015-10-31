@@ -1,6 +1,6 @@
 'use strict';
 
-class UntieCommand extends BaseCommand {
+class UntieCommand extends BaseActionCommand {
   static verbs() { return ['untie','unwrap']; }
   execute() {
     if (!this.output) {
@@ -13,15 +13,15 @@ class UntieCommand extends BaseCommand {
     }
 
     if (this.output) {
-      chasm.publish(Events.OUTPUT_WRITELN, this.output);
+      this.game.publish(Events.OUTPUT_WRITELN, this.output);
       return;
     }
 
     this.target.restoreLongDescription();
     this.item.tiedTo = null;
     this.item.setFeature('take', true);
-    chasm.place.removeItem(this.item);
-    chasm.player.addItem(this.item);
+    this.game.place.removeItem(this.item);
+    this.game.player.addItem(this.item);
     this.output = `You've untied the ${this.item.title} from the ${this.target.title} and have taken it.`;
 
     super.execute();

@@ -1,21 +1,21 @@
 'use strict';
 
-class TakeCommand extends BaseCommand {
+class TakeCommand extends BaseActionCommand {
   static verbs() { return ['take']; }
-  execute(data) {
+  execute() {
     if (!this.output) {
-      if (chasm.player.hasItem(this.item.title)) {
+      if (this.game.player.hasItem(this.item.title)) {
         this.output `You already have the ${this.item.title}.`;
       }
     }
 
     if (this.output) {
-      chasm.publish(Events.OUTPUT_WRITELN, this.output);
+      this.game.publish(Events.OUTPUT_WRITELN, this.output);
       return;
     }
 
-    chasm.getRef(this.item.parent).removeItem(this.item.title);
-    chasm.player.addItem(this.item);
+    this.game.getRef(this.item.parent).removeItem(this.item);
+    this.game.player.addItem(this.item);
     this.output = `${this.item.title.capitalizeFirstLetter()} taken.`;
 
     super.execute();

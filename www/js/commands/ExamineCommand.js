@@ -1,6 +1,6 @@
 'use strict';
 
-class ExamineCommand extends BaseCommand {
+class ExamineCommand extends BaseActionCommand {
   static verbs() { return ['examine']; }
   execute() {
     if (!this.output) {
@@ -10,7 +10,7 @@ class ExamineCommand extends BaseCommand {
     }
 
     if (this.output) {
-      chasm.publish(Events.OUTPUT_WRITELN, this.output);
+      this.game.publish(Events.OUTPUT_WRITELN, this.output);
       return;
     }
 

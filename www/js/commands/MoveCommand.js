@@ -1,9 +1,8 @@
 'use strict';
 
-class MoveCommand {
-  static verbs() { return ['move']; }
-  execute(data) {
-    chasm.player.moves++;
-    chasm.publish(Events.PLAYER_MOVED, chasm.player.moves);
+class MoveCommand extends BaseCommand {
+  execute() {
+    this.game.player.moves++;
+    this.game.publish(Events.PLAYER_MOVED, this.game.player.moves);
   }
 }

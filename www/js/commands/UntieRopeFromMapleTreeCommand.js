@@ -1,8 +1,8 @@
 'use strict';
 
-class UntieRopeFromMapleTreeCommand {
+class UntieRopeFromMapleTreeCommand extends BaseCommand {
   static verbs() { return [`untie/${Items.ROPE}/${Items.MAPLE_TREE}`]; }
   execute() {
-    chasm.getRef(Exits.CHASM2PASSGE).blocked = true;
+    this.game.getRef(Exits.CHASM2PASSGE).blocked = true;
   }
 }
