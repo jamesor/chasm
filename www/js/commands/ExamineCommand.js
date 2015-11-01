@@ -1,7 +1,7 @@
 'use strict';
 
 class ExamineCommand extends BaseActionCommand {
-  static verbs() { return ['examine']; }
+  static verbs() { return ['examine','look at']; }
   execute() {
     if (!this.output) {
       if (!this.item.longDescription) {

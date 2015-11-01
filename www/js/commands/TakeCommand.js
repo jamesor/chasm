@@ -1,7 +1,7 @@
 'use strict';
 
 class TakeCommand extends BaseActionCommand {
-  static verbs() { return ['take']; }
+  static verbs() { return ['take','get','pick up']; }
   execute() {
     if (!this.output) {
       if (this.game.player.hasItem(this.item.title)) {

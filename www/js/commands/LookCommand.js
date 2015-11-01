@@ -1,38 +1,39 @@
 'use strict';
 
 class LookCommand extends BaseCommand {
-  static verbs() { return ['l','look']; }
-  execute() {
-    var prep = this.data[1];
-    var noun = this.data[2];
-    var output;
+  constructor(game, data) {
+    super(game, data);
 
-    if (this.data.length === 1) {
-      output = this.game.place.look();
-    }
-    else if (prep === 'at') {
-      let result = ItemsProxy.findAll(noun);
-      if (result.item) {
-        this.game.publish('examine', ['examine', result.term]);
-        return;
-      }
-      else {
-        output = result.output;
-      }
-    }
-    else if (prep === 'in') {
-      let result = ItemsProxy.findAll(noun);
-      if (result.item) {
-        output = result.item.lookInside();
-      }
-      else {
-        output = result.output;
-      }
+    var input = InputUtils.parse(data);
+
+    this.verb = input.verb;
+    this.item = input.item;
+    this.noun1 = input.noun1;
+
+    if (this.noun1) {
+      this.output = InputUtils.testVerbItem(input);
+      this.action = `${this.verb}/${this.item.title}`;
     }
     else {
-      output = 'I don\'t understand that sentence.';
+      this.output = InputUtils.testVerb(input);
+    }
+  }
+  static verbs() { return ['l','look','look in']; }
+  execute() {
+
+    switch (this.verb) {
+      case 'l':
+      case 'look':
+        this.output = this.game.place.look();
+        break;
+      case 'look in':
+        let result = ItemsProxy.findAll(this.noun1.term);
+        this.output = (result.item) ? result.item.lookInside() : result.output;
+        break;
+      default:
+        this.output = 'I don\'t understand that sentence.';
     }
 
-    this.game.publish(Events.OUTPUT_WRITELN, output);
+    this.game.publish(Events.OUTPUT_WRITELN, this.output);
   }
 }

@@ -8,6 +8,8 @@ const PrepLookup = Object.freeze({
   'unlock' : ['with'],
   'lock'   : ['with'],
   'take'   : ['from'],
+  'pick up': ['from'],
+  'get'    : ['from'],
   'open'   : ['with']
 });
 
@@ -60,13 +62,20 @@ const Events = Object.freeze({
 
 const nArticles = Object.freeze('a,an,the'.toDictionary());
 
+const nTwoWordVerbs = Object.freeze('pick up,put down,look in,look at'.toDictionary());
+
 const nVocabulary = Object.freeze((
   /* dire */ 'north,n,south,s,east,e,west,w,up,u,down,d,walk,go,' + 
-  /* actn */ 'take,drop,open,close,attack,hit,look,l,inventory,i,put,examine,lock,unlock,foo,look,tie,untie,' +
+  /* actn */ 'take,drop,open,close,attack,hit,look,l,inventory,i,put,examine,' +
+             'lock,unlock,foo,look,tie,untie,get,pick,' +
   /* char */ 'goblin,troll,' +
   /* adjs */ 'silver,wooden,shiny,broken,dull,metal,small,red,rusty,maple,' + 
   /* item */ 'key,door,chest,sword,toolbox,shed,rope,tree,' +
   /* prep */ 'at,with,in,into,to,from,around'
   ).toDictionary());
 
-const nItems = Object.freeze(([...Object.values(Items), ...Object.values(Exits), ...Object.values(Places)]).toDictionary());
+const nItems = Object.freeze(([
+    ...Object.values(Items), 
+    ...Object.values(Exits), 
+    ...Object.values(Places)
+  ]).toDictionary());

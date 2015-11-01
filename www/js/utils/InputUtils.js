@@ -14,7 +14,7 @@ class InputUtils {
       else if (nVocabulary[token]) {
         if (tokens.length > i) {
           token += ' ' + tokens[i+1];
-          if (nItems[token]) {
+          if (nItems[token] || nTwoWordVerbs[token]) {
             tokens[i] = token;
             tokens.splice(i+1, 1);
           }
@@ -107,13 +107,13 @@ class InputUtils {
     }
   }
 
-  static testVerbNoun(input) {
+  static testVerbItem(input) {
     return InputUtils.testVerb(input) ||
            InputUtils.testNoun1(input) ||
            InputUtils.testAction(input);
   }
 
-  static testVerbNounPrepNoun(input) {
+  static testVerbItemWithTarget(input) {
     return InputUtils.testVerb(input) ||
            InputUtils.testNoun1(input) ||
            InputUtils.testPrep(input) ||

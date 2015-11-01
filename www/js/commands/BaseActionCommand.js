@@ -14,13 +14,12 @@ class BaseActionCommand extends BaseCommand {
     this.noun2 = input.noun2;
 
     if (this.target) {
-      this.output = InputUtils.testVerbNounPrepNoun(input);
-      this.action = `${this.verb}/${this.item.title}${(this.target)?'/'+this.target.title:''}`;
+      this.output = InputUtils.testVerbItemWithTarget(input);
+      this.action = `${this.verb}/${this.item.title}/${this.target.title}`;
     }
     else {
-      this.output = InputUtils.testVerbNoun(input);
+      this.output = InputUtils.testVerbItem(input);
       this.action = `${this.verb}/${this.item.title}`;
     }
   }
-
 }

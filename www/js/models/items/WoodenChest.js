@@ -7,11 +7,12 @@ class WoodenChest extends Container {
     this.commonTitle = 'chest';
     this.canHoldItems = true;
     this.opened = false;
-    this.canBeLocked = true;
     this.locked = true;
 
     this.setFeature('lock', [Items.SILVER_KEY]);
     this.setFeature('unlock', [Items.SILVER_KEY]);
     this.setFeature('take', false);
+    this.setFeature('get', false);
+    this.setFeature('pick up', false);
   }
 }
