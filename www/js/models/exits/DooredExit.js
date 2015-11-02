@@ -1,8 +1,8 @@
 'use strict';
 
 class DooredExit extends Exit {
-  constructor(title, places) {
-    super(title, places);
+  constructor(title) {
+    super(title);
     this.commonTitle = 'door';
     this.opened = false;
     this.closedMessage = `The ${this.title} is closed.`;

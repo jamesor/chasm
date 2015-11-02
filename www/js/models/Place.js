@@ -1,8 +1,8 @@
 'use strict';
 
 class Place extends Container {
-  constructor(title, description) {
-    super(title, description);
+  constructor(config) {
+    super(config.title, config.description);
     this.visited = false;
     this._exits = new Map();
   }

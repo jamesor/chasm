@@ -73,6 +73,12 @@ class BaseApp {
   initModels() {
     this.topics = new Map();
     this.commands = new Map();
+    this.refs = new Map();
+    this.items = new Map();
+    this.player = new Player(this);
+
+    GameConfig.places.forEach(config => this.addRef(new Place(config)));
+    GameConfig.exits.forEach(config => this.addRef(Exit.create(this, config)));
   }
 
   initControllers() {
@@ -92,7 +98,8 @@ class BaseApp {
       CloseCommand, ExamineCommand, FooCommand, GoCommand, InventoryCommand,
       LockCommand, LookCommand, OpenCommand, PutCommand, TakeCommand, 
       TieCommand, UnlockCommand, UntieCommand,
-    ].forEach(Cls => Cls.verbs().map(verb => this.registerCommand(verb, Cls)));
+    ]
+    .forEach(Cls => Cls.verbs().map(verb => this.registerCommand(verb, Cls)));
   }
 
   startGame() {
