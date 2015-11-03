@@ -16,7 +16,38 @@ class Exit extends Item {
   getPlace(direction) {
     return this._places.get(direction);
   }
+}
 
+class DooredExit extends Exit {
+  constructor(title) {
+    super(title);
+    this.commonTitle = 'door';
+    this.opened = false;
+    this.closedMessage = `The ${this.title} is closed.`;
+
+    this._features.set('open', true);
+    this._features.set('close', true);
+  }
+
+  getPlace(direction) {
+    return (this.opened) ? super.getPlace(direction) : false;
+  }
+}
+
+class LockedExit extends DooredExit {
+  constructor(title) {
+    super(title);
+    this.locked = true;
+    this.unlockedMessage = 'Locked.';
+    this.lockedMessage = 'The door is locked.';
+  }
+
+  getPlace(direction) {
+    return (this.isLocked) ? this.lockedMessage : super.getPlace(direction);
+  }
+}
+
+class ExitFactory {
   static create(game, config) {
     var exit;
 

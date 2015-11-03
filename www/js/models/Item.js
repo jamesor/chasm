@@ -7,7 +7,9 @@ class Item extends Entity {
     this.canHoldItems = false;
     this._features = new Map([
         ['examine', true],
-        ['take', true]
+        ['take', true],
+        ['get', true],
+        ['pick up', true]
       ]);
   }
 
@@ -32,4 +34,28 @@ class Item extends Entity {
     }
     return this._features.get(key);
   }
- }
+}
+
+class ItemFactory {
+  static create(game, config) {
+    var item;
+
+    switch (config.type) {
+      case 'Container':
+        item = new Container(config.title, config.title);
+        break;
+      default:
+        item = new Item(config.title, config.title);
+    }
+
+    if (config.props) {
+      Object.keys(config.props).forEach(key => item[key] = config.props[key]);
+    }
+
+    if (config.items) {
+      config.items.forEach(obj => item.addItem(game.addRef(ItemFactory.create(game, obj))));
+    }
+
+    return item;
+  }
+}

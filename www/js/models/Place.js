@@ -3,6 +3,7 @@
 class Place extends Container {
   constructor(config) {
     super(config.title, config.description);
+    this.canBeTaken = false;
     this.visited = false;
     this._exits = new Map();
   }
@@ -42,5 +43,17 @@ class Place extends Container {
 
   getExit(direction) {
     return this._exits.get(direction);
+  }
+}
+
+class PlaceFactory {
+  static create(game, config) {
+    var place = new Place(config);
+
+    if (config.items) {
+      config.items.forEach(placeName => place.addItem(game.getRef(placeName)));
+    }
+
+    return place;
   }
 }

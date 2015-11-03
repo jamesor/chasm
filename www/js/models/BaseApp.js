@@ -77,8 +77,11 @@ class BaseApp {
     this.items = new Map();
     this.player = new Player(this);
 
-    GameConfig.places.forEach(config => this.addRef(new Place(config)));
-    GameConfig.exits.forEach(config => this.addRef(Exit.create(this, config)));
+    GameConfig.items.forEach(config => this.addRef(ItemFactory.create(this, config)));
+    GameConfig.places.forEach(config => this.addRef(PlaceFactory.create(this, config)));
+    GameConfig.exits.forEach(config => this.addRef(ExitFactory.create(this, config)));
+    
+    this.place = this.getRef(GameConfig.startingLocation);
   }
 
   initControllers() {
