@@ -81,7 +81,7 @@ class ExitFactory {
       place1.addExit(p0.dir, exit);
     }
     else {
-      throw new Error('Invalid args: Exit.create()');
+      console.error('Invalid args: Exit.create()');
     }
 
     exit.blocked = !!config.blocked;

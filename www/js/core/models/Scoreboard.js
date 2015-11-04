@@ -1,17 +1,11 @@
 'use strict';
 
 class Scoreboard {
-  constructor(eventBus) {
+  constructor(eventBus, points) {
     this.eventBus = eventBus;
-    this.init();
-  }
-
-  init() {
     this._score = 0;
-    this._points = new Map([
-      [`unlock/${Items.WOODEN_CHEST}/${Items.SILVER_KEY}`, 10],
-      [`tie/${Items.ROPE}/${Items.MAPLE_TREE}`, 5]
-    ]); 
+    this._points = new Map();
+    Object.keys(points).forEach(key => this._points.set(key, points[key]));
   }
 
   scorePoints(key) {

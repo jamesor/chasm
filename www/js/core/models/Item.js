@@ -7,9 +7,7 @@ class Item extends Entity {
     this.canHoldItems = false;
     this._features = new Map([
         ['examine', true],
-        ['take', true],
-        ['get', true],
-        ['pick up', true]
+        ['take', true]
       ]);
   }
 
@@ -50,6 +48,10 @@ class ItemFactory {
 
     if (config.props) {
       Object.keys(config.props).forEach(key => item[key] = config.props[key]);
+    }
+
+    if (config.features) {
+      Object.keys(config.features).forEach(key => item.setFeature(key, config.features[key]));
     }
 
     if (config.items) {

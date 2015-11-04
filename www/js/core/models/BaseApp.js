@@ -52,10 +52,7 @@ class BaseApp {
     else if (this.refs.has(key)) {
       return this.refs.get(key);
     }
-    else if (this.items.has(key)) {
-      return this.items.get(key);
-    }
-    throw new Error(key + ' not found in chasm.getRef()');
+    console.error(key + ' not found in chasm.getRef()');
   }
 
   addRef(object) {
@@ -76,6 +73,7 @@ class BaseApp {
     this.refs = new Map();
     this.items = new Map();
     this.player = new Player(this);
+    this.scoreboard = new Scoreboard(this, GameConfig.points);
 
     GameConfig.items.forEach(config => this.addRef(ItemFactory.create(this, config)));
     GameConfig.places.forEach(config => this.addRef(PlaceFactory.create(this, config)));

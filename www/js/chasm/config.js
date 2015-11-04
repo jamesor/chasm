@@ -8,7 +8,7 @@ const GameConfig = {
         "longDescription": "You see a tall maple tree with a thick trunk and visible roots.",
         "hideFromList": true
       },
-      "verbs": {
+      "features": {
         "take": false,
         "get": false,
         "pick up": false
@@ -41,12 +41,10 @@ const GameConfig = {
         "opened": false,
         "locked": true
       },
-      "verbs": {
+      "features": {
         "lock": [Items.SILVER_KEY],
         "unlock": [Items.SILVER_KEY],
-        "take": false,
-        "get": false,
-        "pick up": false
+        "take": false
       },
       "items": [
         {
@@ -54,7 +52,7 @@ const GameConfig = {
           "props": {
             "longDescription": "A long and thick length of woven cabled rope, capable of supporting significant weight.",
           },
-          "verbs": {
+          "features": {
             "tie": [Items.MAPLE_TREE],
             "untie": [Items.MAPLE_TREE]
           }
@@ -66,7 +64,7 @@ const GameConfig = {
     {
       "title": Places.FOREST_CLEARING,
       "description": "You are standing in a forest clearing with a path leading to the east where you see a rocky mountainside. There is a small shed here to the north. All other dirs are impassable.",
-      "items": [Items.WOODEN_CHEST]
+      "items": [Items.WOODEN_CHEST, Items.SILVER_KEY]
     },
     {
       "title": Places.CHASM_ENTRANCE,
@@ -145,5 +143,9 @@ const GameConfig = {
         {"dir": "s", "place": Places.TROLL_ARMOURY}
       ]
     }
-  ]
+  ],
+  "points": { 
+    [`unlock/${Items.WOODEN_CHEST}/${Items.SILVER_KEY}`]: 10,
+    [`tie/${Items.ROPE}/${Items.MAPLE_TREE}`]: 5
+  }
 };

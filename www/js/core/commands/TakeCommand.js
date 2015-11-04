@@ -5,7 +5,7 @@ class TakeCommand extends BaseActionCommand {
   execute() {
     if (!this.output) {
       if (this.game.player.hasItem(this.item.title)) {
-        this.output `You already have the ${this.item.title}.`;
+        this.output = `You already have the ${this.item.title}.`;
       }
     }
 

@@ -21,12 +21,12 @@ class InputUtils {
         }
       }
       else {
-        throw new Error(`I don't know the word ${token}`);
+        return `I don't know the word ${token}`;
       }
     }
 
     if (tokens.length === 0) {
-      throw new Error('I beg your pardon?');
+      return 'I beg your pardon?';
     }
 
     return tokens;

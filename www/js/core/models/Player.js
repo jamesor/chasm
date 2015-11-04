@@ -5,12 +5,7 @@ class Player extends Container {
     super('player', 'You are an attractive adventurer with an athetic build.');
     this.eventBus = eventBus;
     this.canHoldItems = true;
-    this._scoreboard = new Scoreboard(eventBus);
     this.moves = 0;
-  }
-
-  scorePoints(key) {
-    this._scoreboard.scorePoints(key);
   }
 
   itemsToList() {

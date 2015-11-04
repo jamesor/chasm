@@ -7,12 +7,13 @@ class GameInput {
     eventBus.publish(Events.OUTPUT_WRITE, `>${input}<br>`);
     eventBus.publish(Events.INPUT_CLEAR);
     
-    try {
-      let inputObj = InputUtils.tokenize(input);
+    let inputObj = InputUtils.tokenize(input);
+
+    if (typeof inputObj === 'object') {
       eventBus.publish(inputObj[0], inputObj);
       eventBus.publish(Events.PLAYER_MOVE);
     }
-    catch (e) {
+    else {
       eventBus.publish(Events.OUTPUT_WRITELN, e.message);
     }
 

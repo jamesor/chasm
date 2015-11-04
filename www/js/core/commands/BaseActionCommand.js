@@ -6,7 +6,9 @@ class BaseActionCommand extends BaseCommand {
 
     var input = InputUtils.parse(data);
 
-    this.verb = input.verb;
+    // The first verb in the list is the actual action, the rest are synonyms.
+    this.verb = input.verb = this.__proto__.constructor.verbs()[0];
+
     this.item = input.item;
     this.prep = input.prep;
     this.target = input.target;
