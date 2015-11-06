@@ -6,7 +6,8 @@
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
@@ -103,3 +104,7 @@ dist/
 # Grunt usually preprocesses files such as coffeescript, compass... inside the .tmp directory
 .tmp/
 
+### Don't include fonts for license reasons ###
+# Get fonts at http://style64.org/c64-truetype
+demo/fonts/C64_Pro_Mono-STYLE.woff
+demo/fonts/C64_Pro_Mono-STYLE.woff2
