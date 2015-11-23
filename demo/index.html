@@ -5,6 +5,8 @@
   <link rel="stylesheet" href="css/chasm.css">
 </head>
 <body>
+
+  <!-- The Screen -->
   <div id="screen">
     <section id="banner">
       <span id="place"></span><span id="score"></span><span id="moves"></span>
@@ -16,12 +18,14 @@
     </section>
   </div>
 
+  <!-- Load the Game Engine -->
   <script src="js/chasm.js"></script>
 
+  <!-- The following demo files should be build/compiled separately as the "Game" -->
   <script src="js/chasm/constants.js"></script>
-  <script src="js/chasm/config.js"></script>
   <script src="js/chasm/commands/TieRopeToMapleTreeCommand.js"></script>
   <script src="js/chasm/commands/UntieRopeFromMapleTreeCommand.js"></script>
   <script src="js/chasm/main.js"></script>
+
 </body>
 </html>

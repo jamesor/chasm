@@ -229,10 +229,10 @@ class ItemsProxy {
 
 }
 class BaseApp {
-  constructor() {
-    this.initModels();
-    this.initControllers();
-    this.initCommands();
+  constructor(config) {
+    this.initModels(config);
+    this.initControllers(config);
+    this.initCommands(config);
     this.subscribe(Events.GAME_START, this.startGame, this, true);
   }
 
@@ -304,22 +304,22 @@ class BaseApp {
   //-------------------------------
   // Initialization
 
-  initModels() {
+  initModels(config) {
     this.topics = new Map();
     this.commands = new Map();
     this.refs = new Map();
     this.items = new Map();
     this.player = new Player(this);
-    this.scoreboard = new Scoreboard(this, GameConfig.points);
+    this.scoreboard = new Scoreboard(this, config.points);
 
-    GameConfig.items.forEach(config => this.addRef(ItemFactory.create(this, config)));
-    GameConfig.places.forEach(config => this.addRef(PlaceFactory.create(this, config)));
-    GameConfig.exits.forEach(config => this.addRef(ExitFactory.create(this, config)));
+    config.items.forEach(cfg => this.addRef(ItemFactory.create(this, cfg)));
+    config.places.forEach(cfg => this.addRef(PlaceFactory.create(this, cfg)));
+    config.exits.forEach(cfg => this.addRef(ExitFactory.create(this, cfg)));
     
-    this.place = this.getRef(GameConfig.startingLocation);
+    this.place = this.getRef(config.startingLocation);
   }
 
-  initControllers() {
+  initControllers(config) {
     this.controllers = [
       new BannerController(this),
       new ImageController(this),
@@ -329,7 +329,7 @@ class BaseApp {
     ];
   }
 
-  initCommands() {
+  initCommands(config) {
     this.registerCommand(Player.SCORE, ScoreCommand);
     this.registerCommand(Player.MOVE, MoveCommand);
     [
@@ -338,8 +338,12 @@ class BaseApp {
       TieCommand, UnlockCommand, UntieCommand,
     ]
     .forEach(Cls => Cls.verbs().map(verb => this.registerCommand(verb, Cls)));
-  }
 
+    if (config.commands) {
+      config.commands.forEach(Cls => Cls.verbs().map(verb => this.registerCommand(verb, Cls)));
+    }
+  }
+  
   startGame() {
     this.publish(Events.PLACE_CHANGED, this.place);
     this.publish(Events.OUTPUT_CLEAR);
@@ -347,19 +351,6 @@ class BaseApp {
     this.publish(Events.INPUT_PROMPT, '&gt;');
   }
 
-}
-class Chasm extends BaseApp {
-
-  // TODO: Remove the need for this class
-
-  initCommands() {
-    super.initCommands();
-    [
-      TieRopeToMapleTreeCommand, 
-      UntieRopeFromMapleTreeCommand
-    ]
-    .forEach(Cls => Cls.verbs().map(verb => this.registerCommand(verb, Cls)));
-  }
 }
 class Entity {
   constructor(title, description) {
@@ -786,7 +777,7 @@ class BasicInput {
     var sInput = inputBuff.toLowerCase().trim();
     eventBus.publish(Events.OUTPUT_WRITE, '&nbsp;&nbsp;&nbsp;&nbsp;**** COMMODORE 64 BASIC V2 ****<br><br>&nbsp;64K RAM SYSTEM &nbsp;38911 BASIC BYTES FREE<br><br>READY.<br>LOAD "CHASM",8,1<br><br>SEARCHING FOR CHASM<br>LOADING<br>READY.<br>');
     eventBus.publish(Events.INPUT_CLEAR);
-    if (sInput === 'run' || 1) {
+    if (sInput === 'run') {
       var upper = document.querySelectorAll('.upper')[0];
       upper.className = `${upper.className}`.replace('upper', '');
       var scr = document.getElementById('screen');

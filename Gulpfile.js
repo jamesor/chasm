@@ -29,7 +29,7 @@ gulp.task('default', function() {
       'src/constants.js',
       'src/utils/*.js',
       'src/proxies/*.js',
-      'src/models/BaseApp.js',
+      'src/BaseApp.js',
       'src/models/Chasm.js',
       'src/models/Entity.js',
       'src/models/Item.js',
