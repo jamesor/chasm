@@ -1,5 +1,5 @@
 const GameConfig = {
-  "startingLocation": Places.FOREST_CLEARING,
+  "startingLocation": Places.TROLL_ROOM,
 
 
   "items": [
@@ -85,8 +85,8 @@ const GameConfig = {
       "items": [Items.TOOLBOX]
     },
     {
-      "title": Places.TROLL_ARMOURY,
-      "description": "You are inside the troll's armoury. From the appearence of the place, you can tell the trolls left rather hastily."
+      "title": Places.JAIL_CELL,
+      "description": "You are in a very small, and aparently recently resided, empty jail cell judging by the fresh scratches on the walls."
     },
     {
       "title": Places.TROLL_KITCHEN,
@@ -146,7 +146,7 @@ const GameConfig = {
       "title": Exits.METAL_DOOR,
       "places": [
         {"dir": "n", "place": Places.TROLL_ROOM},
-        {"dir": "s", "place": Places.TROLL_ARMOURY}
+        {"dir": "s", "place": Places.JAIL_CELL}
       ]
     }
   ],

@@ -93,19 +93,21 @@ class InputUtils {
     var noun1 = (data[1]) ? ItemsProxy.findAll(data[1]) : null;
     var prep  = (data[2] && (prepList && prepList.indexOf(data[2]) !== -1)) ? data[2] : null;
     var noun2 = (data[3]) ? ItemsProxy.findAll(data[3]) : null;
-    var item, target;
+    var item, target, output;
 
     if (noun1) {
       item = noun1.item;
+      output = noun1.output;
     }
 
     if (noun2) {
       target = noun2.item;
+      output = output || noun2.output;
     }
 
     prep = prep || (prepList) ? prepList[0] : null;
 
-    return {verb, noun1, prep, noun2, item, target};
+    return {verb, noun1, prep, noun2, item, target, output};
   }
 
   static testVerb(input) {
@@ -983,15 +985,19 @@ class BaseActionCommand extends BaseCommand {
     this.target = input.target;
     this.noun1 = input.noun1;
     this.noun2 = input.noun2;
+    this.output = input.output;
 
-    if (this.target) {
-      this.output = InputUtils.testVerbItemWithTarget(input);
-      this.action = `${this.verb}/${this.item.title}/${this.target.title}`;
+    if (!this.output) {
+      if (this.target) {
+        this.output = InputUtils.testVerbItemWithTarget(input);
+        this.action = `${this.verb}/${this.item.title}/${this.target.title}`;
+      }
+      else {
+        this.output = InputUtils.testVerbItem(input);
+        this.action = `${this.verb}/${this.item.title}`;
+      }
     }
-    else {
-      this.output = InputUtils.testVerbItem(input);
-      this.action = `${this.verb}/${this.item.title}`;
-    }
+
   }
 }
 class CloseCommand extends BaseActionCommand {

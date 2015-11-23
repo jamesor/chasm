@@ -6,7 +6,7 @@ const Places = Object.freeze({
   NARROW_PASSAGE  : 'Narrow Passage',
   TROLL_ROOM      : 'Troll Room',
   SHED            : 'Shed',
-  TROLL_ARMOURY   : 'Troll Armoury',
+  JAIL_CELL       : 'Jail Cell',
   TROLL_KITCHEN   : 'Troll Kitchen'
 });
 
@@ -35,7 +35,7 @@ const nVocabulary = Object.freeze((
   /* actn */ 'take,drop,open,close,attack,hit,look,l,inventory,i,put,examine,' +
              'lock,unlock,foo,look,tie,untie,get,pick,' +
   /* char */ 'goblin,troll,' +
-  /* adjs */ 'silver,wooden,shiny,broken,dull,metal,small,red,rusty,maple,' + 
+  /* adjs */ 'silver,wooden,metal,shiny,broken,dull,small,red,rusty,maple,' + 
   /* item */ 'key,door,chest,sword,toolbox,shed,rope,tree,' +
   /* prep */ 'at,with,in,into,to,from,around'
   ).toDictionary());
