@@ -34,6 +34,8 @@ The Structure:
 
 ## The Demo
 
+![Demo Screenshot](https://github.com/jamesor/chasm/blob/master/demo/images/demo.png)
+
 You will find a simple demo of the engine as a game in the demo folder. Open `demo/index.html` in a web browser. The demo will only run in browsers with good support for ES6 such as the lastest browsers.
 
 The goal of the game is to reach a total of **25 points**. Currently, a "you've won" state has not been implemented and you will be able to continue to move after reaching your goal. It's up to you to build a more completed game.
