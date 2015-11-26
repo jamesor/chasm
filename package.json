@@ -2,13 +2,12 @@
   "name": "chasm",
   "version": "0.1.0",
   "description": "a browser-based text adventure game engine",
-  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git@github.com:jamesor/chasm.git"
   },
   "author": "James O'Reilly",
   "license": "MIT",
