@@ -1,0 +1,30 @@
+{
+  "name": "chasm",
+  "description": "A browser-based text adventure game engine",
+  "main": [
+    "dist/chasm.min.js",
+    "dist/chasm.css"
+  ],
+  "authors": [
+    "James O'Reilly"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "text adventure"
+  ],
+  "homepage": "https://github.com/jamesor/chasm",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jamesor/chasm.git"
+  },
+  "moduleType": [
+    "globals"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

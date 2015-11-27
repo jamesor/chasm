@@ -11,12 +11,12 @@ const babel = require('gulp-babel');
 const header = require('gulp-header');
 
 const pkg = require('./package.json');
-const banner = ['/**',
-  ' * <%= pkg.name %> - <%= pkg.description %>',
-  ' * @version v<%= pkg.version %>',
-  ' * @license <%= pkg.license %>',
-  ' */',
-  ''].join('\n');
+const banner = ['/*!',
+  ' * <%= pkg.name %> v<%= pkg.version %> (<%= pkg.repository.url %>)',
+  ' * <%= pkg.description %>',
+  ' * Copyright 2015 <%= pkg.author %>',
+  ' * Licensed under the <%= pkg.license %> license',
+  ' */'].join('\n');
 
 gulp.task('clean', function () {  
   return gulp.src('build', {read: false})
@@ -60,22 +60,21 @@ gulp.task('default', function() {
       'src/commands/UntieCommand.js'
     ])
     .pipe(concat('chasm.js'))
-    .pipe(header('"use strict"\n\n'))
-    .pipe(gulp.dest('dist'))
-    .pipe(gulp.dest('demo/js'))
+    .pipe(header('\n\n"use strict";\n\n'))
+    .pipe(header(banner, { pkg : pkg } ))
+    .pipe(gulp.dest('dist/js'))
 });
 
 
-gulp.task('dist', function() {  
-  return gulp.src('dist/chasm.js')
+gulp.task('dist', ['default'], function() {  
+  return gulp.src('dist/js/chasm.js')
     .pipe(babel({
       presets: ['babel-preset-es2015']
     }))
     .pipe(uglify())
     .pipe(header(banner, { pkg : pkg } ))
     .pipe(rename('chasm.min.js'))
-    .pipe(gulp.dest('dist'))
-    .pipe(gulp.dest('demo/js'))
+    .pipe(gulp.dest('dist/js'))
     .on('error', gutil.log)
 });
 
