@@ -105,3 +105,7 @@ node_modules
 # Get fonts at http://style64.org/c64-truetype
 demo/fonts/C64_Pro_Mono-STYLE.woff
 demo/fonts/C64_Pro_Mono-STYLE.woff2
+
+
+### vs code ###
+.vscode/

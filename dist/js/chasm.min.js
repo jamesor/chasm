@@ -1,5 +1,5 @@
 /*!
- * chasm v0.1.1 (https://github.com/jamesor/chasm.git)
+ * chasm v0.9.0 (https://github.com/jamesor/chasm.git)
  * A browser-based text adventure game engine
  * Copyright 2015 James O'Reilly
  * Licensed under the MIT license
