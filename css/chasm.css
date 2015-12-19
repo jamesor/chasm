@@ -1,0 +1,107 @@
+/*
+Commodore 64 Colors
+--------------------
+ 0 black     #000000
+ 1 white     #FFFFFF
+ 2 red       #68372B
+ 3 cyan      #70A4B2
+ 4 purple    #6F3D86
+ 5 green     #588D43
+ 6 blue      #352879
+ 7 yellow    #B8C76F
+ 8 orange    #6F4F25
+ 9 brown     #433900
+10 lt. red   #9A6759
+11 dk. grey  #444444
+12 grey      #6C6C6C
+13 lt. green #9AD284
+14 lt. blue  #6C5EB5
+15 lt. grey  #959595
+*/
+
+@font-face {
+  font-family: 'C64 Pro Mono Local';
+  src: url('../fonts/C64_Pro_Mono-STYLE.woff2') format('woff2'),
+       url('../fonts/C64_Pro_Mono-STYLE.woff') format('woff');
+}
+
+body {
+  font-family: "C64 Pro Mono Local", "C64 Pro Mono", verdana, helvetica, sans-serif;
+  font-size: 16pt;
+  line-height: 24px;
+  letter-spacing: 0;
+  background: black;
+  margin: 2em auto;
+  width: 937px;
+}
+
+p {
+  margin: 0;
+  padding: 0;
+}
+
+strong {
+  font-weight: normal;
+  color: white;
+}
+
+#screen {
+  background-color: #352879;
+  color: #6C5EB5;
+  border: 2em solid #6C5EB5;
+  padding: 0;
+  margin: 0;
+  width: 853px;
+  height: 576px;
+}
+#banner, #image {
+  display: none;
+}
+
+@keyframes basicCursor {
+  0%   {border-right: 1em solid #6C5EB5;}
+  50%  {border-right: 1em solid #352879;}
+  100% {border-right: 1em solid #6C5EB5;}
+}
+@keyframes gameCursor {
+  0%   {border-right: 4px solid #959595;}
+  50%  {border-right: 4px solid black;}
+  100% {border-right: 4px solid #959595;}
+}
+.cursor {
+  animation-name: basicCursor;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+.upper {
+  text-transform: uppercase;
+}
+
+#screen.game {
+  background-color: black;
+  color: #959595;
+  border-color: #6C6C6C;
+}
+#screen.game p {
+  margin-bottom: 24px;
+}
+#screen.game #banner {
+  display: block;
+  background-color: white;
+  color: black;
+  width: 853px;
+  height: 24px;
+}
+#screen.game #image {
+  display: block;
+  width: 853px;
+  height: 240px;
+}
+#screen.game #output {
+  width: 853px;
+  max-height: 287px;
+  overflow: hidden;
+}
+#screen.game .cursor {
+  animation-name: gameCursor;
+}
